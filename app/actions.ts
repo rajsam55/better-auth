@@ -1,9 +1,8 @@
 "use server"
 
 import { auth } from "@/lib/auth"
-import prisma from "@/lib/prisma"
+import  prisma  from "@/lib/prisma"
 import { email, property } from "better-auth"
-import { randomUUID } from "crypto"
 import { revalidatePath } from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
@@ -77,19 +76,22 @@ export async function actionForm (formData: FormData){
 
         
 
-        const imageUrlString = (imageUrl as { secure_url: string }).secure_url;    
+        const imageUrlString = (imageUrl as { secure_url: string }).secure_url; 
+        
         
 
 
     
 
       await prisma.post.create({
+        
       data: {
         id: Math.floor(Math.random() * 1000000),
         title
         : title as string || "",
         content: content as string || "",
         imageUrl: imageUrlString,
+        thumbnail: imageUrlString,
         mediaType: file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/") ? "VIDEO" : "TEXT"),
         userId : session.user.id ,
         createdAt: new Date(),
@@ -101,15 +103,8 @@ export async function actionForm (formData: FormData){
 
      redirect("/"),
      revalidatePath("/")
-
      
   }
-
-  
-
-
-
-
 
 
 
@@ -212,7 +207,6 @@ export async function updatePost(
       data: {
         title: title!,
         content: content!,
-        
         updatedAt: new Date(),
       },
     });

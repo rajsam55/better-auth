@@ -23,7 +23,8 @@ export function ImageFeed({ posts }: Props) {
 
         <div
           key={post.id}
-          className="relative rounded-lg overflow-hidden w-[400px] h-100 flex flex-col justify-center items-center mx-auto "
+          className="relative rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto w-full 
+          h-[400px] bg-muted hover:bg-muted/50 transition"
         >
           <p className="text-black/7 text-center text-bold ">
               {post.content}
@@ -38,7 +39,7 @@ export function ImageFeed({ posts }: Props) {
                      
             
             
-            className=" transition group-hover:scale-105 rounded-lg object-cover"
+            className="rounded-lg objectfit-cover w-[400px] h-[300px] transition group-hover:scale-105"
             
             
           />

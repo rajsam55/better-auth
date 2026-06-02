@@ -14,6 +14,7 @@ export const postSelect = {
   id: true,
   title: true,
   imageUrl: true,
+  thumbnail: true,
   mediaType: true,
   content: true,
   userId :true,

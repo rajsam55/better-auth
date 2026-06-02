@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
 
 
-    <div className = "w-full mx-8 flex justify-between items-center mx-auto mt-4 bg-[#0066cc] h-20">
+    <div className = "w-full mx-8 flex justify-between items-center mx-auto mt-4 bg-[#0066cc] h-25  flex flex-col md:flex-row">
 
 
     <div className="">

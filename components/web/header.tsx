@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 
 
 
@@ -21,12 +22,15 @@ const Header = () => {
   return (
 
 
-    <div className="group-relative w-full max-w-7xl mt-2">
+    <div className=" w-full max-w-7xl mt-2 gap-4 ">
 
 
-    <div className = "rounded-lg mx-18">
 
-    <img src= "/mainimage.avif" className = "w-[1400px] h-[600px] " />
+
+
+    <div className = "relative w-[1200px] h-48 md:h-100 lg:h-120 rounded-lg p-4 bg-gray-100 shadow-md mx-auto overflow-hidden">
+
+    <Image src="/mainimage.avif" alt="Main Image" className=" objectfit-cover" fill/>
         
         
         

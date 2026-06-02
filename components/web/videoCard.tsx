@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { PostItem } from "@/lib/posts";
 import Link from "next/link";
 
+
 function fmtDuration(sec: number) {
   const m = Math.floor(sec / 60);
   const s = sec % 60;
@@ -20,6 +21,10 @@ export function VideoFeed({ posts }: Props) {
   if (!posts.length)
     return <p className="text-muted-foreground">No videos yet.</p>;
 
+ 
+      
+
+
 
 
   return (
@@ -35,21 +40,15 @@ export function VideoFeed({ posts }: Props) {
 
           <Link href= {`/videoDash/${post.id}`} className="block relative group">
 
+          
+          
 
-          <video controls className="w-[550px] h-[250px] rounded-lg">
-            <source src={post.imageUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        
 
           
-          <div className="group-hover:opacity-100 transition">
-            <p className="text-dark font-bold  text-2xl text-center mt-4 font-medium truncate">
-              {post.title}
-            </p>
-            <p className="text-black/70 text-center text-md ">
-              {post.content}
-            </p>
-          </div>
+
+
+          
           </Link>
           
           

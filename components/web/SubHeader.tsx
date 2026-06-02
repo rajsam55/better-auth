@@ -17,10 +17,10 @@ const SubHeaderPage = () => {
 
 
   return (
-    <div className = "w-full flex justify-center items-center mt-4">
+    <div className = "w-full flex justify-center items-center mt-4 ">
 
 
-    <div className="flex justify-between gap-60 mx-auto font-sans h-40 rounded-lg px-4 mt-10">
+    <div className="flex flex-col md:flex-row justify-between gap-60 mx-auto font-sans h-40 rounded-lg px-4 mt-10  sm: flex-row">
 
 
     <img src= "/english1.jpg"    alt="" className = "h-[100px] mt-2"/>
