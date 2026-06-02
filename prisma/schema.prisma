@@ -3,6 +3,7 @@
 
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
+
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -16,13 +17,13 @@ model User {
   id            String    @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime
+  updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-
+  userId         String?   @unique
   @@unique([email])
   @@map("user")
 }
@@ -36,7 +37,7 @@ model Session {
   ipAddress String?
   userAgent String?
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([token])
   @@index([userId])
@@ -56,11 +57,10 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-
-  @@index([userId])
+  createdAt             DateTime
+  updatedAt             DateTime
   @@map("account")
+  
 }
 
 model Verification {
@@ -75,26 +75,38 @@ model Verification {
   @@map("verification")
 }
 
+enum MediaType {
+  IMAGE
+  VIDEO
+  TEXT
+}
+
 model Post {
-
-  id   String @id
-
-  title  String
-
-  content  String
-
-  imageUrl String
-
+  id        Int       @id
+  title     String
+  content   String
   userId  String
+  mediaType MediaType
+  imageUrl  String
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  createdAt DateTime @default(now())
-  
-  updatedAt  DateTime @updatedAt
-
-  
-
-
-
+  @@index([userId])
   @@map("post")
 }
 
+model Profile {
+
+  id  Int @id
+  profileImageUrl String
+  userId String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+@@index([userId])
+@@map("profile")
+
+
+
+}

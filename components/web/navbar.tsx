@@ -3,8 +3,13 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
 import { signOut, useSession } from "@/lib/auth-client"
+import { profile } from "console"
+import UserDetails from "@/app/userProfile/userDetails/page"
+import Home from "@/app/page"
+import { HomeIcon, ShoppingCart } from "lucide-react"
 
 const Navbar = () => {
+
   const { data: session } = useSession()
 
 
@@ -21,17 +26,17 @@ const Navbar = () => {
   return (
 
 
-    <div className = "w-full max-w-[1200px] mx-4 flex justify-between items-center mx-auto mt-4 ">
+    <div className = "w-full mx-8 flex justify-between items-center mx-auto mt-4 bg-[#0066cc] h-20">
 
 
     <div className="">
 
     <Link href = "/">
 
-    <Button variant = "default">
+    <Button variant = "ghost" className = "bg-[#0066cc] text-white">
 
 
-        Home
+      <HomeIcon size = {32}/>
 
 
 
@@ -50,7 +55,17 @@ const Navbar = () => {
 
     <div className="">
 
-    <Link href ="/create"><Button variant = "default">Create</Button></Link>
+    <Link href ="/create"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Create</Button></Link>
+
+    <Link href ="/userProfile/createProfileImage/"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Profile </Button></Link>
+
+    <Link href ="/userProfile/userDetails/"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Users </Button></Link>
+
+    <Link href ="/files"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Files </Button></Link>
+
+    <Link href ="/pdfConvert"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Pdf </Button></Link>
+
+
 
     
 
@@ -58,22 +73,29 @@ const Navbar = () => {
 
     </div>
 
+    
 
 
     <div className="flex gap-2">
 
-    {session && <Button>{session.user?.name}</Button>}
+    <Link href="/cart">
+          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer"><ShoppingCart/></Button>
+        </Link>
+
+
+    {session && <Button className = "bg-[#0066cc] text-white ">{session.user?.name}</Button>}
 
 
     {session ? (
-      <Button onClick={() => signOut()}>Logout</Button>
+      <Button onClick={() => signOut()} className = "bg-[#0066cc] text-white cursor-pointer">Logout</Button>
     ) : (
       <>
+        
         <Link href="/sign-in">
-          <Button variant = "default">SignIn</Button>
+          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">SignIn</Button>
         </Link>
         <Link href="/sign-up">
-          <Button variant = "default">SignUp</Button>
+          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">SignUp</Button>
         </Link>
       </>
     )}

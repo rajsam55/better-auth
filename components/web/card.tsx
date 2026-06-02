@@ -1,83 +1,62 @@
 "use client"
-
-import Link from "next/link"
-import Image from "next/image"
-
-
-interface IappProps {
-
-  post : {
-
-    id : string ,
-    title : string,
-    content : string,
-    imageUrl : string
-  }
+import { PostItem } from "@/lib/posts";
+import Link  from "next/link";
+import Image from "next/image";
 
 
+interface Props {
+  posts: PostItem[];
 }
 
+export function ImageFeed({ posts }: Props) {
 
-
-
-
-
-
-
-
-
-
-
-const BlogPostCard = ({post}: IappProps ) => {
-
-
-
-
-
-
-
-
-
-
+  if (!posts.length)
+    return <p className="text-muted-foreground">No photos yet.</p>;
+  
 
   return (
-
-
-
-    <div className = "">
-
-      <Link href = {`/dashboard/${post.id}`}>
-
-      <div className=" h-48 w-full mx-4">
-
-      <img src = {post.imageUrl} alt = "blogapp" className = " hover: transition-transform duration-300 scale-125 rounded-lg object-cover" width = {350} height ={150}/>
-
-
-      </div>
+    <div className="grid grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
 
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </Link>
-      
-      
-      
-      
-      
-      
-      
+
+      {posts.map((post) => (
+
+        <div
+          key={post.id}
+          className="relative rounded-lg overflow-hidden w-[400px] h-100 flex flex-col justify-center items-center mx-auto "
+        >
+          <p className="text-black/7 text-center text-bold ">
+              {post.content}
+            </p>
+          
+
+          <Link href= {`/dashboard/${post.id}`} className="block relative group">
+
+          <img
+            src={post.imageUrl}
+            alt= {post.title}           
+                     
+            
+            
+            className=" transition group-hover:scale-105 rounded-lg object-cover"
+            
+            
+          />
+          <div className="group-hover:opacity-100 transition">
+            <p className="text-dark font-bold text-2xl text-center mt-4 font-medium truncate">
+              {post.title}
+            </p>
+
+            <p className="text-black/7 text-center text-bold ">
+              {post.content}
+            </p>
+            
+          </div>
+          </Link>
+        </div>
+      ))}
       
     </div>
-  )
+    
+  );
 }
-
-export default BlogPostCard

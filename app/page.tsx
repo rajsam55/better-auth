@@ -1,18 +1,12 @@
 "use server"
 
-import BlogPostCard from "@/components/web/card"
-import prisma from "@/lib/prisma"
-import type { Prisma } from "@/src/generated/prisma/client"
 
-const postSelect = {
-  id: true,
-  title: true,
-  content: true,
-  imageUrl: true,
-  userId: true,
-} as const
-
-type PostListItem = Prisma.PostGetPayload<{ select: typeof postSelect }>
+import { ImageFeed } from "@/components/web/card";
+import Header from "@/components/web/header"
+import SubHeader from "@/components/web/SubHeader";
+import { TextFeed } from "@/components/web/TextCard";
+import { VideoFeed } from "@/components/web/videoCard";
+import { getHomePosts } from "@/lib/posts";
 
 
 
@@ -20,10 +14,9 @@ type PostListItem = Prisma.PostGetPayload<{ select: typeof postSelect }>
 
 
 
-const getData = async (): Promise<PostListItem[]> => {
 
-  return prisma.post.findMany({ select: postSelect })
-}
+
+
 
 
 
@@ -31,7 +24,12 @@ export default async function Home() {
 
 
 
-  const posts =  await getData()
+  const { imagePosts, videoPosts } = await getHomePosts();
+
+
+
+
+  
 
 
 
@@ -44,44 +42,45 @@ export default async function Home() {
   return (
 
 
-    <div className="py-12">
+    <div className="py-8">
+
+      <Header/>
 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-20">
+    <div className="">
 
 
-    {posts.map((post)=>(
+      <div className="flex flex-col justify-center items-center gap-12">
+
+
+        <div className=" border-[1px] border-gray-100 rounded-lg">
+
+        <ImageFeed  posts ={imagePosts} />
 
 
 
-      <div className="flex flex-col justify-center items-center mx-auto  " key = {post.id}>
+        </div>
 
+        <div className="">
 
-        <div className="flex flex-col gap-2 mt-4 justify-center items-center ">
+        <SubHeader/>
 
-        <BlogPostCard post={post} />
 
 
         </div>
 
         
 
+        <div className="mt-4 border-[1px] border-gray-300 rounded-lg">
+
+          <VideoFeed posts = {videoPosts}/>
 
 
 
-      </div>
-
-
-
-
-
-
-
-    ))}
-
-
-
-
+        </div>
+        
+        
+        </div>
 
 
 

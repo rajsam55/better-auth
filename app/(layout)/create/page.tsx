@@ -22,6 +22,8 @@ import { actionForm } from '@/app/actions'
 
 const CreatePost = () => {
 
+  
+
 
 
 
@@ -34,7 +36,7 @@ const CreatePost = () => {
 
     <div className="">
 
-    <form action = {actionForm}className="flex flex-col min-h-svh w-full max-w-xl items-center justify-center mx-auto p-6 md:p-10">
+    <form action = {actionForm} className="flex flex-col min-h-svh w-full max-w-xl items-center justify-center mx-auto p-6 md:p-10">
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your Post</h1>
@@ -52,10 +54,10 @@ const CreatePost = () => {
           
         </Field>
         <Field>
-          <FieldLabel htmlFor="password">ImageUrl</FieldLabel>
-          <Input type ="text" name = "imageUrl"  required />
+          <FieldLabel htmlFor="">File</FieldLabel>
+          <Input type ="file" name = "media"  accept = "image/*,video/*, .text/*, .pdf" multiple required />
           <FieldDescription>
-            Image
+            Upload an image or video for your post.
           </FieldDescription>
         </Field>
         
