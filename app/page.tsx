@@ -42,7 +42,7 @@ export default async function Home() {
   return (
 
 
-    <div className="py-8">
+    <div className="">
 
       <Header/>
 

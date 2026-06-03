@@ -48,7 +48,7 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", media
   return (
 
 
-    <div className="group-relative mx-6 max-w-[1200px] flex flex-col justify-center items-center h-screen">
+    <div className="group-relative mx-6 w-full max-w-[700px] h-48 md:h-64 lg:h-120  flex flex-col justify-center items-center">
 
       
       <div className="">
@@ -61,22 +61,22 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", media
 
       
 
-      <div className="relative w-200 h-90 rounded-lg overflow-hidden mt-10">
+      <div className="relative w-full h-48 md:h-64 w-[400px] lg:w-[600px] lg:h-120 rounded-lg overflow-hidden mt-10">
 
       
         
             
 
-      <Image src={post.imageUrl}  alt= {post.title} className="object-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />      
+      <Image src={post.imageUrl}  alt= {post.title} className="objectfit-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />      
       
       
       </div>
 
       
 
-      <div className="flex flex-col items-center max-w-[900px] mt-12">
+      <div className="flex flex-col items-center  mt-12">
 
-      <p className="text-3xl text-center px-6">
+      <p className="text-[10px] text-center px-6">
 
       {post.content}
 

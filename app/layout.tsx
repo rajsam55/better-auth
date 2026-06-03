@@ -40,11 +40,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn("antialiased font-sans", geistSans.variable, geistMono.variable,  inter.variable)}
     >
 
       
-      <body className = "min-h-full flex flex-col  ">
+      <body className = "w-full bg-white text-black">
 
       <Navbar/>
         
