@@ -44,14 +44,16 @@ export default function RootLayout({
     >
 
       
-      <body className = "w-full bg-white text-black">
+      <body className = "w-full bg-dark text-black">
 
       <Navbar/>
         
         
       {children}
 
-      <Footer />
+
+      <Footer/>
+      
       
       
       </body>

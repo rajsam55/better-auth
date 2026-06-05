@@ -24,7 +24,7 @@ export function ImageFeed({ posts }: Props) {
 
         <div
           key={post.id}
-          className="relative w-full h-100 md:h-110 lg:h-130 rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto 
+          className="relative lg:w-full md:h-100 lg:h-110 sm:w-60 rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto 
            bg-muted hover:bg-muted/50 transition"
         >
           <p className="text-dark text-center text-3xl font-bold mt-4 ">
@@ -44,8 +44,8 @@ export function ImageFeed({ posts }: Props) {
             
             
           />
-          <div className="group-hover:opacity-100 transition">
-            <p className="font-semibold text-xl text-center mt-4">
+          <div className="group-hover:opacity-100 transition ">
+            <p className="font-semibold text-xl text-center mt-4 ">
               {post.content}
             </p>
 

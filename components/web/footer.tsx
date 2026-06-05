@@ -171,7 +171,7 @@ export default function Footer({ posts }: Props) {
       </div>
 
       {/* Main 4-column grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-b border-white/[0.06]  ">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-b border-white/[0.06] ">
         {/* Navigate */}
         <div className="px-6  py-8 border-r border-white/[0.05] font-serif text-white-100">
           <p className="text-[12px] tracking-[0.14em] uppercase text-white mb-5 pb-3 border-b border-[#C4A35A]/25 font-bold">
@@ -245,7 +245,7 @@ export default function Footer({ posts }: Props) {
       </div>
 
       {/* Bottom bar */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-6 md:px-10 py-5">
+      <div className="flex flex-col gap-3 sm:flex-row  sm:items-center sm:justify-between px-6 md:px-10 py-5">
         <p className="text-[11px] text-[#5A5651] tracking-wide">
           © {new Date().getFullYear()} Betterauth · All rights reserved
         </p>

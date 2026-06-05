@@ -26,14 +26,14 @@ const Navbar = () => {
   return (
 
 
-    <div className = " w-full justify-between items-center mx-auto mt-4 bg-[#0066cc] h-25  flex flex-col md:flex-row">
+    <div className = " justify-between items-center mx-auto mt-4 bg-[#0066cc] h-25 flex flex-col sticky lg:flex-row">
 
 
     <div className="">
 
     <Link href = "/">
 
-    <Button variant = "ghost" className = "bg-[#0066cc] text-white">
+    <Button  className = "bg-[#0066cc] text-white">
 
 
       <HomeIcon size = {32}/>
@@ -78,8 +78,8 @@ const Navbar = () => {
 
     <div className="flex gap-2">
 
-    <Link href="/cart">
-          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer"><ShoppingCart/></Button>
+    <Link href="/contact">
+          <Button variant = "default" className = "bg-green-400 p-4 text-white cursor-pointer">Contact Us</Button>
         </Link>
 
 

@@ -30,26 +30,23 @@ export function VideoFeed({ posts }: Props) {
   return (
 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto h-100w-full ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto lg:100 ">
       {posts.map((post) => (
 
         <div
           key={post.id}
-          className="rounded-lg overflow-hidden bg-muted hover:bg-muted/50 transition mx-auto flex flex-col justify-center items-center "
+          className="rounded-lg h-80 md:h-90 lg:h-100 overflow-hidden bg-muted hover:bg-muted/50 transition mx-auto flex flex-col justify-center items-center "
         >
+
+          <p className="mt-4 text-xl font-bold">{post.title}</p>
 
           <Link href= {`/videoDash/${post.id}`} className="block relative group">
 
           <video controls className=" rounded-lg mt-4 transition group-hover:scale-105 w-[350px] h-[250px]">
             <source src={post.imageUrl} type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
-
-          
-          
-
-        
-
+          </video>      
+          <p className="text-center font-light">{post.content}</p>
           
 
 
