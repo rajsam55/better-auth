@@ -19,6 +19,9 @@ export const postSelect = {
   content: true,
   userId :true,
   published: true,
+
+
+  
   createdAt: true,
   updatedAt : true,  
 } as const;

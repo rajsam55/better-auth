@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rss, Globe } from "lucide-react";
 import { useRef } from "react";
-import { subscribeNewsletter } from "@/app/actions";
+
 import { PostItem } from "@/lib/posts";
 
 

@@ -5,11 +5,16 @@ import type { PostItem } from "@/lib/posts";
 import Link from "next/link";
 
 
+
+
 function fmtDuration(sec: number) {
   const m = Math.floor(sec / 60);
   const s = sec % 60;
   return `${m}:${String(s).padStart(2, "0")}`;
 }
+
+
+
 
 interface Props {
   posts: PostItem[];
@@ -30,12 +35,12 @@ export function VideoFeed({ posts }: Props) {
   return (
 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto lg:100 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto w-[1300px] h-[600px] mt-4">
       {posts.map((post) => (
 
         <div
           key={post.id}
-          className="rounded-lg h-80 md:h-90 lg:h-100 overflow-hidden bg-muted hover:bg-muted/50 transition mx-auto flex flex-col justify-center items-center "
+          className="rounded-lg md:h-90 overflow-hidden bg-muted hover:bg-muted/50 transition mx-auto flex flex-col justify-center items-center "
         >
 
           <p className="mt-4 text-xl font-bold">{post.title}</p>
@@ -52,8 +57,9 @@ export function VideoFeed({ posts }: Props) {
 
           
           </Link>
+
           
-          
+         
           
           
         </div>

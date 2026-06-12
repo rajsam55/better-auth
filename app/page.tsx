@@ -21,6 +21,7 @@ import { getHomePosts } from "@/lib/posts";
 
 
 
+
 export default async function Home() {
 
 
@@ -43,24 +44,24 @@ export default async function Home() {
   return (
 
 
-    <div className="">
+    <div className="flex flex-col justify-center items-center w-full">
+
+      <div className="bg-[#0066cc] ">
+
+        <Header/>
 
 
-    <Header/>
+
+
+      </div>
 
       
 
-    <div className="mt-2">
+
+    
 
 
-      
-
-
-
-      <div className="flex flex-col justify-center items-center gap-12">
-
-
-        <div className=" border-[1px] border-gray-100 rounded-lg">
+        <div className="bg-[#0066cc] mt-4">
 
         <ImageFeed  posts ={imagePosts} />
 
@@ -68,41 +69,32 @@ export default async function Home() {
 
         </div>
 
-        <div className="">
-
-
-          
-
-          <UpperHeader/>   
-          
+        
 
         
+
+        
+
+        <div className="">
+
+          <UpperHeader/>
 
 
 
         </div>
-        
 
-        
+        <div className="">
 
-        <div className="mt-4 border-[1px] border-gray-300 rounded-lg">
+          <SubHeader/>
+        </div>
+
+        <div className="">
+
 
           <VideoFeed posts = {videoPosts}/>
-
-
-
         </div>
 
-        <div className="">
-
-        <SubHeader/>
-
-
-
-
-
-
-        </div>
+        
         
         
         </div>
@@ -111,8 +103,8 @@ export default async function Home() {
 
 
 
-    </div>
+    
       
-    </div>
+    
   );
 }

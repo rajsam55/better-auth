@@ -1,13 +1,15 @@
 "use server"
 
 import { auth } from "@/lib/auth"
-import  prisma  from "@/lib/prisma"
+import prisma from "@/lib/prisma"
 import { email, property } from "better-auth"
+import { randomUUID } from "crypto"
 import { revalidatePath } from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import mailchimp from "@mailchimp/mailchimp_marketing"
 import { v2 as cloudinary } from "cloudinary";
+import { GalleryThumbnails } from "lucide-react"
 
 
 
@@ -76,35 +78,47 @@ export async function actionForm (formData: FormData){
 
         
 
-        const imageUrlString = (imageUrl as { secure_url: string }).secure_url; 
-        
+        const imageUrlString = (imageUrl as { secure_url: string }).secure_url;    
         
 
 
     
 
       await prisma.post.create({
-        
       data: {
         id: Math.floor(Math.random() * 1000000),
         title
         : title as string || "",
         content: content as string || "",
         imageUrl: imageUrlString,
-        thumbnail: imageUrlString,
         mediaType: file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/") ? "VIDEO" : "TEXT"),
         userId : session.user.id ,
         createdAt: new Date(),
         updatedAt : new Date(),
-      },
+        thumbnail: formData.get("thumbnail")?.toString() || "",
+
+        
+
+
+
+
+
+        },
 
       
     });
 
      redirect("/"),
      revalidatePath("/")
+
      
   }
+
+  
+
+
+
+
 
 
 
@@ -115,63 +129,6 @@ export type ActionState = {
   message: string;
   errors?: Record<string, string[]>;
 };
-
-// ─── Newsletter Subscription ──────────────────────────────────────────────────
-
-export type SubscribeResult = {
-  error?: string;
-  success?: boolean;
-};
-
-export async function subscribeNewsletter(
-  prevState: SubscribeResult | undefined,
-  formData: FormData
-): Promise<SubscribeResult> {
-  const email = formData.get("email") as string;
-
-  if (!email || !email.includes("@")) {
-    return { error: "Valid email is required" };
-  }
-
-  try {
-    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
-    const apiKey = process.env.MAILCHIMP_API_KEY;
-    const server = process.env.MAILCHIMP_API_SERVER;
-
-    if (!audienceId || !apiKey || !server) {
-      // If Mailchimp is not configured, simulate success for development
-      if (process.env.NODE_ENV === "development") {
-        return { success: true };
-      }
-      return { error: "Newsletter service is not configured" };
-    }
-
-    const response = await fetch(
-      `https://${server}.list-manage.com/api/3.0/lists/${audienceId}/members`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `apikey ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email_address: email,
-          status: "subscribed",
-        }),
-      }
-    );
-
-    if (response.status >= 400) {
-      const data = await response.json();
-      return { error: data.title || "Failed to subscribe" };
-    }
-
-    return { success: true };
-  } catch (err) {
-    console.error("[subscribeNewsletter]", err);
-    return { error: "Internal Server Error" };
-  }
-}
 
 // ─── Update Post ──────────────────────────────────────────────────────────────
 
@@ -207,6 +164,7 @@ export async function updatePost(
       data: {
         title: title!,
         content: content!,
+        
         updatedAt: new Date(),
       },
     });

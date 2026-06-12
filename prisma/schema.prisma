@@ -24,6 +24,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   userId         String?   @unique
+  role          Role      @default(USER)
+  
   @@unique([email])
   @@map("user")
 }
@@ -81,6 +83,11 @@ enum MediaType {
   TEXT
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Post {
   id        Int       @id
   title     String
@@ -98,17 +105,3 @@ model Post {
   @@map("post")
 }
 
-model Profile {
-
-  id  Int @id
-  profileImageUrl String
-  userId String 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-@@index([userId])
-@@map("profile")
-
-
-
-}

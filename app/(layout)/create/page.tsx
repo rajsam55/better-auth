@@ -10,6 +10,10 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { actionForm } from '@/app/actions'
+import { useSession } from '@/lib/auth-client'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 
 
@@ -20,7 +24,26 @@ import { actionForm } from '@/app/actions'
 
 
 
-const CreatePost = () => {
+const CreatePost = async() => {
+
+
+
+  const session = await auth.api.getSession({
+      
+            headers: await headers(),
+      
+          
+      
+      
+          })
+      
+          if (!session || session.user.role !== "ADMIN") {
+
+
+          redirect("/unauthorized");
+          
+          }
+
 
   
 

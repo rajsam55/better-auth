@@ -3,14 +3,15 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
 import { signOut, useSession } from "@/lib/auth-client"
-import { profile } from "console"
 import UserDetails from "@/app/userProfile/userDetails/page"
 import Home from "@/app/page"
-import { HomeIcon, ShoppingCart } from "lucide-react"
+import { HomeIcon, ShoppingCart, UserIcon } from "lucide-react"
+import { Avatar } from "@/components/ui/avatar"
+
 
 const Navbar = () => {
 
-  const { data: session } = useSession()
+  const { data:  session } = useSession()
 
 
 
@@ -26,14 +27,14 @@ const Navbar = () => {
   return (
 
 
-    <div className = " justify-between items-center mx-auto mt-4 bg-[#0066cc] h-25 flex flex-col sticky lg:flex-row">
+    <div className = "w-full mx-auto flex justify-between items-center gap-5 mx-auto mt-4 bg-[#0066cc] h-20 lg: w-[1300px]">
 
 
     <div className="">
 
     <Link href = "/">
 
-    <Button  className = "bg-[#0066cc] text-white">
+    <Button variant = "ghost" className = "bg-[#0066cc] text-white">
 
 
       <HomeIcon size = {32}/>
@@ -78,12 +79,41 @@ const Navbar = () => {
 
     <div className="flex gap-2">
 
-    <Link href="/contact">
-          <Button variant = "default" className = "bg-green-400 p-4 text-white cursor-pointer">Contact Us</Button>
-        </Link>
+    
 
 
-    {session && <Button className = "bg-[#0066cc] text-white ">{session.user?.name}</Button>}
+    {session?.user?.id && 
+      <Link href={`/userProfile/${session.user.id}`}>
+        {session.user.image ? <Button className = "bg-[#0066cc] text-white ">
+
+          <img src = {session.user.image} width ={32}  height = {32} />
+         
+          
+        </Button> :  <UserIcon className ="text-white mt-1"/> }
+        
+        
+      </Link>}
+
+        
+      { (session?.user as { role?: string })?.role === "ADMIN"  && 
+
+      <>
+
+      
+
+      <span className = "text-white mt-1"> {session?.user.name}</span>
+
+      </>         
+          
+        }
+
+             
+        
+      
+
+
+      
+    
 
 
     {session ? (

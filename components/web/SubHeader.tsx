@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button } from '../ui/button'
-import { ArrowLeftCircleIcon, CircleCheckBig } from 'lucide-react'
+import { CircleCheckBig } from 'lucide-react'
+
+import Link from "next/link"
 
 
 
@@ -22,7 +24,7 @@ const SubHeaderPage = () => {
     
 
 
-    <div className="flex flex-col gap-4 justify-center items-center bg-blue-500 shadow-md p-4 overflow-hidden mx-auto lg:w-[1300px]">
+    <div className="flex flex-col gap-4 justify-center items-center shadow-md p-4  mx-auto lg:w-[1300px] lg:h-[300px] bg-[#0066cc] border-[1px] mt-4">
 
       <CircleCheckBig className = "text-white"/>
 
@@ -35,7 +37,7 @@ const SubHeaderPage = () => {
 
       </div>
 
-      <Button variant= "ghost" className ="bg-green-500 hover:bg-green-600 text-white rounded-lg">Have a Look</Button>
+      <Link href = "/essays"><Button variant= "ghost" className ="bg-green-500 hover:bg-green-600 text-white rounded-lg">Have a Look</Button></Link>
 
 
       

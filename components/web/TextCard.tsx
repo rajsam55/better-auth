@@ -10,6 +10,7 @@ interface Props {
 
 export function TextFeed({ posts }: Props) {
   if (!posts.length)
+    
     return <p className="text-muted-foreground">No text files
     
     

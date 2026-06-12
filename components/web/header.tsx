@@ -24,7 +24,7 @@ const Header = () => {
   return (
 
 
-    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 py-10 lg: h-[600px] lg:w-full sm: h-70 shadow-md mx-auto p-4 mb-6 flex sm:mx-auto  ">
+    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 py-10 lg: h-[600px] w-[1300px] shadow-md mx-auto p-4 mb-6  ">
 
 
 
@@ -43,37 +43,47 @@ const Header = () => {
 
 
      </p> 
-      
 
-      <div className="flex gap-4 mt-4 ">
+     
+      
+        <div className="flex gap-2">
         <Link href= "/get-started"><Button variant = "default" className = "bg-green-300 p-3">Get Started</Button></Link>
         <Link href="/learn-more"><Button variant = "outline">Learn More</Button></Link>
-        
-        
+        </div>
+
+
+
+
+
+
+
       </div>
+
+  
+        
+        
+      
     
 
-    </div>
+    
 
 
-    <div className=" relative  h-[200px] sm: w-[400px] md:h-70 lg:h-105 ml-4 lg:w-[550px] rounded-lg overflow-hidden flex flex-col justify-center items-start mx-auto 
-           bg-muted hover:bg-muted/50 transition px-4 mb-2">
+    <div className=" relative h-60 w-[500px] md:60 lg:h-110 rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto bg-muted hover:bg-muted/50 transition px-4 mb-2">
 
 
       <Image src="/learn-english.jpg" alt="Header Image"  className="object-cover rounded-lg shadow-md" fill/>
 
 
 
+
+
+
     </div>
-  
-
-
 
     
 
 
-
-    </div>
+    </div>  
 
 
   

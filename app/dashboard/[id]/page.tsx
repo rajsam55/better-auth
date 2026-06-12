@@ -4,22 +4,23 @@ import prisma from "@/lib/prisma"
 import Image from "next/image"
 import PostEditor from "@/components/web/PostEditor"
 import { notFound } from "next/navigation"
+import { Post } from "@/src/generated/prisma/client"
 
 
-const DashboardRoute = async({params}: {params  : Promise <{id : "Number", mediaType : "IMAGE" | "VIDEO"}>}) => {
+const DashboardRoute = async({params}: {params  : Promise <{id : "Number", MediaType : "IMAGE" | "VIDEO"}>}) => {
 
   
 
 
  
-  const {id, mediaType} =  await params
+  const {id, MediaType} =  await params
 
   const Id = parseInt(id)
 
   const post  = await prisma.post.findUnique({
     where : {
       id : Id,
-      mediaType: mediaType
+      mediaType : MediaType
     },
     select: {
       id: true,
@@ -28,10 +29,8 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", media
       userId: true,
       mediaType: true,
       imageUrl: true,
-      published: true,
       createdAt: true,
       updatedAt: true,
-      
     },
   })
 
@@ -48,35 +47,35 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", media
   return (
 
 
-    <div className="group-relative w-full h-110 md:h-120 lg:h-130  flex flex-col justify-center items-center mx-auto">
+    <div className="group-relative mx-6 max-w-[1200px] flex flex-col justify-center items-center h-screen">
 
       
-      
-      <h1 className=" text-3xl text-center tracking-wider font-thin mt-6 ">{post.title
+      <div className="">
+      <h1 className=" text-5xl text-center tracking-wider font-thin mt-6 ">{post.title
         
         }</h1>
       
 
-      
+      </div>
 
       
 
-      <div className="relative w-full sm: w-[100px] h-48 md:h-64 md:w-[400px] lg:w-[600px] lg:h-120 rounded-lg overflow-hidden mt-10">
+      <div className="relative w-200 h-90 rounded-lg overflow-hidden mt-10">
 
       
         
             
 
-      <Image src={post.imageUrl}  alt= {post.title} className="objectfit-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />      
+      <Image src={post.imageUrl}  alt= {post.title} className="object-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />      
       
       
       </div>
 
       
 
-      <div className="flex flex-col items-center  mt-12">
+      <div className="flex flex-col items-center max-w-[900px] mt-12" key={post.id}>
 
-      <p className="text-[15px] text-center px-6">
+      <p className="text-3xl text-center px-6">
 
       {post.content}
 
@@ -87,7 +86,7 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", media
       <div className="">
 
 
-      <PostEditor post={{ id: post.id.toString(), title: post.title, content: post.content, published: post.published }}/>
+      <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/>
 
       
 

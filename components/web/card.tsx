@@ -15,19 +15,18 @@ export function ImageFeed({ posts }: Props) {
   
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
+
+    <div className="grid grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-screen-200 w-[1300px] border-[1px]">
 
       
 
       {posts.map((post) => (
 
-
         <div
           key={post.id}
-          className="relative lg:w-full md:h-100 lg:h-110 sm:w-60 rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto 
-           bg-muted hover:bg-muted/50 transition"
+          className="relative overflow-hidden w-[400px] h-100 flex flex-col justify-center items-center mx-auto "
         >
-          <p className="text-dark text-center text-3xl font-bold mt-4 ">
+          <p className="text-white text-center text-2xl  text-bold ">
               {post.title}
             </p>
           
@@ -36,20 +35,20 @@ export function ImageFeed({ posts }: Props) {
 
           <img
             src={post.imageUrl}
-            alt= {post.title}           
+            alt= {post.content}           
                      
             
             
-            className="rounded-lg objectfit-cover w-[350px] h-[250px] transition group-hover:scale-105 mt-2"
+            className=" transition group-hover:scale-105 rounded-lg object-cover mt-2"
             
             
           />
-          <div className="group-hover:opacity-100 transition ">
-            <p className="font-semibold text-xl text-center mt-4 ">
+          <div className="group-hover:opacity-100 transition">
+            
+
+            <p className="text-white text-xl text-center mt-2 ">
               {post.content}
             </p>
-
-            
             
           </div>
           </Link>

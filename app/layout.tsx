@@ -44,7 +44,7 @@ export default function RootLayout({
     >
 
       
-      <body className = "w-full bg-dark text-black">
+      <body className = "w-full bg-[#0066cc] text-white">
 
       <Navbar/>
         

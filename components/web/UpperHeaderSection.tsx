@@ -20,9 +20,9 @@ const UpperHeader = () => {
 
 
 
-    <div className = "bg-blue-500 lg: h-[700px] lg:w-[1100px] mx-auto flex flex-col justify-center items-center" >
+    <div className = "bg-[#0066cc] lg: h-[900px] lg:w-[1200px] mx-auto flex flex-col justify-center items-center border-[1px] mt-4">
 
-    <div className = "flex flex-col justify-center items-center mb-6 mx-auto ">
+    <div className = "mx-auto mb-6 mx-auto ">
 
 
     
@@ -36,19 +36,19 @@ const UpperHeader = () => {
     
 
 
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 w-full h-110 mb-4 sm: flex-row ">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 w-full mb-4 sm:  ">
     
 
 
 
-    <div className="flex flex-col justify-center mx-auto">
+    <div className="flex flex-col justify-center mx-auto h-70">
 
 
-    <ul className="">   
+    <ul className="mb-5">   
 
     <Image src= "/english1.jpg" alt = "" height = {120}  width = {150}  />
 
-    <h1 className="text-black">Outbound sales</h1>
+    <h1 className="text-black mt-2">Outbound sales</h1>
     
 
     <li className="">Transfom into blog posts</li>
@@ -69,12 +69,12 @@ const UpperHeader = () => {
     <div className="flex flex-col justify-center items-center mx-auto">
 
 
-    <ul className="">
+    <ul className="mb-5">
 
         
     <Image src= "/english1.jpg" alt = ""  height = {120}  width = {150}/>
 
-    <h1 className="">Outbound sales</h1>
+    <h1 className="mt-2">Outbound sales</h1>
 
     <li className="">Transfom into blog posts</li>
 
@@ -93,12 +93,12 @@ const UpperHeader = () => {
 
     <div className="flex flex-col justify-center items-center mx-auto">
 
-    <ul className="">
+    <ul className="mb-5">
 
     
     <Image src= "/english1.jpg" alt = ""  height = {120}  width = {150}/>
 
-    <h1 className="">Outbound sales</h1>
+    <h1 className="mt-2">Outbound sales</h1>
 
     <li className="">Transfom into blog posts</li>
 
@@ -118,12 +118,12 @@ const UpperHeader = () => {
     <div className="flex flex-col justify-center items-center mx-auto">
 
 
-    <ul className="">
+    <ul className="mb-5">
 
     
     <Image src= "/english1.jpg" alt = ""  height = {120}  width = {150}/>
 
-    <h1 className="">Outbound sales</h1>
+    <h1 className="mt-2">Outbound sales</h1>
 
     <li className="">Transfom into blog posts</li>
 

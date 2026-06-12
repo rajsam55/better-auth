@@ -28,20 +28,20 @@ const CreateProfileImage = () => {
   return (
 
 
-    <div className = "py-10 ">
+    <div className = "bg-gray-100">
 
 
-    <div className="flex flex-col justify-center items-center gap-6 w-2xl h-150 mx-auto ">
+    <div className="flex flex-col justify-center items-center gap-6 w-2xl h-150 mx-auto lg: w-full">
 
     <h2 className = "text-2xl font-semibold mt-10 text-center text-black">Upload Media</h2>       
 
 
-    <form action= {profileActionForm}className="flex flex-col items-center justify-center mx-auto p-6 md:p-10 bg-gray-100 rounded-lg shadow-lg gap-10">
+    <form action= {profileActionForm}className=" flex flex-col justify-center bg-white mx-auto rounded-lg mt-4">
 
 
-        <Label htmlFor= "file">Profile Image</Label>
+        <Label htmlFor= "file" className = "">Profile Image</Label>
 
-        <input type="file" name = "media" accept="image/*" required className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-blue-600" />
+        <input type="file" name = "media" accept="image/*" required className=" text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-blue-600 mt-4" />
 
             
     
