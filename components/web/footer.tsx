@@ -69,8 +69,29 @@ const socialLinks = [
 
 export default function Footer({ posts }: Props) {
 
-
   const formRef = useRef<HTMLFormElement>(null);
+
+  const subscribeNewsletter = async (_: unknown, formData: FormData) => {
+    const email = formData.get("email") as string;
+    
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        return { error: result.error || "Subscription failed" };
+      }
+      
+      return { success: true };
+    } catch {
+      return { error: "Network error. Please try again." };
+    }
+  };
 
   const clientAction = async (formData: FormData) => {
     const result = await subscribeNewsletter(undefined, formData);
