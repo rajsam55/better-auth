@@ -47,7 +47,7 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
   return (
 
 
-    <div className="group-relative mx-6 lg:w-[1300px] flex flex-col justify-center items-center h-screen  mx-auto">
+    <div className="group-relative mx-6 flex flex-col justify-center items-center h-screen  mx-auto">
 
       
       <div className="">
@@ -60,7 +60,7 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
 
       
 
-      <div className="relative w-200 h-90 rounded-lg overflow-hidden mt-10">
+      <div className="relative w-90 h-60 rounded-lg overflow-hidden mt-10">
 
       
         

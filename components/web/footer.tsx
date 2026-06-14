@@ -119,7 +119,7 @@ export default function Footer({ posts }: Props) {
 
 
   return (
-    <footer className="bg-[#0066cc] text-white font-sans mt-5 w-full  ">
+    <footer className="bg-[#0066cc] text-white font-sans mt-5 ">
       {/* Top bar — brand + newsletter */}
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between px-6 md:px-10 pt-10 pb-8 border-b border-white/[0.08]">
         {/* Brand */}
@@ -192,7 +192,7 @@ export default function Footer({ posts }: Props) {
       </div>
 
       {/* Main 4-column grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-b border-white/[0.06] lg:w-[1300px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-b border-white/[0.06] ">
         {/* Navigate */}
         <div className="mx-auto border-r border-white/[0.05] font-serif text-white-100">
           <p className="text-[12px] tracking-[0.14em] uppercase text-white mb-5 pb-3 border-b border-[#C4A35A]/25 font-bold">

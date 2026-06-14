@@ -24,7 +24,7 @@ const Header = () => {
   return (
 
 
-    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 lg:w-[1270px] w-120 ">
+    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 lg:w-[1255px] ">
 
 
 
@@ -32,7 +32,7 @@ const Header = () => {
       <div className="flex flex-col justify-center items-center gap-4 mx-auto mb-6 ">
 
       <h1 className = "text-white text-3xl font-bold">Get essays that pass.<br/> Hassle-free Here!</h1>
-      <p className="text-white line-height : 2">If you have got time, we can help you write better essays,<br/> to get you the best grades.</p>
+      <p className="text-white line-height : 2 mx-2">If you have got time, we can help you write better essays,<br/> to get you the best grades.</p>
       
       
       

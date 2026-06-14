@@ -81,7 +81,7 @@ export default async function Home() {
 
         </div>
 
-        <div className="">
+        <div className="mt-2">
 
         <SubHeaderPage/>
 
