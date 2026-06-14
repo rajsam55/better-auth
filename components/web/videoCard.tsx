@@ -35,7 +35,7 @@ export function VideoFeed({ posts }: Props) {
   return (
 
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto w-[1300px] h-[600px] mt-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto h-[600px] mt-4">
       {posts.map((post) => (
 
         <div
@@ -47,10 +47,11 @@ export function VideoFeed({ posts }: Props) {
 
           <Link href= {`/videoDash/${post.id}`} className="block relative group">
 
+          
+            Your browser does not support the video tag.
           <video controls className=" rounded-lg mt-4 transition group-hover:scale-105 w-[350px] h-[250px]">
             <source src={post.imageUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>      
+          </video>  
           <p className="text-center font-light">{post.content}</p>
           
 

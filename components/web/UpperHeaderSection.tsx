@@ -20,15 +20,15 @@ const UpperHeader = () => {
 
 
 
-    <div className = "bg-[#0066cc] lg: h-[900px] lg:w-[1200px] mx-auto flex flex-col justify-center items-center border-[1px] mt-4">
+    <div className = "bg-[#0066cc] lg: h-[900px] mx-auto flex flex-col justify-center items-center border-[1px] mt-4">
 
-    <div className = "mx-auto mb-6 mx-auto ">
+    <div className = "mb-6 mx-auto ">
 
 
     
     
 
-    <h1 className=" text-white text-2xl font-bold text-center font-bold">We Help all our students to excel in their writing skills to achieve better grades through excellent coaching!</h1>
+    <h1 className=" text-white text-2xl font-bold text-center font-bold mx-4">We Help all our students to excel in their writing skills to achieve better grades through excellent coaching!</h1>
 
     <p className="text-white text-center mt-8 line-height:1.625">Try one of our video series for free to get an idea <br/> Give us feedback !  </p>
 
@@ -36,7 +36,7 @@ const UpperHeader = () => {
     
 
 
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 w-full mb-4 sm:  ">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 w-full mb-4 ">
     
 
 

@@ -16,7 +16,7 @@ export function ImageFeed({ posts }: Props) {
 
   return (
 
-    <div className="grid grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-screen-200 w-[1300px] border-[1px]">
+    <div className="grid grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-screen-200 gap-4 ">
 
       
 
@@ -24,7 +24,7 @@ export function ImageFeed({ posts }: Props) {
 
         <div
           key={post.id}
-          className="relative overflow-hidden w-[400px] h-100 flex flex-col justify-center items-center mx-auto "
+          className=" h-100 flex flex-col justify-center items-center mx-auto gap-4"
         >
           <p className="text-white text-center text-2xl  text-bold ">
               {post.title}
@@ -39,7 +39,7 @@ export function ImageFeed({ posts }: Props) {
                      
             
             
-            className=" transition group-hover:scale-105 rounded-lg object-cover mt-2"
+            className=" transition group-hover:scale-105 rounded-lg object-cover mt-2" fill
             
             
           />

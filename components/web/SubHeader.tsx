@@ -24,20 +24,28 @@ const SubHeaderPage = () => {
     
 
 
-    <div className="flex flex-col gap-4 justify-center items-center shadow-md p-4  mx-auto lg:w-[1300px] lg:h-[300px] bg-[#0066cc] border-[1px] mt-4">
+    <div className="flex flex-col justify-center items-center h-60">
 
-      <CircleCheckBig className = "text-white"/>
+      <CircleCheckBig className = "text-blue-500"/>
 
 
-      <h1 className="text-2xl font-bold text-white">We Guarantee Your Success</h1>
+      <h1 className="text-2xl font-bold text-black mt-4">We Guarantee Your Success</h1>
 
-      <div className="mx-auto px-4 sm:px-6">
+      
 
-      <p className="text-white text-center">An Essay written so professional you might think it's from a published author!</p>
+
+      <div className="flex flex-col justify-center mx-auto ">
+
+      <p className="text-black text-center mt-2">An Essay written so professional you might think it's from a published author!</p>
+
+    
+
+
+
 
       </div>
 
-      <Link href = "/essays"><Button variant= "ghost" className ="bg-green-500 hover:bg-green-600 text-white rounded-lg">Have a Look</Button></Link>
+      <Link href = "/essays"><Button variant= "ghost" className = "mt-4">Have a Look</Button></Link>
 
 
       

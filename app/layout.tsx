@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/web/navbar";
+
 import { cn } from "@/lib/utils";
 import Footer from "@/components/web/footer";
+import Navbar from "@/components/web/navbar";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -44,15 +45,17 @@ export default function RootLayout({
     >
 
       
-      <body className = "w-full bg-[#0066cc] text-white">
+    <body className = "w-full bg-[#0066cc] text-white">
 
       <Navbar/>
         
         
       {children}
 
+      
 
-      <Footer/>
+
+      
       
       
       

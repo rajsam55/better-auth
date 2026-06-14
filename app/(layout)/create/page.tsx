@@ -59,7 +59,7 @@ const CreatePost = async() => {
 
     <div className="">
 
-    <form action = {actionForm} className="flex flex-col min-h-svh w-full max-w-xl items-center justify-center mx-auto p-6 md:p-10">
+    <form action = {actionForm} className="flex flex-col items-center justify-center mx-auto">
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your Post</h1>
