@@ -39,7 +39,7 @@ export function ImageFeed({ posts }: Props) {
                      
             
             
-            className=" transition group-hover:scale-105 rounded-lg object-cover mt-2" fill
+            className=" transition group-hover:scale-105 rounded-lg object-cover mt-2" 
             
             
           />
