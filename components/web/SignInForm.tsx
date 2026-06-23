@@ -12,7 +12,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/lib/auth-client";
+import { authClient} from "@/lib/auth-client";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SignInInput, SignInSchema } from "@/lib/zod"
+
 
 
 
@@ -27,31 +31,47 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
 
+  const [serverError, setServerError] = useState<string | null>(null);
 
-const router = useRouter();
-const [error, setError] = useState<string | null>(null);
+   const router = useRouter();
+ 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignInInput>({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: SignInInput) => {
+    setServerError(null);
+
+    const response = await authClient.signIn.email({
+      email: data.email,
+      password: data.password,
+      callbackURL: "/",
+    });
+
+    if (response.error) {
+      setServerError(response.error.message || "Invalid email or password.");
+      return;
+    }
+
+    router.push("/");
+    router.refresh();
+  };
 
 
 
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setError(null);
-        const formData = new FormData(e.currentTarget);
-        const res = await signIn.email({
-          email: formData.get("email") as string,
-          password: formData.get("password") as string,
-        });
-        if (res.error) {
-          setError(res.error.message || "Something went wrong.");
-        } else {
-          router.push("/");
-        }
-      }
-    
 
   return (
-    <form onSubmit = {handleSubmit}className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit = {handleSubmit(onSubmit)}className={cn("flex flex-col gap-6", className)} {...props}>
+
+      {serverError && <p className="text-red-500 bg-red-50 p-2 rounded">{serverError}</p>}
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -61,7 +81,9 @@ const [error, setError] = useState<string | null>(null);
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input name ="email" type="email" placeholder="m@example.com" required />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+          
+          <Input {...register("email")} type="email" placeholder="m@example.com" required />
         </Field>
         <Field>
           <div className="flex items-center">
@@ -73,10 +95,21 @@ const [error, setError] = useState<string | null>(null);
               Forgot your password?
             </a>
           </div>
-          <Input name ="password" type="password" required />
+          <Input {...register("password")} name ="password" type="password" required />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          
         </Field>
         <Field>
-          <Button type="submit">Login</Button>
+          <Button type="submit">
+            
+            
+          {isSubmitting? "submitting" : "Login"}
+            
+            
+            
+            
+            
+            </Button>
         </Field>
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
@@ -100,3 +133,25 @@ const [error, setError] = useState<string | null>(null);
     </form>
   )
 }
+
+// const router = useRouter();
+// const [error, setError] = useState<string | null>(null);
+
+
+
+
+    // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    //     e.preventDefault();
+    //     setError(null);
+    //     const formData = new FormData(e.currentTarget);
+    //     const res = await signIn.email({
+    //       email: formData.get("email") as string,
+    //       password: formData.get("password") as string,
+    //     });
+    //     if (res.error) {
+    //       setError(res.error.message || "Something went wrong.");
+    //     } else {
+    //       router.push("/");
+    //     }
+    //   }
+    

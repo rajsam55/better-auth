@@ -12,7 +12,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signUp } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SignUpInput, signUpSchema } from "@/lib/zod"
+import { useForm } from "react-hook-form"
 
 
 
@@ -26,45 +29,52 @@ export function SignUpForm({
 
 const router = useRouter();
 
-const [error, setError] = useState<string | null>(null);
 
 
 
-
-
-    
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-
-        
-        e.preventDefault();
-        setError(null);
-        const formData = new FormData(e.currentTarget);
-        const res = await signUp.email({
-          name: formData.get("name") as string,
-          email: formData.get("email") as string,
-          password: formData.get("password") as string,
-        });
-        if (res.error) {
-          setError(res.error.message || "Something went wrong.");
-        } else {
-          router.push("/sign-in");
-        }
-      }
+const [serverError, setServerError] = useState<string | null>(null);
 
 
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpInput>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      name : "",
+      email: "",
+      password: "",
+    },
+  });
 
+  const onSubmit = async (data: SignUpInput) => {
+    setServerError(null);
 
+    const response = await authClient.signUp.email({
+      name : data.name,
+      email: data.email,
+      password: data.password,
+      callbackURL: "/sign-in",
+    });
 
+    if (response.error) {
+      setServerError(response.error.message || "could not signup.");
+      return;
+    }
 
-
+    router.push("/sign-in");
+    router.refresh();
+  };
 
 
 
 
   return (
-    <form onSubmit = {handleSubmit}className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit = {handleSubmit(onSubmit)}className={cn("flex flex-col gap-6", className)} {...props}>
+
+      {serverError && <p className="text-red-500 bg-red-50 p-2 rounded">{serverError}</p>}
       <FieldGroup className = "">
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
@@ -74,23 +84,36 @@ const [error, setError] = useState<string | null>(null);
         </div>
         <Field>
           <FieldLabel htmlFor="name">Full Name</FieldLabel>
-          <Input name ="name" type="text" placeholder="John Doe" required />
+          <Input {...register("name")} name = "name" type="text" placeholder="John Doe" required />
+          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+          
+
         </Field>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input name ="email" type="email" placeholder="m@example.com" required />
+          <Input {...register("email")} type="email" placeholder="m@example.com" required />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
           
         </Field>
         <Field>
           <FieldLabel htmlFor="password">Password</FieldLabel>
-          <Input name ="password" type="password" required />
           <FieldDescription>
             Must be at least 8 characters long.
           </FieldDescription>
+          <Input {...register("password")} type="password" required />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          
         </Field>
         
         <Field>
-          <Button type="submit">Create Account</Button>
+          <Button type="submit">
+            
+            
+            {isSubmitting ? "submitting"  : "Submit"}
+            
+            
+            
+            </Button>
         </Field>
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
@@ -102,6 +125,7 @@ const [error, setError] = useState<string | null>(null);
               />
             </svg>
             Sign up with GitHub
+            
           </Button>
           <FieldDescription className="px-6 text-center">
             Already have an account? <a href="/sign-in">Sign in</a>
@@ -111,3 +135,25 @@ const [error, setError] = useState<string | null>(null);
     </form>
   )
 }
+
+// async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+
+        
+//         e.preventDefault();
+//         setError(null);
+//         const formData = new FormData(e.currentTarget);
+//         const res = await signUp.email({
+//           name: formData.get("name") as string,
+//           email: formData.get("email") as string,
+//           password: formData.get("password") as string,
+//         });
+//         if (res.error) {
+//           setError(res.error.message || "Something went wrong.");
+//         } else {
+//           router.push("/sign-in");
+//         }
+//       }
+
+
+
+

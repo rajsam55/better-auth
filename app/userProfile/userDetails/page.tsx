@@ -88,7 +88,7 @@ const UserDetails = async() => {
 
 
 
-    <div className = "w-full h-screen flex justify-center items-center ">
+    <div className = "w-full h-screen flex justify-center items-center  ">
 
 
 
@@ -100,7 +100,7 @@ const UserDetails = async() => {
 
             <p className="text-gray-600">This is where user details will be displayed.</p>
 
-            <div className="w-full grid grid cols-1 md: grid-cols-2 lg:grid-cols-3 gap-4 w-full mx-4 bg-white shadow-md flex flex-col justify-center items-center gap-4">
+            <div className="w-full grid grid cols-1 md: grid-cols-2 lg:grid-cols-4 gap-12 w-full mx-auto bg-white shadow-md flex flex-col justify-center items-center gap-4">
                 {data.map((user:any) => (
 
                     <div key={user.id} className="relative flex flex-col w-[150px] h-[180px] bg-gray-200 rounded-lg shadow-md gap-6">    
@@ -110,7 +110,7 @@ const UserDetails = async() => {
 
                         <p className="text-sm text-gray-600">{user.email}</p>
 
-                        {session.user.image ?<img src={user.image} alt="" className="" width={32} height={32} />:
+                        {session.user.image ?<img src={user.image} alt="" className="rounded-lg" width={32} height={32} />:
 
                         <UserIcon/>
                         

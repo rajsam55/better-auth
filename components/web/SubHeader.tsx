@@ -24,9 +24,9 @@ const SubHeaderPage = () => {
     
 
 
-    <div className="flex flex-col justify-center items-center h-60 bg-[#0066cc] lg:w-[1255px]">
+    <div className="flex flex-col justify-center items-center h-60 bg-[#0066cc] w-full max-w-7xl">
 
-      <CircleCheckBig className = "text-blue-500"/>
+      <CircleCheckBig className = "text-white"/>
 
 
       <h1 className="text-2xl font-bold text-white mt-4">We Guarantee Your Success</h1>

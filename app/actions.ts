@@ -13,11 +13,11 @@ import { GalleryThumbnails } from "lucide-react"
 
 
 
-
 mailchimp.setConfig({
   apiKey: process.env.MAILCHIMP_API_KEY,
   server: process.env.MAILCHIMP_API_SERVER,
 });
+
 
 
 
@@ -113,6 +113,11 @@ export async function actionForm (formData: FormData){
 
      
   }
+
+
+  
+// Utility to get a thumbnail URL from a video/image URL. Accepts an optional
+// imageUrlString so it doesn't rely on an undefined `post` variable.
 
   
 

@@ -5,6 +5,7 @@ import Image from "next/image"
 import PostEditor from "@/components/web/PostEditor"
 import { notFound } from "next/navigation"
 import { VideoFeed } from "@/components/web/videoCard"
+import { Button } from "@/components/ui/button"
 
 
 
@@ -47,10 +48,16 @@ const Dash = async({params}: {params  : Promise <{id : "Number", MediaType : "VI
   return (
 
 
-    <div className="group-relative flex flex-col justify-center items-center h-200 mx-auto">
+    <div className=" max-w-5xl group-relative flex flex-col justify-center items-center h-200 mx-auto">
+
+    
+    <h1 className="text-[40px] text-center tracking-wider mt-6 font-bold tracking-tight">{post.title}</h1>
+
+     <p className= "text-center text-[20px] w-full max-w-3xl text-muted-foreground mt-2 line-clamp-10">{post.content}</p>
+      
 
 
-      <div className="relative rounded-lg overflow-hidden "> 
+      <div className="relative rounded-lg overflow-hidden mt-6"> 
 
 
         <video controls src={post.imageUrl} className="w-[550px] h-[250px] rounded-lg"/>
@@ -62,33 +69,27 @@ const Dash = async({params}: {params  : Promise <{id : "Number", MediaType : "VI
 
 
       
-      <div className="">
-      <h1 className=" text-5xl text-center tracking-wider font-thin mt-6 ">{post.title
-        
-        }</h1>
-
-        <p className= "text-center text-xl text-muted-foreground mt-2">{post.content}</p>
+      <div className="flex-flex-col justify-center items-center">
       
-
+       
       </div>
 
-      
+      <Button className = "mt-4">Buy Now</Button>
 
-      <div className=" group-relative rounded-lg overflow-hidden mt-10">      
       
-      
-      </div>
 
       
       <div className="">
 
 
-      <PostEditor post = {{ ...post, id: String(post.id) }}/>      
+            
 
         
 
 
     </div>      
+
+    <PostEditor post = {{ ...post, id: String(post.id) }}/>
 
     </div>
       

@@ -1,3 +1,5 @@
+
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
@@ -41,11 +43,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("antialiased font-sans", geistSans.variable, geistMono.variable,  inter.variable)}
+      className={cn("antialiased font-sans", geistSans.variable, geistMono.variable,  inter.variable)} suppressHydrationWarning
     >
 
       
-    <body className = "w-full bg-[#0066cc] text-white">
+    <body className = "w-full max-w-7xl bg-[#0066cc] text-white">
 
       <Navbar/>
         

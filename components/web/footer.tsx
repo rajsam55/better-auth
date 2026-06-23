@@ -6,9 +6,11 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Rss, Globe } from "lucide-react";
-import { useRef } from "react";
 
 import { PostItem } from "@/lib/posts";
+import {useState}  from "react"
+
+
 
 
 
@@ -69,52 +71,48 @@ const socialLinks = [
 
 export default function Footer({ posts }: Props) {
 
-  const formRef = useRef<HTMLFormElement>(null);
+   const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
 
-  const subscribeNewsletter = async (_: unknown, formData: FormData) => {
-    const email = formData.get("email") as string;
-    
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
     try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      
-      const result = await response.json();
-      
+
+      const data = await response.json();
+
       if (!response.ok) {
-        return { error: result.error || "Subscription failed" };
+        throw new Error(data.error || 'Something went wrong.');
       }
-      
-      return { success: true };
-    } catch {
-      return { error: "Network error. Please try again." };
+
+      setStatus('success');
+      setMessage(data.message);
+      setEmail('');
+    } catch (err: any) {
+      setStatus('error');
+      setMessage(err.message);
     }
   };
 
-  const clientAction = async (formData: FormData) => {
-    const result = await subscribeNewsletter(undefined, formData);
+  
+
+  
     
-    if (result.error) {
-      alert(result.error);
-    } else {
-      alert("Success! Check your email.");
-      formRef.current?.reset();
-    }
-  };
-
-
-
-  
-
-
+    
   
 
   
 
   
-
+  
+  
  
 
 
@@ -142,13 +140,12 @@ export default function Footer({ posts }: Props) {
           <span className="text-[10px] tracking-[0.14em] font-bold uppercase text-white">
             Stay in the loop
           </span>
-          <div className="flex">
 
 
-          
+          <div className="flex">        
 
         
-          <form className=" flex gap-2 items-center" ref = {formRef} action = {clientAction}>
+          <form className=" flex gap-2 items-center" onSubmit={handleSubscribe}>
           
           
             <Input
@@ -156,6 +153,7 @@ export default function Footer({ posts }: Props) {
               name = "email"
               placeholder="your@email.com"
               required
+              onChange = {(e)=>setEmail(e.target.value)}
               
               className="bg-white/5 border border-white/20 border-r-0
                 rounded-none rounded-l-sm text-[13px] text-white
@@ -177,24 +175,38 @@ export default function Footer({ posts }: Props) {
               type = "submit"
             
             >
+
+            {status === 'loading'? "Subscribing" : 'Subscribe'}
+              
               
             </Button>    
 
-            Subscribe
+            {message && (
+        <p className={`text-sm ${status === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+          {message}
+        </p>
+
+            )}
+
+           
+      
+            
 
 
-            </form>  
+            </form>    
 
             
             
           </div>
-        </div>
-      </div>
+          
+          </div>
+
+          </div>
 
       {/* Main 4-column grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 border-b border-white/[0.06] ">
         {/* Navigate */}
-        <div className="mx-auto border-r border-white/[0.05] font-serif text-white-100">
+        <div className="mx-auto py-8 border-r border-white/[0.05] font-serif text-white-100">
           <p className="text-[12px] tracking-[0.14em] uppercase text-white mb-5 pb-3 border-b border-[#C4A35A]/25 font-bold">
             Navigate
           </p>

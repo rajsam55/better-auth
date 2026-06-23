@@ -57,9 +57,9 @@ const CreatePost = async() => {
 
   return (
 
-    <div className="">
+    <div className="flex flex-col mx-auto justify-center items-center h-120">
 
-    <form action = {actionForm} className="flex flex-col items-center justify-center mx-auto">
+    <form action = {actionForm} className="flex flex-col items-center justify-center lg:w-[500px] w-80">
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your Post</h1>
@@ -73,7 +73,7 @@ const CreatePost = async() => {
         </Field>
         <Field>
           <FieldLabel htmlFor="email">Content</FieldLabel>
-          <Input name = "content" type="text" placeholder="Content" required />
+          <textarea name = "content" placeholder="Content" required className = "text-sm line-clamp-3" ></textarea>
           
         </Field>
         <Field>

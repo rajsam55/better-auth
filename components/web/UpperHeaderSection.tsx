@@ -20,7 +20,7 @@ const UpperHeader = () => {
 
 
 
-    <div className = "bg-[#0066cc] lg: h-[900px] mx-auto flex flex-col justify-center items-center border-[1px] mt-4">
+    <div className = " w-full max-w-7xl bg-[#0066cc] ">
 
     <div className = "mb-6 mx-auto ">
 
@@ -28,7 +28,7 @@ const UpperHeader = () => {
     
     
 
-    <h1 className=" text-white text-2xl font-bold text-center font-bold mx-4">We Help all our students to excel in their writing skills to achieve better grades through excellent coaching!</h1>
+    <h1 className=" text-white text-2xl font-bold text-center font-bold py-2 mx-4">We Help all our students to excel in their writing skills to achieve better grades through excellent coaching!</h1>
 
     <p className="text-white text-center mt-8 line-height:1.625">Try one of our video series for free to get an idea <br/> Give us feedback !  </p>
 

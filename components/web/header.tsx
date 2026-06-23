@@ -24,12 +24,12 @@ const Header = () => {
   return (
 
 
-    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 lg:w-[1255px] ">
+    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 w-full max-w-7xl">
 
 
 
 
-      <div className="flex flex-col justify-center items-center gap-4 mx-auto mb-6 ">
+      <div className="flex flex-col justify-center items-start gap-4 mx-auto mb-6 ">
 
       <h1 className = "text-white text-3xl font-bold">Get essays that pass.<br/> Hassle-free Here!</h1>
       <p className="text-white line-height : 2 mx-2">If you have got time, we can help you write better essays,<br/> to get you the best grades.</p>
@@ -66,18 +66,25 @@ const Header = () => {
     
 
     
+    <div className = " py-4 ">
+
+    <div className=" relative h-62 w-100 mt-8 lg:h-90 md:h-70 rounded-lg overflow-hidden mx-auto bg-muted hover:bg-muted/50 transition  mb-2 flex flex-col justfy-center items-center ">
 
 
-    <div className=" relative h-60 w-90 md:w-100 lg:w-120 lg:h-110 rounded-lg overflow-hidden flex flex-col justify-center items-center mx-auto bg-muted hover:bg-muted/50 transition px-4 mb-2">
+      <Image src="/learn-english.jpg" alt="Header Image" 
+
+      className="object-cover rounded-lg shadow-md " 
+      
+      
+      
+      fill/>
 
 
-      <Image src="/learn-english.jpg" alt="Header Image"  className="object-cover rounded-lg shadow-md" fill/>
 
 
 
 
-
-
+    </div>
     </div>
 
     

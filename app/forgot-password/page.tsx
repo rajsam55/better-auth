@@ -1,69 +1,41 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { authClient } from '@/lib/auth-client'
-// removed incorrect import: use authClient.requestPasswordReset instead
-import React, { useState } from 'react'
 
-const ForgotPassword = () => {
-    const [loading, setLoading] = useState(false)
-    const [email, setEmail] = useState("")
-    const [message, setMessage] = useState("")
-    const [messageType, setMessageType] = useState<'success' | 'error'>('success')
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setLoading(true)
-        setMessage("")
+import { requestPasswordResetAction } from "@/app/auth.actions";
+import { useActionState } from "react";
 
-        try {
-            const { error } = await authClient.requestPasswordReset({
-                email: email,
-                redirectTo: "/reset-password",
-            })
-
-            if (error) {
-                setMessage(error.message || "Something went wrong")
-                setMessageType('error')
-            } else {
-                setMessage("Check your email to click the reset link")
-                setMessageType('success')
-            }
-        } catch (err) {
-            setMessage("Something went wrong. Please try again.")
-            setMessageType('error')
-        } finally {
-            setLoading(false)
-        }
-    }
+export default function ForgotPasswordPage() {
+    const [state, formAction, isPending] = useActionState(
+        async (prevState: any, formData: FormData) => {
+            return await requestPasswordResetAction(formData);
+        },
+        null
+    );
 
     return (
-        <div className = "">
-
-            <h2 className="text-center mt-20">Enter your Email Below To Get Reset Link</h2>
-            <form onSubmit={handleSubmit} className = "h-30 w-100 flex flex-col justify-center item-center mx-auto gap-4">
-                <Input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <Button type="submit" disabled={loading}>
-                    {loading ? "Sending..." : "Send reset email"}
-                </Button>
+        <main className="max-w-md mx-auto mt-20 p-6 border rounded-lg shadow-sm">
+            <h1 className="text-xl font-bold mb-4">Forgot Password</h1>
+            <form action={formAction} className="space-y-4">
+                <div>
+                    <label className="block text-sm font-medium mb-1">Email Address</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        required 
+                        className="w-full border p-2 rounded"
+                    />
+                </div>
+                {state?.error && <p className="text-red-500 text-sm">{state.error}</p>}
+                {state?.success && <p className="text-green-500 text-sm">{state.success}</p>}
+                <button 
+                    type="submit" 
+                    disabled={isPending}
+                    className="w-full bg-blue-600 text-white p-2 rounded disabled:bg-blue-400"
+                >
+                    {isPending ? "Sending..." : "Send Reset Link"}
+                </button>
             </form>
-            {message && (
-                <p style={{ 
-                    color: messageType === 'success' ? 'green' : 'red',
-                    marginTop: '1rem'
-                }}>
-                    {message}
-                </p>
-            )}
-        </div>
-    )
+        </main>
+    );
 }
-
-export default ForgotPassword

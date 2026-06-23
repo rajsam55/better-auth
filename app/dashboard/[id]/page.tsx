@@ -75,9 +75,17 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
 
       <div className="flex flex-col items-center max-w-[900px] mt-12" key={post.id}>
 
-      <p className="text-3xl text-center px-6">
+      <p className="text-3xl text-center px-6 line-clamp-8">
 
-      {post.content}
+        <a href="/readmore" className="">
+          
+          
+          {post.content}...Readmore
+          
+          
+          </a>
+
+      
 
       </p>
 

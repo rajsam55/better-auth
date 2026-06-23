@@ -2,6 +2,8 @@
 
 
 import { ImageFeed } from "@/components/web/card";
+import { FaqSection } from "@/components/web/faqItem";
+
 import Header from "@/components/web/header"
 import SubHeaderPage from "@/components/web/SubHeader";
 import SubHeader from "@/components/web/SubHeader";
@@ -27,7 +29,7 @@ export default async function Home() {
 
 
 
-  const { imagePosts, videoPosts } = await getHomePosts();
+  const { imagePosts, videoPosts, textPosts } = await getHomePosts();
 
 
 
@@ -45,7 +47,7 @@ export default async function Home() {
   return (
 
 
-    <div className="flex flex-col justify-center items-center">
+    <div className=" w-full max-w-7xl">
 
       <div className="bg-[#0066cc] ">   
 
@@ -61,7 +63,7 @@ export default async function Home() {
     
 
 
-        <div className="bg-[#0066cc] mt-4">
+        <div className="bg-[#0066cc] mt-4 w-full max-w-7xl">
 
           <ImageFeed posts = {imagePosts}/>       
 
@@ -71,7 +73,7 @@ export default async function Home() {
 
         
 
-        <div className="">
+        <div className="w-full max-w-7xl">
 
         <UpperHeader/>
 
@@ -90,11 +92,21 @@ export default async function Home() {
 
         <div className="">
 
-          videos
+        <VideoFeed  posts = {videoPosts}/>
 
 
           
         </div>
+
+        <div className="">
+
+        <FaqSection/>
+
+        
+
+          
+        </div>
+
 
         
         

@@ -2,18 +2,28 @@
 
 import Link from "next/link"
 import { Button } from "../ui/button"
-import { signOut, useSession } from "@/lib/auth-client"
-import UserDetails from "@/app/userProfile/userDetails/page"
-import Home from "@/app/page"
-import { HomeIcon, ShoppingCart, UserIcon } from "lucide-react"
-import { Avatar } from "@/components/ui/avatar"
+
+import { HomeIcon, Menu, UserIcon, X } from "lucide-react"
+
+
+import {signOut, useSession}  from "@/lib/auth-client"
+
+
+
+
+
+
+
+
+
+
 
 
 const Navbar = () => {
-
-  const { data:  session } = useSession()
-
-
+  
+  const {data : session}   = useSession()
+  
+   
 
 
 
@@ -25,135 +35,156 @@ const Navbar = () => {
 
 
   return (
-
-
-    <div className = "flex justify-between items-center gap-5 mx-auto mt-4 bg-[#0066cc] h-20" w-120>
-
-
-    <div className="">
-
-    <Link href = "/">
-
-    <Button variant = "ghost" className = "bg-[#0066cc] text-white">
-
-
-      <HomeIcon size = {32}/>
-
-
-
-
-    </Button>
-
-
     
-    
-    
+
+    <div className="flex justify-between mt-6 h-20 items-center
+     mx-auto bg-[#0066cc] w-full max-w-7xl">
+
+
+      <div className="">
+
+        <Link href= "/">
+
+        <HomeIcon size ={18} className = "text-white mx-2"/>
+
+        </Link>
+
+        </div>      
+
+
+        {(session?.user as { role?: string } | undefined)?.role === "ADMIN" ?
+
+
+<div className=""> 
+
+
+     <Link href="/create">
+      <Button variant="default" className = "bg-[#0066cc]" >
+        Create
+      </Button>
     </Link>
 
-    
-    </div>
+    <Link href="/faq-create">
+      <Button variant="default" className = "bg-[#0066cc]" >
+        Faq
+      </Button>
+    </Link>
 
+
+    <Link href="/userProfile/createProfileImage/">
+      <Button variant="default" className = "bg-[#0066cc]" >
+        Profile
+      </Button>
+    </Link>
+    <Link href="/userProfile/userDetails/">
+      <Button variant="default" className="bg-[#0066cc]">
+        Users
+      </Button>
+    </Link>
+    <Link href="/files">
+      <Button variant="default" className="bg-[#0066cc]">
+        Files
+      </Button>
+    </Link>
+    <Link href="/pdfConvert" >
+      <Button variant="default" className="bg-[#0066cc]">
+        Pdf
+      </Button>
+    </Link>
+
+    </div>  
+    
+    : 
 
     <div className="">
 
-    <Link href ="/create"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Create</Button></Link>
+    <Link href="/essays">
+      <Button variant="default" className="bg-[#0066cc]">
+        Essay
+      </Button>
+    </Link>
 
-    <Link href ="/userProfile/createProfileImage/"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Profile </Button></Link>
-
-    <Link href ="/userProfile/userDetails/"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Users </Button></Link>
-
-    <Link href ="/files"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Files </Button></Link>
-
-    <Link href ="/pdfConvert"><Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">Pdf </Button></Link>
-
-
-
-    
-
-
+    <Link href="/contact">
+      <Button variant="default" className="bg-[#0066cc]">
+        Contact
+      </Button>
+    </Link>
 
     </div>
 
-    
+
+        
+        } 
+
+      
 
 
     <div className="flex gap-2">
 
+      {session?.user?.id && (
+      <Link href={`/userProfile/${session.user.id}`} >
+        {session.user.image ? (
+          <Button className="bg-[#0066cc] text-white ">
+            <img
+              src={session.user.image}
+              width={32}
+              height={32}
+              alt={session.user.name ?? "User"              
+              }
+              className = ""
+            />
+          </Button>
+        ) : (
+          <UserIcon className="mt-1 text-white" />
+        )}
+      </Link>
+    )}
+  
+
+
     
 
-
-    {session?.user?.id && 
-      <Link href={`/userProfile/${session.user.id}`}>
-        {session.user.image ? <Button className = "bg-[#0066cc] text-white ">
-
-          <img src = {session.user.image} width ={32}  height = {32} />
-         
-          
-        </Button> :  <UserIcon className ="text-white mt-1"/> }
-        
-        
-      </Link>}
-
-        
-      { (session?.user as { role?: string })?.role === "ADMIN"  && 
-
-      <>
-
-      
-
-      <span className = "text-white mt-1"> {session?.user.name}</span>
-
-      </>         
-          
-        }
-
-             
-        
-      
-
-
-      
-    
-
+    {(session?.user as { role?: string } | undefined)?.role === "ADMIN" && (
+      <span className="mt-1 text-white">{session?.user.name}</span>
+    )}
 
     {session ? (
-      <Button onClick={() => signOut()} className = "bg-[#0066cc] text-white cursor-pointer">Logout</Button>
+      <Button variant = "default" className = "bg-[#0066cc]"
+        onClick={() => {
+          
+          signOut()
+        }}
+      
+        
+      >
+        Logout
+      </Button>
     ) : (
       <>
-        
         <Link href="/sign-in">
-          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">SignIn</Button>
+          <Button className = "bg-[#0066cc]">
+            SignIn
+          </Button>
         </Link>
         <Link href="/sign-up">
-          <Button variant = "default" className = "bg-[#0066cc] text-white cursor-pointer">SignUp</Button>
+          <Button variant="default" className = "bg-[#0066cc]" >
+            SignUp
+          </Button>
         </Link>
       </>
     )}
 
-    
-
-
-
-
-
+    </div>
+      
+  
 
 
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
   )
+
 }
+
+  
 
 export default Navbar

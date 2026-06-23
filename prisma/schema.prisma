@@ -17,8 +17,12 @@ model User {
   id            String    @id
   name          String
   email         String
+  newsletterStatus   String?  // "subscribed" | "unsubscribed" | "pending"
+  newsletterSyncedAt DateTime?
   emailVerified Boolean
   image         String?
+  resetToken    String?   @unique
+  resetTokenExpiry   DateTime?
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
@@ -105,3 +109,25 @@ model Post {
   @@map("post")
 }
 
+// Add this model to your existing prisma/schema.prisma file
+// (merge with your existing datasource/generator blocks)
+
+model Faq {
+  id        String @id
+  question  String
+  answer    String
+  category  String?  // optional grouping, e.g. "Billing", "Account"
+  order     Int      @default(0) // controls display order within a category
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@map("faqs")
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

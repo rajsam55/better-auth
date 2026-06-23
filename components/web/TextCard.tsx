@@ -1,7 +1,8 @@
 "use client"
+import { useSession } from "@/lib/auth-client";
 import { PostItem } from "@/lib/posts";
 import Link  from "next/link";
-import Image from "next/image";
+
 
 
 interface Props {
@@ -9,6 +10,21 @@ interface Props {
 }
 
 export function TextFeed({ posts }: Props) {
+
+
+
+  const {data: session}  = useSession()
+
+
+  
+
+
+
+
+
+
+
+
   if (!posts.length)
     
     return <p className="text-muted-foreground">No text files
@@ -17,7 +33,7 @@ export function TextFeed({ posts }: Props) {
      yet.</p>;
 
   return (
-    <div className="grid sm:grid-cols-1 md: grid-cols-2 lg:grid-cols-3 gap-2 mx-auto p-4 rounded-lg ">
+    <div className="">
 
       {posts.map((post) => (
 
@@ -35,7 +51,14 @@ export function TextFeed({ posts }: Props) {
 
 
 
-          <div className="">
+        {session?.user.email &&
+
+
+<div className="">
+
+
+
+                     
 
           <embed
 
@@ -45,7 +68,23 @@ export function TextFeed({ posts }: Props) {
             
             
           />
+
+          
+
+
+
+
           </div>
+        
+        
+        
+        
+        
+        
+        
+        }
+
+          
 
 
           <div className="group-hover:opacity-100 transition">

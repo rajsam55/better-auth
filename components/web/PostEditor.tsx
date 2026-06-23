@@ -4,6 +4,9 @@ import { useActionState, useTransition, useState } from "react";
 import { updatePost, deletePost, ActionState } from "@/app/actions";
 import { Button } from "../ui/button";
 import  Link from "next/link";
+import { useSession } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 
 
@@ -35,23 +38,34 @@ function DeletePostButton({ id }: {id: string }) {
   const [state, formAction] = useActionState(deletePostWithId, initialState);
   const [confirming, setConfirming] = useState(false);
 
+  const {data : session}  = useSession()
+
+
+
+
+
   return (
     <div className="delete-wrapper">
-      {!confirming ? (
+      {!confirming ? 
+
+        (session?.user as{role:string} |undefined)?.role==="ADMIN" &&
+
         <Button
           type="button"
           className="btn btn-danger"
           onClick={() => setConfirming(true)}
         >
           <span className="btn-icon">✕</span> Delete Post
-        </Button>
-      ) : (
+          
+          </Button>
+        
+      : (
         <div className="confirm-row">
           <span className="confirm-label">Are you sure?</span>
           <form action={formAction} style={{ display: "inline" }}>
-            <button type="submit" className="btn btn-danger">
-              Yes, delete
-            </button>
+          
+           <Button onClick= {()=>setConfirming(true)}>yes, delete</Button>         
+            
           </form>
           <Button
             type="button"
@@ -72,12 +86,18 @@ function DeletePostButton({ id }: {id: string }) {
 // ─── Post Editor ──────────────────────────────────────────────────────────────
 
 export default function PostEditor({post} : PostEditorProps) {
+
+
+
   const updatePostWithId = updatePost.bind(null, post.id);
   const [state, formAction] = useActionState(updatePostWithId, initialState);
   const [isPending, startTransition] = useTransition();
 
-  const [updateMode, setupdateMode]  = useState(false)
+  const [updateMode, setUpdateMode]  = useState(false)
 
+
+
+  const {data: session }  = useSession()  
 
 
 
@@ -192,7 +212,17 @@ export default function PostEditor({post} : PostEditorProps) {
 
           <p className="flex gap-2">
 
-            <Button onClick= {()=>setupdateMode(true)}>Update Post</Button>
+            {(session?.user as { role?: string } | undefined)?.role === "ADMIN" &&
+
+
+           <Button onClick= {()=>setUpdateMode(true)}>Update Post</Button>         
+          
+          
+          
+          
+          }
+
+            
 
           </p>
 
