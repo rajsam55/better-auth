@@ -1,4 +1,4 @@
-"use client"
+"use server"
 
 import { FaqSection } from "@/components/web/faqItem";
 import prisma from "@/lib/prisma"; // Adjust this path based on your Prisma initialization file
@@ -61,5 +61,5 @@ async function FaqSectionPage(): Promise<JSX.Element> {
   );
 }
 
-export const revalidate = 3600;
+
 export default FaqSectionPage
