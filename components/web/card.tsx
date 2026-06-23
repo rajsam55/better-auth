@@ -17,7 +17,7 @@ export function ImageFeed({ posts }: Props) {
 
   return (
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4 h-screen-160 mb-6 p-2 w-full max-w-7xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 py-4  h-screen-160 mb-6  w-full max-w-7xl">
 
       
 
@@ -26,49 +26,37 @@ export function ImageFeed({ posts }: Props) {
 
         <div
           key={post.id}
-          className=" relative h-60 w-100 overflow-hidden mx-auto mt-2 mb-8 flex flex-col justify-center items-center gap-24"
+          className=" relative h-62 w-100 overflow-hidden mx-auto mt-2 mb-4 flex flex-col justify-center items-center "
         >
+
+          <Link href= {`/dashboard/${post.id}`} >
+
+          <div className="h-62 w-100 relative mt-4">
           <p className="text-white text-center text-xl text-bold ">
               {post.title}
             </p>
 
-             <Image src= {post.imageUrl}  alt= "blog"     
-
-          
-
-          
-          className = " p-2 mt-6 mb-4 object-cover"
-          fill
-            
-            
-          />
-
-           
+            <Image src ={post.imageUrl} alt= "" fill/>
 
             
-          
-
-          <Link href= {`/dashboard/${post.id}`} >
-
-          
-
-          
-
-          </Link>
 
 
-          <div className="text-white line-clamp-1 w-full max-w-[100px]">{post.content}</div>
 
+
+
+
+            <p className="text-white text-center text-xl text-bold ">
+              {post.content}
+            </p>       
+            </div>
+  
 
           
-          
-      
+
+          </Link>     
 
 
-          </div>       
-          
-          
-      
+          </div>             
       
       ))}
 

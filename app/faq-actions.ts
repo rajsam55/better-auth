@@ -23,6 +23,7 @@ export async function faqAction (formData:FormData) {
 
     await prisma.faq.create({
         data: {
+            id: crypto.randomUUID(),
             question: question as string,
             answer: answer as string,
             order: Math.floor(Math.random() * 1000000),
@@ -32,8 +33,8 @@ export async function faqAction (formData:FormData) {
     })
 
 
-    redirect("/"),
     revalidatePath("/")
+    redirect("/")
 
 
 
