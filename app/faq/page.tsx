@@ -1,8 +1,13 @@
-import prisma from "@/lib/prisma"; // Adjust this path based on your Prisma initialization file
-import {FaqSection} from  "../../components/web/faqItem";
+"use client"
 
-// Opt into dynamic rendering if your FAQs change frequently without manual rebuilds
-export const revalidate = 3600; // Revalidate data every hour
+import { FaqSection } from "@/components/web/faqItem";
+import prisma from "@/lib/prisma"; // Adjust this path based on your Prisma initialization file
+import { JSX } from "react";
+
+type FaqSectionProps = {
+  question: string;
+  answer: string;
+};
 
 async function getFaqs() {
   return await prisma.faq.findMany({
@@ -12,8 +17,26 @@ async function getFaqs() {
   });
 }
 
-export default async function FaqPage() {
-  const faqs = await getFaqs();
+// Cast imported component to any to avoid TSX prop typing issues from the imported module
+const FaqSectionAny = FaqSection as any;
+
+async function FaqSectionPage(): Promise<JSX.Element> {
+
+  const faqs = await getFaqs()
+
+
+
+
+
+  
+
+
+// Opt into dynamic rendering if your FAQs change frequently without manual rebuilds
+ // Revalidate data every hour
+
+
+
+
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -26,11 +49,10 @@ export default async function FaqPage() {
       ) : (
         <div className="space-y-1">
           {faqs.map((faq) => (
-            <FaqSection 
-              key={faq.id} 
-              question = {faq.question}
-              
-              answer={faq.answer} 
+            <FaqSectionAny
+              key={faq.id}
+              question={faq.question}
+              answer={faq.answer}
             />
           ))}
         </div>
@@ -38,3 +60,6 @@ export default async function FaqPage() {
     </div>
   );
 }
+
+export const revalidate = 3600;
+export default FaqSectionPage
