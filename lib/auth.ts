@@ -29,7 +29,7 @@ export const auth = betterAuth({
 
       message : {
 
-        from_email : "glitternail20@gmail.com",
+        from_email : "onboarding@super-english.vercel.com",
 
         subject : "reset your password",
 

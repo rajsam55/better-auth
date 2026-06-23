@@ -47,7 +47,7 @@ export default async function Home() {
   return (
 
 
-    <div className=" w-full max-w-7xl">
+    <main className=" container w-full max-w-7xl">
 
       <div className="bg-[#0066cc] ">   
 
@@ -111,7 +111,7 @@ export default async function Home() {
         
         
         
-        </div>
+        </main>
 
 
 
