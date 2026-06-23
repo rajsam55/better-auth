@@ -53,7 +53,7 @@ export async function getData (){
 
 }
 
-export async function FaqSection() {
+export  async function FaqSection() {
 
 
   const faqs = await getData()

@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma"; // Adjust this path based on your Prisma initialization file
-import FaqItem from "../components/FaqItem";
+import {FaqSection} from  "../../components/web/faqItem";
 
 // Opt into dynamic rendering if your FAQs change frequently without manual rebuilds
 export const revalidate = 3600; // Revalidate data every hour
@@ -26,9 +26,10 @@ export default async function FaqPage() {
       ) : (
         <div className="space-y-1">
           {faqs.map((faq) => (
-            <FaqItem 
+            <FaqSection 
               key={faq.id} 
-              question={faq.question} 
+              question = {faq.question}
+              
               answer={faq.answer} 
             />
           ))}
