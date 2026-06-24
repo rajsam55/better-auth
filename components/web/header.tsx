@@ -24,7 +24,7 @@ const Header = () => {
   return (
 
 
-    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 w-full max-w-7xl">
+    <div className="bg-[#0066cc] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-4 lg: h-[600px] shadow-md mx-auto mb-6 w-full max-w-9xl">
 
 
 

@@ -24,7 +24,7 @@ const SubHeaderPage = () => {
     
 
 
-    <div className="flex flex-col justify-center items-center h-60 bg-[#0066cc] w-full max-w-7xl">
+    <div className="flex flex-col justify-center items-center h-60 bg-[#0066cc] w-full max-w-9xl">
 
       <CircleCheckBig className = "text-white"/>
 

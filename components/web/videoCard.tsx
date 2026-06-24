@@ -92,7 +92,7 @@ export  function VideoFeed({ posts }: Props) {
 
 
 
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto bg-white-100 pb-4 mb-8 bg-[#0066cc] h-screen-200 w-full max-w-7xl">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto bg-white-100 pb-4 mb-8 bg-[#0066cc] h-screen-200 w-full max-w-9xl">
 
 
 

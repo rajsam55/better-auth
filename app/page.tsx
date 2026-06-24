@@ -47,7 +47,7 @@ export default async function Home() {
   return (
 
 
-    <main className=" container w-full w-11/12">
+    <main className=" container w-full max-w-9xl">
 
       <div className="bg-[#0066cc] ">   
 
@@ -63,7 +63,7 @@ export default async function Home() {
     
 
 
-        <div className="bg-[#0066cc] mt-4 w-full max-w-7xl">
+        <div className="bg-[#0066cc] mt-4 w-full max-w-9xl">
 
           <ImageFeed posts = {imagePosts}/>       
 
@@ -73,7 +73,7 @@ export default async function Home() {
 
         
 
-        <div className="w-full max-w-7xl">
+        <div className="w-full max-w-9xl">
 
         <UpperHeader/>
 

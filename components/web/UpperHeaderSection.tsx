@@ -20,7 +20,7 @@ const UpperHeader = () => {
 
 
 
-    <div className = " w-full max-w-7xl bg-[#0066cc] ">
+    <div className = " w-full max-w-9xl bg-[#0066cc] ">
 
     <div className = "mb-6 mx-auto ">
 

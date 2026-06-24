@@ -38,7 +38,7 @@ const Navbar = () => {
     
 
     <div className="flex justify-between mt-6 h-20 items-center
-     mx-auto bg-[#0066cc] w-full max-w-7xl">
+     mx-auto bg-[#0066cc] w-full max-w-9xl">
 
 
       <div className="">

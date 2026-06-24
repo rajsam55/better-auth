@@ -17,7 +17,7 @@ export function ImageFeed({ posts }: Props) {
 
   return (
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 py-4  h-screen-160 mb-6  w-full max-w-7xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 py-4  h-screen-160 mb-6  w-full max-w-9xl">
 
       
 
