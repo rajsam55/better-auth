@@ -47,7 +47,7 @@ export default function RootLayout({
     >
 
       
-    <body className = "w-full max-w-7xl bg-[#0066cc] text-white">
+    <body className = "w-full max-w-[1300px] bg-[#0066cc] text-white">
 
       <Navbar/>
         
