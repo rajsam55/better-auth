@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Finn English teacher avatar</title>
+  <desc id="desc">Cheerful English teacher with a vocabulary flashcard.</desc>
+  <rect width="256" height="256" rx="56" fill="#ecfbff"/>
+  <circle cx="128" cy="118" r="78" fill="#39b7c8"/>
+  <path d="M62 220c9-43 39-68 66-68s57 25 66 68z" fill="#173f5f"/>
+  <path d="M95 154h66l9 66H86z" fill="#f0b285"/>
+  <circle cx="128" cy="109" r="52" fill="#f5be92"/>
+  <path d="M78 99c8-38 34-59 67-55 26 3 43 22 44 52-23 4-49-2-76-18-8 10-20 17-35 21z" fill="#8f5a2a"/>
+  <path d="M95 112c7-6 17-6 24 0m18 0c7-6 17-6 24 0" fill="none" stroke="#2b2521" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="107" cy="122" r="5" fill="#1f1f1f"/>
+  <circle cx="149" cy="122" r="5" fill="#1f1f1f"/>
+  <path d="M110 139c12 11 25 11 37 0" fill="none" stroke="#935047" stroke-width="6" stroke-linecap="round"/>
+  <path d="M99 164l29 28 29-28" fill="#ffffff"/>
+  <path d="M128 171v49" stroke="#ffcf56" stroke-width="8" stroke-linecap="round"/>
+  <rect x="47" y="156" width="58" height="40" rx="8" fill="#ffffff"/>
+  <path d="M59 172h34M59 184h24" stroke="#173f5f" stroke-width="5" stroke-linecap="round"/>
+</svg>

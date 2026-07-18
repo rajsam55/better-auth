@@ -1,9 +1,22 @@
-import { betterAuth, User } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
+
+
 import prisma from "@/lib/prisma";
 import { sendMailchimpResetEmail } from "./auth-emails";
 import { nextCookies } from "better-auth/next-js";
 import mailchimpTransactional from "@mailchimp/mailchimp_transactional";
+
+import { headers } from "next/headers";
+import {stripeClient}  from "@/lib/stripe"
+
+import {prismaAdapter}  from "better-auth/adapters/prisma"
+import {admin}  from "better-auth/plugins"
+import {betterAuth, User} from "better-auth"
+
+import Stripe from "stripe"
+import {stripe}  from  "@better-auth/stripe"
+
+
+
 
 
 
@@ -11,14 +24,48 @@ import mailchimpTransactional from "@mailchimp/mailchimp_transactional";
 
 const mailchimp = mailchimpTransactional(process.env.MAILCHIMP_TRANSACTIONAL_API_KEY || "")
 
-export const auth = betterAuth({
+
+
+// const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY, {
+//   apiVersion: "2026-06-24.dahlia", // Use latest stable or default version
+// });
+
+
+
+
+
+
+
+export const  auth = betterAuth({
+
   database: prismaAdapter(prisma, {
+
     provider: "postgresql",
-  }),
-  plugins: [nextCookies()],
+  }), 
 
   
-  emailAndPassword: {
+
+  plugins  :  [
+
+
+    stripe ({
+
+      stripeClient ,
+
+      stripeWebhookSecret : process.env.STRIPE_WEBHOOK_SECRET_KEY!,
+
+      createStripeCustomerOnSignup  : true,
+
+
+
+    }),
+
+
+],
+ 
+  
+  
+  emailAndPassword : {
     enabled: true,
   },
 

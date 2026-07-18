@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Eva English teacher avatar</title>
+  <desc id="desc">Warm English teacher with a speech bubble.</desc>
+  <rect width="256" height="256" rx="56" fill="#fff0f5"/>
+  <circle cx="128" cy="118" r="78" fill="#f67c9b"/>
+  <path d="M62 220c9-43 38-68 66-68s57 25 66 68z" fill="#6b2948"/>
+  <path d="M95 154h66l9 66H86z" fill="#8d563f"/>
+  <circle cx="128" cy="110" r="51" fill="#a96a4f"/>
+  <path d="M80 112c-5-43 18-70 52-70 29 0 50 24 48 62-23-7-45-21-64-41-9 21-21 38-36 49z" fill="#3a211c"/>
+  <circle cx="106" cy="116" r="6" fill="#1f1f1f"/>
+  <circle cx="150" cy="116" r="6" fill="#1f1f1f"/>
+  <path d="M111 138c11 9 23 9 34 0" fill="none" stroke="#623028" stroke-width="6" stroke-linecap="round"/>
+  <path d="M100 164l28 26 28-26" fill="#ffffff"/>
+  <path d="M128 171l-18 49h36z" fill="#ffd166"/>
+  <path d="M168 57h45a13 13 0 0 1 13 13v22a13 13 0 0 1-13 13h-18l-17 15 5-15h-15a13 13 0 0 1-13-13V70a13 13 0 0 1 13-13z" fill="#ffffff"/>
+  <path d="M171 80h37" stroke="#6b2948" stroke-width="6" stroke-linecap="round"/>
+</svg>

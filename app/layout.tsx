@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import Footer from "@/components/web/footer";
 import Navbar from "@/components/web/navbar";
 
@@ -47,10 +47,10 @@ export default function RootLayout({
     >
 
       
-    <body className = "w-full 2xl:max-w-9xl bg-[#0066cc] text-white">
+    <body className = "w-full 2xl:max-w-9xl bg-white text-black">
 
+      
       <Navbar/>
-        
         
       {children}
 

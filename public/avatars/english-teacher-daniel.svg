@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Daniel English teacher avatar</title>
+  <desc id="desc">Thoughtful English teacher with a grammar board.</desc>
+  <rect width="256" height="256" rx="56" fill="#eafff2"/>
+  <circle cx="128" cy="118" r="78" fill="#64c991"/>
+  <path d="M62 220c9-44 40-68 66-68s57 24 66 68z" fill="#243b4a"/>
+  <path d="M94 154h68l9 66H85z" fill="#d79b72"/>
+  <circle cx="128" cy="108" r="52" fill="#e8aa7f"/>
+  <path d="M79 102c2-39 26-61 58-61 27 0 46 19 49 51-23 0-47-9-69-28-9 18-22 31-38 38z" fill="#5a3427"/>
+  <path d="M94 111h25m18 0h25" stroke="#263238" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="106" cy="121" r="5" fill="#263238"/>
+  <circle cx="150" cy="121" r="5" fill="#263238"/>
+  <path d="M113 139c9 7 21 7 30 0" fill="none" stroke="#8f4b3d" stroke-width="6" stroke-linecap="round"/>
+  <path d="M101 162l27 31 27-31" fill="#ffffff"/>
+  <rect x="158" y="158" width="48" height="38" rx="6" fill="#163f34"/>
+  <path d="M168 172h28M168 184h18" stroke="#eafff2" stroke-width="4" stroke-linecap="round"/>
+  <path d="M128 171v49" stroke="#64c991" stroke-width="8" stroke-linecap="round"/>
+</svg>

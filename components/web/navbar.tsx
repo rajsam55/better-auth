@@ -37,22 +37,28 @@ const Navbar = () => {
   return (
     
 
-    <div className="flex justify-between mt-6 h-20 items-center
+    <div className="flex justify-between h-20 items-center
      mx-auto bg-[#0066cc] w-full max-w-9xl">
 
 
-      <div className="">
+      <div className="flex gap-1">
 
         <Link href= "/">
 
-        <HomeIcon size ={18} className = "text-white mx-2"/>
+        <div className="flex items-center justify-center">
+
+        <HomeIcon className = "mx-2 text-white"/>
+
+        <h2 className="text-white font-bold text-[18px] mx-2 ">BetterEnglish</h2>
+        </div>
+        
 
         </Link>
 
         </div>      
 
 
-        {(session?.user as { role?: string } | undefined)?.role === "ADMIN" ?
+        {(session?.user as { role?: string } | undefined)?.role === "USER" ?(
 
 
 <div className=""> 
@@ -64,8 +70,14 @@ const Navbar = () => {
       </Button>
     </Link>
 
-    <Link href="/faq-create">
+    <Link href="/create-premium">
       <Button variant="default" className = "bg-[#0066cc]" >
+        Premium
+      </Button>
+    </Link>
+
+    <Link href="/faq-create">
+      <Button variant="default" className = "bg-[#0066cc] text-[15px]" >
         Faq
       </Button>
     </Link>
@@ -91,21 +103,26 @@ const Navbar = () => {
         Pdf
       </Button>
     </Link>
+    <Link href="/createfile" >
+      <Button variant="default" className="bg-[#0066cc]">
+        Create Pdf
+      </Button>
+    </Link>
 
-    </div>  
+    </div>  )
     
     : 
 
     <div className="">
 
-    <Link href="/essays">
-      <Button variant="default" className="bg-[#0066cc]">
+    <Link href="/essay">
+      <Button variant="default" className=" text-[18px] bg-[#0066cc]">
         Essay
       </Button>
     </Link>
 
     <Link href="/contact">
-      <Button variant="default" className="bg-[#0066cc]">
+      <Button variant="default" className="bg-[#0066cc] text-[18px]">
         Contact
       </Button>
     </Link>
@@ -114,7 +131,7 @@ const Navbar = () => {
 
 
         
-        } 
+        }  
 
       
 
@@ -145,11 +162,11 @@ const Navbar = () => {
     
 
     {(session?.user as { role?: string } | undefined)?.role === "ADMIN" && (
-      <span className="mt-1 text-white">{session?.user.name}</span>
+      <span className=" flex items-center mb-2 text-white text-[14px] mt-1">{session?.user.name}</span>
     )}
 
     {session ? (
-      <Button variant = "default" className = "bg-[#0066cc]"
+      <Button variant = "default" className = "bg-[#0066cc] text-[14px]"
         onClick={() => {
           
           signOut()
@@ -162,12 +179,12 @@ const Navbar = () => {
     ) : (
       <>
         <Link href="/sign-in">
-          <Button className = "bg-[#0066cc]">
+          <Button className = "bg-[#0066cc] text-[14px]">
             SignIn
           </Button>
         </Link>
         <Link href="/sign-up">
-          <Button variant="default" className = "bg-[#0066cc]" >
+          <Button variant="default" className = "bg-[#0066cc] text-[14px]" >
             SignUp
           </Button>
         </Link>

@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
+    typeRoutes : true,
     serverActions: {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
@@ -28,6 +29,8 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+
+      
     ],
   },
 };

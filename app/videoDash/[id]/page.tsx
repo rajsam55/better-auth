@@ -6,6 +6,8 @@ import PostEditor from "@/components/web/PostEditor"
 import { notFound } from "next/navigation"
 import { VideoFeed } from "@/components/web/videoCard"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
 
 
@@ -48,24 +50,36 @@ const Dash = async({params}: {params  : Promise <{id : "Number", MediaType : "VI
   return (
 
 
-    <div className=" max-w-5xl group-relative flex flex-col justify-center items-center h-200 mx-auto">
+    <div className="group-relative flex flex-col mx-12 h-screen-100 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+
+    <div className="flex gap-2 items-center ">
+        <ArrowLeft size =  "16" className = "mt-2"/>
+
+      <Link href = "/">
+      <h2 className="mt-2 font-bold text-[12px] text-indigo-500">BACK TO LESSONS</h2>
+      </Link>
+
+      </div>
+
 
     
-    <h1 className="text-[40px] text-center tracking-wider mt-6 font-bold tracking-tight">{post.title}</h1>
+    <h1 className="text-[36px] font-bold font-family:sans-serif tracking-tight tracking-wider mt-6 ">{post.title}</h1>
 
-     <p className= "text-center text-[20px] w-full max-w-3xl text-muted-foreground mt-2 line-clamp-10">{post.content}</p>
-      
-
-
-      <div className="relative rounded-lg overflow-hidden mt-6"> 
+     
 
 
-        <video controls src={post.imageUrl} className="w-[550px] h-[250px] rounded-lg"/>
+      <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 "> 
+
+
+        <video controls src={post.url} className="w-[750px] h-[500px] rounded-lg"/>
 
          
          
 
          </div>  
+
+         <p className= "text-[15px] w-full max-w-3xl line-clamp-10">{post.content}</p>
+      
 
 
       
@@ -74,7 +88,11 @@ const Dash = async({params}: {params  : Promise <{id : "Number", MediaType : "VI
        
       </div>
 
-      <Button className = "mt-4">Buy Now</Button>
+      <Link href= "/videos">
+
+      <Button className = "mt-4 bg-blue-500 w-full max-w-[750px]">Watch more videos like this For Free</Button>
+
+      </Link>
 
       
 

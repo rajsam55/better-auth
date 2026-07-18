@@ -75,7 +75,7 @@ export  async function FaqSection() {
   
 
   return (
-    <div className="w-full max-w-3xl mx-auto space-y-8 ">
+    <div className="w-full max-w-3xl mx-auto space-y-8 items-center ">
 
       <h1 className="text-center py-4 font-bold text-2xl mt-4">Frequently Asked Questions</h1>
       <div className = "text-center flex flex-col justify-center items-center mx-auto text-xl">

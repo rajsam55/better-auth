@@ -24,7 +24,7 @@ interface Props {
   posts: PostItem[];
 }
 
-export  function VideoFeed({ posts }: Props) {
+export function VideoFeed({ posts }: Props) {
 
 
 
@@ -101,7 +101,7 @@ export  function VideoFeed({ posts }: Props) {
 
     <div className="">
 
-      <p className="text-center text-white">{post.title}</p>    
+      <p className="text-center text-white mt-6">{post.title}</p>    
 
 
     
@@ -119,7 +119,7 @@ export  function VideoFeed({ posts }: Props) {
           
 
 
-        <Image src= "/videoplayer.png" alt="" fill
+        <Image src= "/videoplayer.png" alt="player" fill
 
         className = "object-cover mt-2 mb-4"
         
@@ -127,6 +127,8 @@ export  function VideoFeed({ posts }: Props) {
         
         
         />
+
+        
         
 
          

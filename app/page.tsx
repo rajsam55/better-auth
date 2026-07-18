@@ -2,15 +2,18 @@
 
 
 import { ImageFeed } from "@/components/web/card";
-import { FaqSection } from "@/components/web/faqItem";
-
-import Header from "@/components/web/header"
+import {FaqSection} from "@/components/web/faqItem";
+import {Header} from "@/components/web/header"
 import SubHeaderPage from "@/components/web/SubHeader";
 import SubHeader from "@/components/web/SubHeader";
 import { TextFeed } from "@/components/web/TextCard";
 import UpperHeader from "@/components/web/UpperHeaderSection";
 import { VideoFeed } from "@/components/web/videoCard";
 import { getHomePosts } from "@/lib/posts";
+import { getHomeDocs } from "@/lib/docs";
+import { Hero5 } from "@/components/ui/hero-5";
+
+
 
 
 
@@ -31,6 +34,8 @@ export default async function Home() {
 
   const { imagePosts, videoPosts, textPosts } = await getHomePosts();
 
+  const {textDocs}        =       await getHomeDocs()
+
 
 
 
@@ -47,9 +52,9 @@ export default async function Home() {
   return (
 
 
-    <main className=" container w-full max-w-9xl">
+    <div className=" w-full max-w-7xl">
 
-      <div className="bg-[#0066cc] ">   
+      <div className="bg-gray300 ">   
 
 
         <Header/>
@@ -63,21 +68,9 @@ export default async function Home() {
     
 
 
-        <div className="bg-[#0066cc] mt-4 w-full max-w-9xl">
+        <div className="bg-white mt-4 w-full max-w-7xl">
 
           <ImageFeed posts = {imagePosts}/>       
-
-
-
-        </div>     
-
-        
-
-        <div className="w-full max-w-9xl">
-
-        <UpperHeader/>
-
-          
 
 
 
@@ -88,6 +81,34 @@ export default async function Home() {
         <SubHeaderPage/>
 
         
+        </div>
+
+        
+
+        
+
+
+        <div className="w-full max-w-7xl">
+
+        <TextFeed documents = {textDocs}  />
+
+
+        </div>
+
+
+        
+
+        
+
+        
+        <div className="w-full max-w-7xl">
+
+        <UpperHeader/>
+
+          
+
+
+
         </div>
 
         <div className="">
@@ -107,12 +128,14 @@ export default async function Home() {
           
         </div>
 
+        
+        
+
 
         
         
         
-        </main>
-        
+        </div>
 
 
 

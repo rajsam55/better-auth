@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import { useState}  from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,9 +13,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { actionForm } from '@/app/actions'
 import { useSession } from '@/lib/auth-client'
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 
 
@@ -24,40 +23,26 @@ import { redirect } from 'next/navigation'
 
 
 
-const CreatePost = async() => {
 
 
 
-  const session = await auth.api.getSession({
-      
-            headers: await headers(),
-      
-          
-      
-      
-          })
-      
-          if (!session || session.user.role !== "ADMIN") {
+const CreatePost = () => {
 
+  const [price, setPrice] = useState("")
 
-          redirect("/unauthorized");
-          
-          }
-
-
-  
-
-
-
-
-
+  const handlePriceChange = (value: string) => {
+    if (/^\d*\.?\d{0,2}$/.test(value)) {
+      setPrice(value);
+    }
+  }
+   
 
 
 
 
   return (
 
-    <div className="flex flex-col mx-auto justify-center items-center h-120">
+    <div className="flex flex-col mx-auto justify-center items-center h-160">
 
     <form action = {actionForm} className="flex flex-col items-center justify-center lg:w-[500px] w-80">
       <FieldGroup>
@@ -72,17 +57,42 @@ const CreatePost = async() => {
           <Input name ="title" type="text" placeholder="Title" required />
         </Field>
         <Field>
+          <FieldLabel htmlFor="name">Price</FieldLabel>
+          <Input  placeholder = "0.00" name = "price" type = "number"
+           mode = "decimal" id = "price" value= {price}
+
+          onChange = {(e)=>setPrice(e.target.value)}
+
+          required
+          
+          
+          
+          
+          />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="name">Url</FieldLabel>
+          <Input name ="url" type="url" placeholder="url"  />
+        </Field>
+        
+        
+
+        
+        <Field>
           <FieldLabel htmlFor="email">Content</FieldLabel>
           <textarea name = "content" placeholder="Content" required className = "text-sm line-clamp-3" ></textarea>
           
         </Field>
         <Field>
           <FieldLabel htmlFor="">File</FieldLabel>
-          <Input type ="file" name = "media"  accept = "image/*,video/*, .text/*, .pdf" multiple required />
+          <Input type ="file" name = "media"  accept = "image/*,video/*, .text/*, .pdf/*" multiple required />
           <FieldDescription>
             Upload an image or video for your post.
           </FieldDescription>
         </Field>
+
+        
         
         <Field>
           <Button type="submit">Create Post</Button>

@@ -7,6 +7,15 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { v2 as cloudinary } from "cloudinary";
 
+const allowedAvatarUrls = [
+  "/avatars/english-teacher-amelia.svg",
+  "/avatars/english-teacher-ben.svg",
+  "/avatars/english-teacher-clara.svg",
+  "/avatars/english-teacher-daniel.svg",
+  "/avatars/english-teacher-eva.svg",
+  "/avatars/english-teacher-finn.svg",
+];
+
 
 
 
@@ -42,9 +51,28 @@ export async function profileActionForm (formData: FormData){
 
 });
 
+const avatarUrl = formData.get("avatarUrl");
+
+if (typeof avatarUrl === "string" && allowedAvatarUrls.includes(avatarUrl)) {
+  await prisma.user.update({
+    where: {
+      id: session.user.id,
+    },
+    data: {
+      image: avatarUrl,
+    },
+  });
+
+  redirect("/userProfile/userDetails");
+}
+
 const files = formData.getAll("media") as File[];
 
 const file = files[0]
+
+if (!file || file.size === 0) {
+  redirect("/userProfile/createProfileImage");
+}
 
 const arrayBuffer = await file.arrayBuffer();
 const buffer = Buffer.from(arrayBuffer);

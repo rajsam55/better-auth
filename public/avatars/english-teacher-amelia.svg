@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Amelia English teacher avatar</title>
+  <desc id="desc">Friendly English teacher with glasses and a lesson book.</desc>
+  <rect width="256" height="256" rx="56" fill="#e8f4ff"/>
+  <circle cx="128" cy="118" r="78" fill="#77bdf2"/>
+  <path d="M62 220c10-46 41-70 66-70s56 24 66 70z" fill="#174c75"/>
+  <path d="M93 154h70l8 66H85z" fill="#f7c9aa"/>
+  <circle cx="128" cy="109" r="52" fill="#ffd6ba"/>
+  <path d="M73 105c3-44 28-67 62-67 29 0 49 21 49 60-23-10-48-25-65-42-11 24-27 40-46 49z" fill="#6c3f2d"/>
+  <circle cx="103" cy="111" r="6" fill="#27323a"/>
+  <circle cx="151" cy="111" r="6" fill="#27323a"/>
+  <path d="M100 98h22m13 0h22" stroke="#27323a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M92 111h27m18 0h27m-45 0h18" fill="none" stroke="#27323a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M111 135c11 10 24 10 35 0" fill="none" stroke="#b95e54" stroke-width="6" stroke-linecap="round"/>
+  <rect x="54" y="167" width="58" height="42" rx="6" fill="#fff8d8"/>
+  <path d="M65 179h33M65 190h28" stroke="#2b6f95" stroke-width="5" stroke-linecap="round"/>
+  <path d="M126 162l-17 30 19 15 19-15z" fill="#ffffff"/>
+  <path d="M128 170v50" stroke="#f4b942" stroke-width="8" stroke-linecap="round"/>
+</svg>

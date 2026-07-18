@@ -5,10 +5,12 @@ import Image from "next/image"
 import PostEditor from "@/components/web/PostEditor"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
+import Link  from "next/link"
 
 
 
-const TextDash = async({params}: {params  : Promise <{id : "Number", MediaType : "TEXT", }>}) => {
+const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType: "TEXT", price : "Number" }> }) => {
 
   
 
@@ -26,11 +28,22 @@ const TextDash = async({params}: {params  : Promise <{id : "Number", MediaType :
     where : {
 
       id : Id,
+            
       
+    },
 
-      
-      
-    }
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      userId: true,
+      mediaType: true,
+      imageUrl: true,
+      createdAt: true,
+      updatedAt: true,
+      price : true,
+      url : true
+    },
 
     
   })
@@ -48,30 +61,43 @@ const TextDash = async({params}: {params  : Promise <{id : "Number", MediaType :
   return (
 
 
-    <div className=" mx-auto flex flex-col justify-center items-center mt-8 h-150">
+    <div className="group-relative flex flex-col mx-12 h-screen-100 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
+      <div className="flex gap-2 items-center ">
+        <ArrowLeft size =  "16" className = "mt-2"/>
+
+      <Link href = "/">
+      <h2 className="mt-2 font-bold text-[12px] text-indigo-500">BACK TO LESSONS</h2>
+      </Link>
+
+      
+
+      </div>
 
     <h1 className="">{post.title}</h1>
-
-
-
-    <embed src = {post.imageUrl} className="rounded-lg overflow-hidden w-[450px] h-[350px] "></embed>
-
-    <div className="">
-
-    <p className="mb-4">{post.content}</p> 
-
-    <a href= {post.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf">
-
-      <Button>Download</Button>
-
-
-    </a>
     
+    <div className=" rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 h-120">
+
+
+    <embed src = {post.imageUrl} className="rounded-lg overflow-hidden object-cover w-full max-w-[700px] h-180 mb-10" ></embed>    
     
 
 
     </div>
+
+    <a href= {post.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
+    
+    >
+
+    <Button>Download</Button>
+
+      
+
+
+    </a>
+    
+
+    
 
       
 
@@ -79,7 +105,7 @@ const TextDash = async({params}: {params  : Promise <{id : "Number", MediaType :
 
 
       <PostEditor 
-      post = {{ ...post, id: String(post.id) }}/>
+      post = {{ ...post, id: String(post.id), published: (post as any).published ?? false }}/>
 
       </div>
 

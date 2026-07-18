@@ -5,6 +5,9 @@ import Image from "next/image"
 import PostEditor from "@/components/web/PostEditor"
 import { notFound } from "next/navigation"
 import { Post } from "@/src/generated/prisma/client"
+import { Button } from "@/components/ui/button"
+import { ArrowLeft } from "lucide-react"
+import Link  from "next/link"
 
 
 const DashboardRoute = async({params}: {params  : Promise <{id : "Number", MediaType : "IMAGE" | "VIDEO"}>}) => {
@@ -47,20 +50,45 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
   return (
 
 
-    <div className="group-relative mx-6 flex flex-col justify-center items-center h-screen  mx-auto">
+    <div className="group-relative flex flex-col mx-12 h-screen-100 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6 ">
+
+      <div className="flex gap-2 items-center ">
+        <ArrowLeft size =  "16" className = "mt-2"/>
+
+      <Link href = "/">
+      <h2 className="mt-2 font-bold text-[12px] text-indigo-500">BACK TO LESSONS</h2>
+      </Link>
 
       
-      <div className="">
-      <h1 className=" text-5xl text-center tracking-wider font-thin mt-6 ">{post.title
+
+      </div>
+
+      
+      <div className="mt-12">
+
+        <div className="flex gap-2 mt-4 ">
+
+        <Button variant = "default" className = "text-[10px] ">IELTS</Button>
+        <Button className = "text-[10px] bg-white text-black font-bold hover:text-white">ADVANCED LEVEL</Button>
+
+        
+        </div>
+
+        
+        
+      <h1 className=" text-[36px] font-bold font-family:sans-serif tracking-tight tracking-wider mt-6 ">{post.title
         
         }</h1>
+
+        <p className="mt-6 text-[12px] font-bold">Isabella Roy, IELTS examiner and Educator</p>
+        <p className="text-[12px] text-muted-foreground">2026-08-01 - 8min read</p>
       
 
       </div>
 
       
 
-      <div className="relative w-90 h-60 rounded-lg overflow-hidden mt-10">
+      <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100">
 
       
         
@@ -73,21 +101,23 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
 
       
 
-      <div className="flex flex-col items-center max-w-[900px] mt-12" key={post.id}>
+      <div className="prose prose-slate text-slate-700 leading-relaxed text-sm sm:text-base space-y-4 whitespace-pre-wrap" key={post.id}>
 
-      <p className="text-3xl text-center px-6 line-clamp-8">
+      <p className="text-3xl line-clamp-8 text-[18px] leading-loose">
 
         <a href="/readmore" className="">
           
           
-          {post.content}...Readmore
+          {post.content}
           
           
           </a>
-
       
 
       </p>
+
+
+      
 
       </div>
 

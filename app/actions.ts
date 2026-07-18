@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import prisma from "@/lib/prisma"
-import { email, property } from "better-auth"
+import { uuid } from "better-auth"
 import { randomUUID } from "crypto"
 import { revalidatePath } from "next/cache"
 import { headers } from "next/headers"
@@ -10,6 +10,7 @@ import { redirect } from "next/navigation"
 import mailchimp from "@mailchimp/mailchimp_marketing"
 import { v2 as cloudinary } from "cloudinary";
 import { GalleryThumbnails } from "lucide-react"
+import { URL } from "url"
 
 
 
@@ -30,6 +31,35 @@ export async function actionForm (formData: FormData){
     const title = formData.get("title")
 
     const content =  formData.get("content")
+
+    
+
+
+
+
+
+  
+
+
+    const priceInput = formData.get("price") as string
+
+    
+
+
+  // 2. Simple validation
+  if(!priceInput){
+    throw new Error ( "required fields are missing")
+  }
+
+
+  const priceInCents = Math.round(parseFloat(priceInput) * 100)
+  // 3. Convert price to a number (Int or Float depending on your schema)
+  // Converting to cents/integers (e.g., $10.99 -> 1099) prevents floating-point math issues.
+  
+  if (isNaN(priceInCents)) {
+   throw new Error("Invalid price format.")
+  }
+
 
     
     
@@ -57,6 +87,10 @@ export async function actionForm (formData: FormData){
 
 
     const files = formData.getAll("media") as File[];
+    // get url from form data as string (FormData has no getUrlString)
+
+    const urlString = formData.get("url")?.toString() || "";
+    
 
     const file = files[0];
 
@@ -79,27 +113,35 @@ export async function actionForm (formData: FormData){
         
 
         const imageUrlString = (imageUrl as { secure_url: string }).secure_url;    
+
+        
         
 
 
     
 
       await prisma.post.create({
+
       data: {
-        id: Math.floor(Math.random() * 1000000),
-        title
-        : title as string || "",
+        id : Math.floor(Math.random() * 1000000),
+        title: title as string || "",
         content: content as string || "",
+        url: urlString || imageUrlString,
         imageUrl: imageUrlString,
-        mediaType: file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/") ? "VIDEO" : "TEXT"),
+        mediaType: (file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/") ? "VIDEO" :  "TEXT")),
         userId : session.user.id ,
         createdAt: new Date(),
         updatedAt : new Date(),
         thumbnail: formData.get("thumbnail")?.toString() || "",
-
+        price: priceInCents
         
-
-
+        
+        
+        
+        
+        
+         
+        
 
 
 

@@ -18,12 +18,15 @@ export const postSelect = {
   mediaType: true,
   content: true,
   userId :true,
-  published: true,
-
-
-  
+  published: true,  
+  url : true,  
   createdAt: true,
   updatedAt : true,  
+  price : true,
+  
+  
+  
+  
 } as const;
 
 /** Two parallel queries run via Promise.all — one round-trip */
@@ -40,7 +43,7 @@ export async function getHomePosts() {
       where: ({ mediaType: MediaType.VIDEO } as any),
       
       select: postSelect,
-    }),
+    }),    
 
   
 
@@ -49,6 +52,9 @@ export async function getHomePosts() {
       
       select: postSelect,
     }),
+
+    
+
 
   ]);
 
@@ -62,4 +68,6 @@ export async function getHomePosts() {
 /** Type inference from the Prisma select shape */
 export type PostItem = Awaited<
   ReturnType<typeof prisma.post.findMany>>[number]
+
+  
 
