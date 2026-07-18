@@ -59,7 +59,7 @@ const CreateDocumentFile = () => {
         <Field>
           <FieldLabel htmlFor="name">Price</FieldLabel>
           <Input  placeholder = "0.00" name = "price" type = "number"
-           mode = "decimal" id = "price" value= {price}
+            id = "price" value= {price}
 
           onChange = {(e)=>setPrice(e.target.value)}
 

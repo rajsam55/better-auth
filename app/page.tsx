@@ -11,6 +11,8 @@ import UpperHeader from "@/components/web/UpperHeaderSection";
 import { VideoFeed } from "@/components/web/videoCard";
 import { getHomePosts } from "@/lib/posts";
 import { getHomeDocs } from "@/lib/docs";
+
+
 import { Hero5 } from "@/components/ui/hero-5";
 
 
@@ -34,13 +36,9 @@ export default async function Home() {
 
   const { imagePosts, videoPosts, textPosts } = await getHomePosts();
 
-  const {textDocs}        =       await getHomeDocs()
-
-
-
+  const  {textDocs}     = await getHomeDocs()
 
   
-
 
 
 
@@ -90,7 +88,7 @@ export default async function Home() {
 
         <div className="w-full max-w-7xl">
 
-        <TextFeed documents = {textDocs}  />
+      <TextFeed documents = {textDocs} />
 
 
         </div>

@@ -58,8 +58,11 @@ const CreatePost = () => {
         </Field>
         <Field>
           <FieldLabel htmlFor="name">Price</FieldLabel>
-          <Input  placeholder = "0.00" name = "price" type = "number"
-           mode = "decimal" id = "price" value= {price}
+          
+        </Field>
+
+        <Input  placeholder = "0.00" name = "price" type = "number"
+           id = "price" value= {price}
 
           onChange = {(e)=>setPrice(e.target.value)}
 
@@ -69,7 +72,6 @@ const CreatePost = () => {
           
           
           />
-        </Field>
 
         <Field>
           <FieldLabel htmlFor="name">Url</FieldLabel>
