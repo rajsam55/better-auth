@@ -1,38 +1,48 @@
-'use client';
+"use client";
 
-import { createCheckoutSession, CreateCheckoutSessionParams } from '@/app/stripe';
-import { useTransition } from 'react';
-import {Stripe}  from "stripe"
+import { useState, FormEvent } from "react";
+import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 
+export default function CheckoutForm({ orderId }: { orderId: int }) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!stripe || !elements) return; // Stripe.js hasn't loaded yet
 
+    setIsSubmitting(true);
+    setMessage(null);
 
-
-
-
-
-
-export default function BuyButton({ documentId, name, price, userId, email, successUrl, cancelUrl }: { documentId: string } & { name: string } & { price: number } & { userId: string } & { email: string } & { successUrl: string } & { cancelUrl: string }) {
-  const [isPending, startTransition] = useTransition();
-
-  const handleBuy = () => {
-    startTransition(async () => {
-          try {
-            await createCheckoutSession({ documentId, name, price, userId, email, successUrl, cancelUrl } as CreateCheckoutSessionParams);
-      } catch (error) {
-        console.error(error);
-        alert('Something went wrong. Please try again.');
-      }
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Stripe redirects here after payment (required for redirect-based methods)
+        return_url: `${window.location.origin}/checkout/success?orderId=${orderId}`,
+      },
     });
+
+    // If we get here, it's an immediate error (e.g. card declined before redirect).
+    // On success, the browser redirects to return_url and this code doesn't run.
+    if (error) {
+      setMessage(error.message ?? "Payment failed. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <button
-      onClick={handleBuy}
-      disabled={isPending}
-      className="bg-blue-600 text-white px-4 py-2 rounded disabled:bg-blue-300"
-    >
-      {isPending ? 'Processing...' : 'Buy PDF Now'}
-    </button>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <PaymentElement />
+      <button
+        type="submit"
+        disabled={!stripe || isSubmitting}
+        className="w-full rounded-md bg-black py-2 text-white disabled:opacity-50"
+      >
+        {isSubmitting ? "Processing…" : "Pay now"}
+      </button>
+      {message && <p className="text-sm text-red-600">{message}</p>}
+    </form>
   );
 }

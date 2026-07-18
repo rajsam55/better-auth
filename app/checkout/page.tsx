@@ -1,27 +1,27 @@
 "use server"
-import CheckoutForm from "../../components/web/checkoutForm";
 
+import StripeCheckout from  "@/components/web/stripeCheckout";
+import  prisma  from "@/lib/prisma";
+import { notFound } from "next/navigation";
 
+export default async function CheckoutPage({
+  params,
+}: {
+  params: { documentId: string };
+}) {
+  const document = await prisma.document.findUnique({
+    where: { id: params.documentId},
+  });
 
-
-
-
-
-
-
-
-
-
-export default async function PurchasePage({ documentId, name, price, userId, email, successUrl, cancelUrl }: { documentId: string } & { name: string } & { price: number } & { userId: string } & { email: string } & { successUrl: string } & { cancelUrl: string | null } ) {
-
-
-
-
-
+  if (!document) return notFound();
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <CheckoutForm documentId={documentId} name={name} price={price} userId={userId} email={email} successUrl={successUrl} cancelUrl={cancelUrl} />
+    <main className="mx-auto max-w-md py-12">
+      <h1 className="text-xl font-semibold">{document.name}</h1>
+      <p className="mb-6 text-gray-600">
+        ${(document.price / 100).toFixed(2)} 
+      </p>
+      <StripeCheckout documentIds={[document.id]} />
     </main>
   );
 }

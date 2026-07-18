@@ -164,6 +164,8 @@ model Order {
   document   Document? @relation(fields: [documentId], references: [id])
   user       User?     @relation(fields: [userId], references: [id])
   userId     String?
+  stripePaymentIntentId String
+  amountInCents  Int
 }
 
 enum OrderStatus {
