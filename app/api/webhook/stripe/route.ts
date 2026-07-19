@@ -12,7 +12,7 @@ import  prisma  from "@/lib/prisma";
 import Stripe from "stripe";
 
 
-const stripeApiKey = process.env.STRIPE_SECRET_KEY || "sk_test_51TuQDHQrnxO7EAwsvLaAT83QC68BKMGI2LQrEUCaqOi6DKggR6qhveOcAWGzvYP7ZA087NDMAqOyOWHUqoNHHYxZ00r7RfeDKM";
+const stripeApiKey = process.env.STRIPE_SECRET_KEY || "";
 
  export const stripe = new Stripe(stripeApiKey, {
    apiVersion: "2026-01-28.clover", // Use your specific Stripe API version
