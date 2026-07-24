@@ -5,15 +5,20 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../src/generated/prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
 model User {
-  id                 String        @unique
+  id                 String     @unique
   name               String
   email              String
   newsletterStatus   String? // "subscribed" | "unsubscribed" | "pending"
@@ -27,12 +32,11 @@ model User {
   sessions           Session[]
   accounts           Account[]
   purchases          Purchase[]
-  stripeCustomerId String? @unique 
-  
+  stripeCustomerId   String?    @unique
 
-  documents Document[] // One-to-Many: A user can own multiple working documents
-  posts     Post[] // One-to-Many: A user can publish multiple blog posts
-  orders    Order[] // One-to-Many: A user can place multiple premium orders
+  document Document[] // One-to-Many: A user can own multiple working documents
+  posts    Post[] // One-to-Many: A user can publish multiple blog posts
+  orders   Order[] // One-to-Many: A user can place multiple premium orders
 
   role Role @default(USER)
 
@@ -158,14 +162,14 @@ model Order {
   updatedAt   DateTime    @updatedAt
 
   // Relations
-  postId     Int?
-  post       Post?     @relation(fields: [postId], references: [id])
-  documentId Int?
-  document   Document? @relation(fields: [documentId], references: [id])
-  user       User?     @relation(fields: [userId], references: [id])
-  userId     String?
+  postId                Int?
+  post                  Post?     @relation(fields: [postId], references: [id])
+  documentId            String
+  document              Document? @relation(fields: [documentId], references: [id])
+  user                  User?     @relation(fields: [userId], references: [id])
+  userId                String?
   stripePaymentIntentId String
-  amountInCents  Int
+  amountInCents         Int
 }
 
 enum OrderStatus {
@@ -175,7 +179,7 @@ enum OrderStatus {
 }
 
 model Document {
-  id        Int       @id
+  id        String    @id @default(uuid())
   name      String
   fileUrl   String
   imageUrl  String
@@ -202,9 +206,9 @@ model Purchase {
 
   // Relations
   userId String
-  user   User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   postId Int
-  post   Post @relation(fields: [postId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id])
 
   @@index([userId, postId]) // Optimize dashboard lookups
 }

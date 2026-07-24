@@ -128,7 +128,7 @@ export async function actionForm (formData: FormData){
         content: content as string || "",
         url: urlString || imageUrlString,
         imageUrl: imageUrlString,
-        mediaType: (file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/") ? "VIDEO" :  "TEXT")),
+        mediaType: (file.type.startsWith("image/") ? "IMAGE" : (file.type.startsWith("video/"))? "VIDEO" : "TEXT"),
         userId : session.user.id ,
         createdAt: new Date(),
         updatedAt : new Date(),

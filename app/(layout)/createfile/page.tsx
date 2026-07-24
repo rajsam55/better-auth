@@ -73,7 +73,7 @@ const CreateDocumentFile = () => {
 
         <Field>
           <FieldLabel htmlFor="name">Url</FieldLabel>
-          <Input name ="fileUrl" type="url" placeholder="url"  />
+          <Input name ="fileUrl" type="url" placeholder="fileUrl"  />
         </Field>
         
         

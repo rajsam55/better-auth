@@ -1,0 +1,209 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String     @unique
+  name               String
+  email              String
+  newsletterStatus   String? // "subscribed" | "unsubscribed" | "pending"
+  newsletterSyncedAt DateTime?
+  emailVerified      Boolean
+  image              String?
+  resetToken         String?    @unique
+  resetTokenExpiry   DateTime?
+  createdAt          DateTime
+  updatedAt          DateTime
+  sessions           Session[]
+  accounts           Account[]
+  purchases          Purchase[]
+  stripeCustomerId   String?    @unique
+
+  documents Document[] // One-to-Many: A user can own multiple working documents
+  posts     Post[] // One-to-Many: A user can publish multiple blog posts
+  orders    Order[] // One-to-Many: A user can place multiple premium orders
+
+  role Role @default(USER)
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  TEXT
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Post {
+  id        Int       @id
+  title     String
+  content   String
+  userId    String
+  mediaType MediaType
+  imageUrl  String
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  thumbnail String
+  url       String
+  price     Int
+  orders    Order[] // Many-to-Many via Join Table (for paid premium posts)
+
+  authorId  String?
+  author    User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  document  Document? // Reverse of One-to-One relation with Document
+  purchases Purchase[]
+
+  @@index([userId])
+  @@map("post")
+}
+
+// Add this model to your existing prisma/schema.prisma file
+// (merge with your existing datasource/generator blocks)
+
+model Faq {
+  id        String   @id
+  question  String
+  answer    String
+  category  String? // optional grouping, e.g. "Billing", "Account"
+  order     Int      @default(0) // controls display order within a category
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@map("faqs")
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Link {
+  url String @unique
+}
+
+model Order {
+  id          Int         @id
+  status      OrderStatus @default(PENDING)
+  totalAmount Float
+  userEmail   String // Tracks who bought the item
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  postId                Int?
+  post                  Post?     @relation(fields: [postId], references: [id])
+  documentId            String
+  document              Document? @relation(fields: [documentId], references: [id])
+  user                  User?     @relation(fields: [userId], references: [id])
+  userId                String
+  stripePaymentIntentId String
+  amountInCents         Int
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Document {
+  id        String    @id
+  name      String
+  fileUrl   String
+  imageUrl  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  orders    Order[]
+  userId    String
+  // A premium document can be purchased in multiple orders
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    Int?      @unique // One-to-One: A draft can be linked to a single published post
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  price     Int
+  mediaType MediaType
+}
+
+model Purchase {
+  id              Int      @id
+  amount          Float    @default(0.0) // Store prices as floats (e.g., 9.99)
+  currency        String   @default("USD")
+  status          String   @default("PENDING") // e.g., PENDING, COMPLETED, FAILED
+  paymentIntentId String?  @unique // For mapping to Stripe/PayPal transactions
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  postId Int
+  post   Post   @relation(fields: [postId], references: [id])
+
+  @@index([userId, postId]) // Optimize dashboard lookups
+}

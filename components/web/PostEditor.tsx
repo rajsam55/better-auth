@@ -48,7 +48,7 @@ function DeletePostButton({ id }: {id: string }) {
     <div className="delete-wrapper">
       {!confirming ? 
 
-        (session?.user as{role:string} |undefined)?.role==="ADMIN" &&
+        (session?.user as{role:string} |undefined)?.role==="USER" &&
 
         <Button
           type="button"
@@ -212,7 +212,7 @@ export default function PostEditor({post} : PostEditorProps) {
 
           <p className="flex gap-2">
 
-            {(session?.user as { role?: string } | undefined)?.role === "ADMIN" &&
+            {(session?.user as { role?: string } | undefined)?.role === "USER" &&
 
 
            <Button onClick= {()=>setUpdateMode(true)}>Update Post</Button>         

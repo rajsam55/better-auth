@@ -2,7 +2,7 @@
 
 import { useSession } from "@/lib/auth-client";
 import { DocItem } from "@/lib/docs";
-import {ProductItem} from "@/lib/products";
+
 import Link  from "next/link";
 import { Input } from "../ui/input";
 import Image from "next/image"
@@ -126,11 +126,10 @@ interface Props {
          
           <Link href= {`/textDash/${doc.id}`} >
 
-          <div className="relative h-42 w-80 ">             
+          <div className="relative h-42 w-80 "> 
 
-                     
 
-             <Image src =  {doc.fileUrl}
+          <Image src =  {doc.fileUrl}
 
               
               alt= "blog-pic" 
@@ -138,7 +137,7 @@ interface Props {
 
              fill
             
-            /> 
+            />            
 
 
 
@@ -157,7 +156,7 @@ interface Props {
            
 
 
-          {session?.user ? <Link href = "/checkout">
+          {session?.user ? <Link href = {`/checkout/${doc.id}`}>
 
           <Button variant = "default" className = "bg-green-500 w-[300px] text-white " >
 
@@ -174,35 +173,11 @@ interface Props {
           <Button>SignIn to Buy</Button>
 
           </Link>
-
-            
-
-            
-          
- 
+     
           
           
           
-          
-          
-          }
-
-           
-
-          
-
-          
-
-          
-          
-
-      
-
-            
-            
-            
-            
-            
+          }       
             
 
                   

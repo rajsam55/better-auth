@@ -94,9 +94,23 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
         
             
 
-      <Image src={post.imageUrl}  alt= {post.title} className="object-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />      
+      <Image src={post.imageUrl}  alt= {post.title} className="object-cover transition-transform duration-300 group-hover:scale-105 mb-10" fill />  
+
+      
+        
       
       
+      </div>
+
+      <div>
+
+    
+
+
+
+
+
+
       </div>
 
       
@@ -125,6 +139,11 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
 
 
       <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/>
+
+
+
+
+
 
       
 

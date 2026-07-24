@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
   },
+
+  turbo: {
+      // 2. Map the internal missing module path directly to node_modules
+      resolveAlias: {
+        '.prisma/client/default': './node_modules/.prisma/client/default.js',
+      },
+    },
+
+  serverExternalPackages: ['@prisma/client'],    
+  
   images: {
     remotePatterns: [
       {

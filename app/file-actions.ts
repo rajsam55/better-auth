@@ -1,12 +1,13 @@
 "use server"
 import prisma from "@/lib/prisma"
-import { uuid } from "better-auth"
+import { string, uuid } from "better-auth"
 import { randomUUID } from "crypto"
 import { revalidatePath } from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { v2 as cloudinary } from "cloudinary";
+import { id } from "zod/v4/locales"
 
 
 
@@ -45,11 +46,12 @@ export async function fileActionForm (formData : FormData){
   }
 
 
-  const priceInCents = Math.round(parseFloat(priceInput) * 100)
+   const priceInCents = Math.round(parseFloat(priceInput) * 100)
+
   // 3. Convert price to a number (Int or Float depending on your schema)
   // Converting to cents/integers (e.g., $10.99 -> 1099) prevents floating-point math issues.
   
-  if (isNaN(priceInCents)) {
+   if (isNaN(priceInCents)) {
    throw new Error("Invalid price format.")
   }
 
@@ -112,16 +114,16 @@ export async function fileActionForm (formData : FormData){
 
 
         data: {
-        id : Math.floor(Math.random() * 1000000),
+        id : randomUUID(),
         name : name as string || "",
         fileUrl: urlString || imageUrlString,
         imageUrl: imageUrlString,
-        mediaType: "TEXT",
+        mediaType: (file.type.startsWith("text/") ? "TEXT" : "PDF" ),
         userId : session.user.id ,
         createdAt: new Date(),
         updatedAt : new Date(),
         
-        price: priceInCents
+        price: priceInCents,
 
         }
 
@@ -131,3 +133,93 @@ export async function fileActionForm (formData : FormData){
      revalidatePath("/")
 
 }
+
+
+
+export type ActionState = {
+  success: boolean;
+  message: string;
+  errors?: Record<string, string[]>;
+};
+
+// // ─── Update Doc ──────────────────────────────────────────────────────────────
+
+// export async function updateDoc(
+//   id : string,
+//   prevState: ActionState,
+//   formData: FormData
+// ): Promise<ActionState> {
+//   const name = formData.get("name")?.toString().trim();
+  
+//   const imageUrl = formData.get("imageUrl") === "true";
+
+//   // Validation
+//   const errors: Record<string, string[]> = {};
+
+//   if (!name || name.length < 3) {
+//     errors.name = ["Name must be at least 3 characters."];
+//   }
+//   if (name && name.length > 255) {
+//     errors.name = [...(errors.name ?? []), " Name must be under 255 characters."];
+//   }
+  
+
+//   if (Object.keys(errors).length > 0) {
+//     return { success: false, message: "Validation failed.", errors };
+//   }
+
+//   try {
+//     await prisma.doc.update({
+//       where: { id: Number(id)},
+//       data: {
+//         name: name!,
+        
+        
+//         updatedAt: new Date(),
+//       },
+//     });
+//   } catch (error) {
+//     console.error("[updateDoc]", error);
+//     return {
+//       success: false,
+//       message: "Failed to update Document. It may no longer exist.",
+//     };
+//   }
+
+//   revalidatePath("/docs");
+//   revalidatePath(`/docs/${id}`);
+
+//   return { success: true, message: "Documents updated successfully." };
+// }
+
+// // ─── Delete Post ──────────────────────────────────────────────────────────────
+
+// export async function deleteDoc(
+
+//   id : string,
+//   prevState: ActionState,
+//   formData: FormData
+// ): Promise<ActionState> {
+  
+//   if (!id) {
+//     return { success: false, message: "Document id is required." };
+//   }
+
+//   try {
+//     await prisma.doc.delete({
+//       where: { id: Number(id) },
+//     });
+//   } catch (error) {
+//     console.error("[deleteDoc]", error);
+//     return {
+//       success: false,
+//       message: "Failed to delete document. It may no longer exist.",
+//     };
+//   }
+
+//   revalidatePath("/docs");
+//   redirect("/");
+  
+// }
+
+

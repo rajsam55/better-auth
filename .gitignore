@@ -57,3 +57,5 @@ next-env.d.ts
 .trae
 .windsurf
 .env
+
+/src/generated/prisma

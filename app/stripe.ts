@@ -1,109 +1,86 @@
+// app/actions/payment.ts
+'use server'
 
-// "server only"
+import { PrismaClient } from '@prisma/client'
+import Stripe from 'stripe'
 
-// import Stripe from "stripe"
+const prisma = new PrismaClient()
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2026-02-25.acacia',
+})
+
+export async function createPaymentIntent(documentId: string) {
+  // Fetch price from Neon DB via Prisma
+  const doc = await prisma.document.findUnique({
+    where: { id: documentId },
+  })
+
+  if (!doc) throw new Error('Document not found')
+
+  // Price stored in database in dollars, convert to cents for Stripe
+  const price = Math.round(document.price * 100)
+
+  // Create a PaymentIntent with the calculated amount
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: price,
+    currency: 'usd',
+    automatic_payment_methods: { enabled: true },
+    metadata: { documentId: document.id },
+  })
+
+  return { clientSecret: paymentIntent.client_secret }
+}
 
 
 
 
 
-// const stripeApiKey = process.env.STRIPE_SECRET_KEY || "sk_test_51TuQDHQrnxO7EAwsvLaAT83QC68BKMGI2LQrEUCaqOi6DKggR6qhveOcAWGzvYP7ZA087NDMAqOyOWHUqoNHHYxZ00r7RfeDKM";
-
-// export const stripe = new Stripe(stripeApiKey, {
-//   apiVersion: "2026-06-24.dahlia", // Use your specific Stripe API version
-//   typescript: true,
-// });
-
-
-
-
- 
-// // Single shared Stripe client for the app
 
 
 
 
 
-// // Single shared Stripe client for the app
 
 
 
-// export type CreateCheckoutSessionParams = {
-//   documentId: string;
-//   name : string
-//   price: number; // e.g. 999 = $9.99
-//   currency?: string; // defaults to "usd"
-//   userId: string;
-//   email: string;
-//   successUrl: string; // e.g. `${origin}/documents/${documentId}?purchase=success`
-//   cancelUrl: string; // e.g. `${origin}/documents/${documentId}?purchase=cancelled`
-// };
 
-// /**
-//  * Creates a Stripe Checkout Session for a one-time PDF purchase.
-//  * Metadata carries the documentId + userId so the webhook can
-//  * reconcile the payment with your Prisma models after payment succeeds.
-//  */
-// export async function createCheckoutSession({
-//   documentId,   
-//   name: docName,  
-//   price,
-//   currency = "usd",
-//   userId,
-//   email,
-//   successUrl,  
-//   cancelUrl,
-  
-// }: CreateCheckoutSessionParams): Promise<Stripe.Checkout.Session> {
-//   const session = await stripe.checkout.sessions.create({
-//     mode: "payment",
-//     payment_method_types: ["card"],
-//     customer_email: email,
-//     line_items : [
-//       {                    
-//             quantity: 1,            
-          
-//             price_data : {
 
-//               currency,
-//               price,
 
-//             },
-//             product_data : {
 
-//               name : docName
-//             },       
-//       },
 
-//     ],
-    
-//     // Used by the webhook handler to know exactly what was bought and by whom
-//     metadata: {
-//       documentId,
-//       userId,
-//     },
-//     success_url: `${origin}/documents/${documentId}?purchase=success`,
-//     cancel_url: cancelUrl,
-//   });
 
-//   return session;
-// }
 
-// /**
-//  * Verifies and parses an incoming Stripe webhook request body.
-//  * Throws if the signature is invalid.
-//  */
-// export function constructWebhookEvent(
-//   rawBody: string | Buffer,
-//   signature: string
-// ): Stripe.Event {
-//   if (!process.env.STRIPE_WEBHOOK_SECRET) {
-//     throw new Error("Missing STRIPE_WEBHOOK_SECRET environment variable");
+
+
+
+
+// app/actions/stripe.ts
+// 'use server'
+
+// import { prisma } from '@/lib/prisma' // Adjust path to your Prisma client instance
+// import { redirect } from 'next/navigation'
+
+// export async function createCheckoutSession(formData: FormData) {
+//   const documentId = formData.get('documentId')?.toString()
+
+//   if (!documentId) {
+//     throw new Error('Missing document ID')
 //   }
 
-//   return stripe.webhooks.constructEvent(
-//     rawBody,
-//     signature,
-//     process.env.STRIPE_WEBHOOK_SECRET
-//   );
+//   // Fetch price securely from Neon DB using Prisma
+//   const doc = await prisma.document.findUnique({
+//     where: { id: documentId },
+//     select: { id: true, title: true, price: true },
+//   })
+
+//   if (!doc) {
+//     throw new Error('Document not found')
+//   }
+
+//   // Here you would integrate your payment provider (e.g., Stripe) 
+//   // using doc.price and doc.title, then redirect to their checkout URL.
+//   // Example: redirect(stripeSession.url)
+
+//   // For demonstration, we redirect back with query state or a mock success step
+//   redirect(`/checkout/success?docId=${doc.id}&price=${doc.price}`)
 // }
