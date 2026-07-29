@@ -72,12 +72,7 @@ const Navbar = () => {
       </Button>
     </Link>
 
-    <Link href= "/create-premium ">
-      <Button variant="default" className = "bg-[#0066cc]" >
-        Premium
-      </Button>
-    </Link>
-
+    
     <Link href="/faq-create">
       <Button variant="default" className = "bg-[#0066cc] text-[15px]" >
         Faq
@@ -85,21 +80,17 @@ const Navbar = () => {
     </Link>
 
 
-    <Link href="/userProfile/createProfileImage/">
+    <Link href="/userProfile/createProfileImage">
       <Button variant="default" className = "bg-[#0066cc]" >
         Profile
       </Button>
     </Link>
-    <Link href="/userProfile/userDetails/">
+    <Link href="/userProfile/userDetails">
       <Button variant="default" className="bg-[#0066cc]">
         Users
       </Button>
     </Link>
-    <Link href="/files">
-      <Button variant="default" className="bg-[#0066cc]">
-        Files
-      </Button>
-    </Link>
+    
     <Link href="/pdfConvert" >
       <Button variant="default" className="bg-[#0066cc]">
         Pdf
@@ -117,7 +108,7 @@ const Navbar = () => {
 
     <div className="">
 
-    <Link href="/essay">
+    <Link href= "/essays">
       <Button variant="default" className=" text-[18px] bg-[#0066cc]">
         Essay
       </Button>
