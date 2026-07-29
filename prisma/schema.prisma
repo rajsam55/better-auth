@@ -18,7 +18,7 @@ datasource db {
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 model User {
-  id                 String   @id  @unique
+  id                 String     @id @unique
   name               String
   email              String
   newsletterStatus   String? // "subscribed" | "unsubscribed" | "pending"
@@ -117,10 +117,9 @@ model Post {
   price     Int
   orders    Order[] // Many-to-Many via Join Table (for paid premium posts)
 
-  authorId  String?
-  author    User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   document  Document? // Reverse of One-to-One relation with Document
   purchases Purchase[]
+  user      User       @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@map("post")
