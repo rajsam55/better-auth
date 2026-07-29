@@ -12,12 +12,12 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // turbo: {
-  //     // 2. Map the internal missing module path directly to node_modules
-  //     resolveAlias: {
-  //       '.prisma/client/default': './node_modules/.prisma/client/default.js',
-  //     },
-  //   },
+  turbo: {
+      // 2. Map the internal missing module path directly to node_modules
+      resolveAlias: {
+        '.prisma/client/default': './node_modules/.prisma/client/default.js',
+      },
+    },
 
   serverExternalPackages: ['@prisma/client'],    
   

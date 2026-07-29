@@ -99,7 +99,7 @@ export function VideoFeed({ posts }: Props) {
   {posts.map(post=>(
 
 
-    <div className="">
+    <div className="" key = {post.id}>
 
       <p className="text-center text-white mt-6">{post.title}</p>    
 
