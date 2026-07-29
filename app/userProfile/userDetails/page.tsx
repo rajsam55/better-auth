@@ -8,6 +8,7 @@ import { redirect } from "next/navigation"
 import { headers } from "next/headers"
 import { profile } from "node:console"
 import { auth } from "@/lib/auth"
+import Image  from "next/image"
 
 
 
@@ -110,7 +111,9 @@ const UserDetails = async() => {
 
                         <p className="text-sm text-gray-600">{user.email}</p>
 
-                        {session.user.image ?<img src={user.image} alt="blogImage" className="rounded-lg" width={32} height={32} />:
+                        {session.user.image ? <Image src={user.image?? ""} alt="blogImage" className="rounded-lg" width={32} height={32} />
+                        
+                        :
 
                         <UserIcon/>
                         

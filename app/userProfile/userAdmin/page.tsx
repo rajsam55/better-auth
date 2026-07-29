@@ -22,7 +22,7 @@ const UserAdmin = async() => {
   if (!session || session.user.role !== "ADMIN") {
 
 
-    redirect("/unauthorized");
+    redirect("/unauthorized" as any);
   }
 
 

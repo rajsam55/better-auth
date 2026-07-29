@@ -4,6 +4,8 @@ import Link from "next/link"
 import { Button } from "../ui/button"
 
 import { HomeIcon, Menu, UserIcon, X } from "lucide-react"
+import type { Route } from 'next'
+
 
 
 import {signOut, useSession}  from "@/lib/auth-client"
@@ -70,7 +72,7 @@ const Navbar = () => {
       </Button>
     </Link>
 
-    <Link href="/create-premium">
+    <Link href= "/create-premium ">
       <Button variant="default" className = "bg-[#0066cc]" >
         Premium
       </Button>

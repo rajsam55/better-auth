@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
   
   experimental: {
 
-    typeRoutes : true,
+    typedRoutes : true,
+
+    useTypeScriptCli: true,
     
     serverActions: {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)

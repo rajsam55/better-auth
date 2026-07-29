@@ -9,6 +9,7 @@ import { Rss, Globe } from "lucide-react";
 
 import { PostItem } from "@/lib/posts";
 import {useState}  from "react"
+import type { Route } from 'next'
 
 
 
@@ -214,7 +215,7 @@ export default function Footer({ posts }: Props) {
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
-                  href={link.href}
+                  href={link.href as Route}
                   className="text-[13px] text-[#111] hover:text-[#C4A35A] transition-colors duration-200 font-bold"
                 >
                   {link.label}
@@ -233,7 +234,7 @@ export default function Footer({ posts }: Props) {
             {topicLinks.map((link) => (
               <li key={link.href}>
                 <Link
-                  href={link.href}
+                  href={link.href as Route}
                   className="text-[13px] text-[#111] hover:text-[#C4A35A] transition-colors duration-200 font-bold"
                 >
                   {link.label}
@@ -251,13 +252,13 @@ export default function Footer({ posts }: Props) {
           <p className="text-[13px] text-[#111] hover:text-[#C4A35A] leading-[1.7] mb-4 font-bold">
             Teaching English is a passion which gives me immense joy and fulfillment.
           </p>
-          <Link
-            href="/rss.xml"
+          {/* <Link
+            href= {rss.xml as Route}
             className="inline-flex items-center gap-1.5 border border-[#C4A35A]/35 px-2.5 py-1 text-[10px] tracking-[0.08em] uppercase text-[#111111] font-boldhover:border-[#C4A35A]/70 font-boldhover: text-[#C4A35A] transition-colors duration-200 "
           >
             <Rss className="w-3 h-3 "aria-hidden="true" />
             RSS Feed
-          </Link>
+          </Link> */}
         </div>
 
         {/* Recent posts */}
