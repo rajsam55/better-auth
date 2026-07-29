@@ -1,9 +1,9 @@
 
 
 import prisma from "@/lib/prisma";
-import { sendMailchimpResetEmail } from "./auth-emails";
+import {Resend} from "resend"
 import { nextCookies } from "better-auth/next-js";
-import mailchimpTransactional from "@mailchimp/mailchimp_transactional";
+
 
 import { headers } from "next/headers";
 
@@ -15,8 +15,7 @@ import {betterAuth, User} from "better-auth"
 
 
 
-const mailchimp = mailchimpTransactional(process.env.MAILCHIMP_TRANSACTIONAL_API_KEY || "")
-
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 export const  auth = betterAuth({
@@ -34,29 +33,26 @@ export const  auth = betterAuth({
   
   emailAndPassword : {
     enabled: true,
-  },
+
+
 
   // typed as any to accept whatever payload the library provides (avoid mismatch with SendResetEmailProps)
-  sendResetPassword: async ({ user, url }: { user: User; url: string; resetToken?: string }) => {
 
-    await mailchimp.messages.send({
+  sendResetPassword: async ({ user, url, token }, request) => {
+      await resend.emails.send({
+        from: "better-english <onboarding@resend.dev>", // Replace with your verified domain
+        to: user.email,
+        subject: "Reset your password",
+        html: `<p>Click the link below to reset your password:</p>
+               <a href="${url}">Reset Password</a>`,
+      });
 
-      message : {
+    },
 
-        from_email : "onboarding@super-english.vercel.com",
-
-        subject : "reset your password",
-
-        html : `<a href="${url}">to reset your password</a>`,
-
-        to : [{email : user.email, type : "to"}]
-
-
-      }
-
-    })    
-    
-  },  
+  },
+  
+            
+          
 
   trustedOrigins: ["https://vercel.app", process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ""],
 

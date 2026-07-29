@@ -4,7 +4,7 @@
 
 import { Resend } from "resend";
 import crypto from "crypto";
-import bcrypt from "bcryptjs"; // Or your preferred hashing library
+// import bcrypt from "bcryptjs"; // Or your preferred hashing library
 import  prisma  from "@/lib/prisma"; // Adjust path to your Prisma client instantiation
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -37,7 +37,7 @@ export async function requestPasswordReset(formData: FormData) {
       },
     });
 
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password/${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${token}`;
 
     // Send email using Resend
     await resend.emails.send({
@@ -79,17 +79,17 @@ export async function resetPassword(token: string, formData: FormData) {
       return { error: "Invalid or expired token." };
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Update user password and nullify token to prevent replay attacks
-    await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        password: hashedPassword,
-        resetToken: null,
-        resetTokenExpiry: null,
-      },
-    });
+    // // Update user password and nullify token to prevent replay attacks
+    // await prisma.user.update({
+    //   where: { id: user.id },
+    //   data: {
+    //     password: hashedPassword,
+    //     resetToken: null,
+    //     resetTokenExpiry: null,
+    //   },
+    // });
 
     return { success: "Password reset successfully! You can now log in." };
   } catch (error) {

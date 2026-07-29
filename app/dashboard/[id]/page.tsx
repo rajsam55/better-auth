@@ -10,7 +10,7 @@ import { ArrowLeft } from "lucide-react"
 import Link  from "next/link"
 
 
-const DashboardRoute = async({params}: {params  : Promise <{id : "Number", MediaType : "IMAGE" | "VIDEO"}>}) => {
+const DashboardRoute = async({params}: {params  : Promise <{id : "Number", MediaType : "IMAGE"}>}) => {
 
   
 
@@ -32,6 +32,8 @@ const DashboardRoute = async({params}: {params  : Promise <{id : "Number", Media
       userId: true,
       mediaType: true,
       imageUrl: true,
+      price : true,
+      url : true,
       createdAt: true,
       updatedAt: true,
     },

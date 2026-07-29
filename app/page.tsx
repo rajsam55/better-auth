@@ -68,7 +68,7 @@ export default async function Home() {
 
         <div className="bg-white mt-4 w-full max-w-7xl">
 
-          <ImageFeed posts = {imagePosts}/>       
+          <ImageFeed posts = {imagePosts} />       
 
 
 
