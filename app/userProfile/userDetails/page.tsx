@@ -36,7 +36,7 @@ const UserData = async() => {
 
             updatedAt : true,
 
-            userId : true,
+            
         },
                    
     })
@@ -101,7 +101,7 @@ const UserDetails = async() => {
             <p className="text-gray-600">This is where user details will be displayed.</p>
 
             <div className="w-full grid grid cols-1 md: grid-cols-2 lg:grid-cols-4 gap-12 w-full mx-auto bg-white shadow-md flex flex-col justify-center items-center gap-4">
-                {data.map((user:any) => (
+                {data.map((user) => (
 
                     <div key={user.id} className="relative flex flex-col w-[150px] h-[180px] bg-gray-200 rounded-lg shadow-md gap-6">    
 

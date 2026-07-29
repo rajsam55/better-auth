@@ -11,11 +11,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function createPaymentIntent(documentId: string) {
   // Fetch price from Neon DB via Prisma
-  const doc = await prisma.document.findUnique({
+  const document = await prisma.document.findUnique({
     where: { id: documentId },
   })
 
-  if (!doc) throw new Error('Document not found')
+  if (!document) throw new Error('Document not found')
 
   // Price stored in database in dollars, convert to cents for Stripe
   const price = Math.round(document.price * 100)

@@ -2,12 +2,13 @@
 
 import prisma from "@/lib/prisma"
 import Image from "next/image"
+import PostEditor  from "@/components/web/PostEditor"
 
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link  from "next/link"
-import { Document } from "@/src/generated/prisma/client"
+import { Post} from "@/src/generated/prisma/client"
 
 
 
@@ -27,7 +28,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
    
 
-  const document  = await prisma.document.findUnique({
+  const post  = await prisma.post.findUnique({
 
 
     where : {
@@ -40,12 +41,13 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
     select: {
       id: true,
-      name: true,
+      title: true,
+      content : true,
       userId: true,
       mediaType: true,
       imageUrl: true,
       price : true,
-      fileUrl : true,
+      url : true,
       createdAt : true,
       updatedAt : true
       
@@ -53,7 +55,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
     
   })
-  if(!document){
+  if(!post){
 
     notFound()
   }
@@ -85,7 +87,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
     <div className=" rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 h-120">
 
 
-    <embed src = {document.fileUrl}
+    <embed src = {post.url}
     
     className="rounded-lg overflow-hidden object-cover w-full max-w-[700px] h-180 mb-10" >
       
@@ -96,7 +98,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
     </div>
 
-    <a href= {document.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
+    <a href= {post.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
     
     >
 
@@ -112,11 +114,13 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
       
 
-      <div className="">
+      <div className="">    
 
 
-      
-      </div>
+      <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/>
+
+
+    </div>
 
 
       

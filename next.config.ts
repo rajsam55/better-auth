@@ -40,6 +40,16 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
 
+      {
+
+        protocol : "https",
+        hostname : "eslvideo.com",
+        pathname: '/**',
+
+
+
+      },
+
       
     ],
   },

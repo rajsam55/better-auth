@@ -118,7 +118,7 @@ export async function fileActionForm (formData : FormData){
         name : name as string || "",
         fileUrl: urlString || imageUrlString,
         imageUrl: imageUrlString,
-        mediaType: (file.type.startsWith("text/") ? "TEXT" : "PDF" ),
+        mediaType: "TEXT",
         userId : session.user.id ,
         createdAt: new Date(),
         updatedAt : new Date(),

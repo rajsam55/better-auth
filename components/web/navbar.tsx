@@ -58,7 +58,7 @@ const Navbar = () => {
         </div>      
 
 
-        {(session?.user as { role?: string } | undefined)?.role === "USER" ?(
+        {(session?.user as { role?: string } | undefined)?.role === "ADMIN" ?(
 
 
 <div className=""> 

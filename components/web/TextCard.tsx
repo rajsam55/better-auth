@@ -1,13 +1,14 @@
 "use client"
 
 import { useSession } from "@/lib/auth-client";
-import { DocItem } from "@/lib/docs";
+import type { PostItem}  from "@/lib/posts";
 
 import Link  from "next/link";
 import { Input } from "../ui/input";
 import Image from "next/image"
 import { Button } from "../ui/button";
 import {redirect}  from "next/navigation"
+
 
 import {useFormStatus}  from "react-dom"
 
@@ -19,30 +20,22 @@ import {useFormStatus}  from "react-dom"
 interface Props {
 
   
-  documents : DocItem[]
+  posts : PostItem[]
   
   
 
 }
 
- 
 
 
 
+ export function TextFeed({ posts}: Props) {
 
 
 
+  const {data: session}  = useSession()
 
 
-
- export function TextFeed({ documents}: Props) {
-
-
-
-  const {data: session}  = useSession()  
-
-
-  
 
   function formatCurrency(
   price : any,
@@ -60,21 +53,15 @@ interface Props {
   }).format(numericValue/100);
 
 
-}
+}  
 
+  
 
-
-
-
-
-
-  if (!documents.length)
+if (!posts.length)
     
-    return <p className="text-muted-foreground">No text files
-    
-    
-     yet.</p>;
+    return <p className="text-muted-foreground">No text files yet.</p>;
 
+  
   return (
 
     <>
@@ -106,30 +93,22 @@ interface Props {
 
       
 
-      {documents.map((doc) => (
-
-
+      {posts.map((post) => (
+   
         
-        
-        
-
-
- 
-      
-        
-        <div key={doc.id}
+        <div key={post.id}
           className=" overflow-hidden mx-auto mt-2 mb-4 flex flex-col justify-center items-center "
         >
-
-       
-
          
-          <Link href= {`/textDash/${doc.id}`} >
-
-          <div className="relative h-42 w-80 "> 
+        {(session?.user as{role:string} |undefined)?.role==="ADMIN"?
 
 
-          <Image src =  {doc.fileUrl}
+<Link href = {`/textDash/${post.id}`}>
+
+          <div className="relative h-42 w-80 ">          
+
+
+          <Image src =  {post.url}
 
               
               alt= "blog-pic" 
@@ -137,64 +116,103 @@ interface Props {
 
              fill
             
-            />            
+            /> 
 
+            </div>      
 
-
-            </div>            
-
+            <p className="text-black text-center font-bold text-xl mx-12 text-bold mt-4 mb-2 ">
+              {post.title}
+            </p>                  
             
-          </Link>    
+            
+            
 
           
 
-           <p className="text-black font-bold text-xl mx-12 text-bold mt-4 mb-2 ">
-              {doc.name}
-            </p>
-
-
            
+            </Link> 
 
 
-          {session?.user ? <Link href = {`/checkout/${doc.id}`}>
+            :  
+
+          <div>
+            
+            
+          <div className="relative h-42 w-80 ">            
+
+          
+          <Link href =  {`/checkout/${post.id}`}>  
+
+
+
+          <Image src =  {post.url}
+
+              
+              alt= "blog-pic" 
+             className = "object-cover"
+
+             fill
+            
+            />
+
+            
+
+
+             </Link>                        
+
+            </div> 
+
+            <p className="text-black text-center font-bold text-xl mx-12 text-bold mt-4 mb-2 ">
+              {post.title}
+            </p>         
+
+
+            </div>  
+            
+      
+      }        
+          
+          
+
+          {session?.user?
+          
+          <Link href= {`/checkout/${post.id}`}>
+
+          
+          
 
           <Button variant = "default" className = "bg-green-500 w-[300px] text-white " >
 
 
-          <span className = "text-white">{formatCurrency(doc.price)}</span>
+          <span className = "text-white">{formatCurrency(post.price)}</span>
 
 
           </Button>
+          </Link>
+          
 
-          </Link> :
+          :          
+
+          
 
           <Link href= "/sign-in">
 
-          <Button>SignIn to Buy</Button>
+          <Button className = "mt-4">SignIn to Buy</Button>
 
-          </Link>
-     
-          
-          
-          
-          }       
-            
+          </Link>}
 
-                  
+          </div>
 
-          </div>       
+        
+
+
+        
           
-          
-           
-      
-      ))}      
+          ))}
 
-      
-
-      
-    </div>
+          </div>
   
-    </>   
+    </>
     
 
   
