@@ -32,7 +32,7 @@ const ProfilePage = async({params}: Props) => {
       select: {
         id: true,
         image : true,
-        userId: true,
+        
         name: true,
         email: true,
       },

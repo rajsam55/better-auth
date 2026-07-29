@@ -110,7 +110,7 @@ const UserDetails = async() => {
 
                         <p className="text-sm text-gray-600">{user.email}</p>
 
-                        {session.user.image ?<img src={user.image} alt="" className="rounded-lg" width={32} height={32} />:
+                        {session.user.image ?<img src={user.image} alt="blogImage" className="rounded-lg" width={32} height={32} />:
 
                         <UserIcon/>
                         
