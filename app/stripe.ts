@@ -1,7 +1,7 @@
 // app/actions/payment.ts
 'use server'
 
-import { PrismaClient } from '@prisma/client'
+import {PrismaClient}  from '@prisma/client'
 import Stripe from 'stripe'
 
 const prisma = new PrismaClient()
