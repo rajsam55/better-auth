@@ -50,7 +50,7 @@ export default async function Home() {
   return (
 
 
-    <div className=" w-full max-w-7xl">
+    <div className=" w-full max-w-9xl">
 
       <div className="bg-gray300 ">   
 
@@ -66,7 +66,7 @@ export default async function Home() {
     
 
 
-        <div className="bg-white mt-4 w-full max-w-7xl">
+        <div className="bg-white mt-4 w-full max-w-9xl">
 
           <ImageFeed posts = {imagePosts} />       
 
@@ -74,7 +74,7 @@ export default async function Home() {
 
         </div>
 
-        <div className="mt-2">
+        <div className="mt-2 w-full max-w-9xl">
 
         <SubHeaderPage/>
 
@@ -86,7 +86,7 @@ export default async function Home() {
         
 
 
-        <div className="w-full max-w-7xl">
+        <div className="w-full max-w-9xl">
 
       <TextFeed posts = {textPosts} />
 
@@ -99,7 +99,7 @@ export default async function Home() {
         
 
         
-        <div className="w-full max-w-7xl">
+        <div className="w-full max-w-9xl">
 
         <UpperHeader/>
 
@@ -109,7 +109,7 @@ export default async function Home() {
 
         </div>
 
-        <div className="">
+        <div className="w-full max-w-9xl">
 
         <VideoFeed  posts = {videoPosts}/>
 
@@ -117,7 +117,7 @@ export default async function Home() {
           
         </div>
 
-        <div className="">
+        <div className="w-full max-w-9xl">
 
         <FaqSection/>
 
