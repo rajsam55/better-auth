@@ -1,7 +1,7 @@
 "use client"
 
 import { useSession } from "@/lib/auth-client";
-import type { PostItem}  from "@/lib/posts";
+import type { DocItem}  from "@/lib/docs";
 
 import Link  from "next/link";
 import { Input } from "../ui/input";
@@ -20,7 +20,7 @@ import {useFormStatus}  from "react-dom"
 interface Props {
 
   
-  posts : PostItem[]
+  documents : DocItem[]
   
   
 
@@ -29,7 +29,7 @@ interface Props {
 
 
 
- export function TextFeed({ posts}: Props) {
+ export function TextFeed({ documents}: Props) {
 
 
 
@@ -57,7 +57,7 @@ interface Props {
 
   
 
-if (!posts.length)
+if (!documents.length)
     
     return <p className="text-muted-foreground">No text files yet.</p>;
 
@@ -93,22 +93,22 @@ if (!posts.length)
 
       
 
-      {posts.map((post) => (
+      {documents.map((document) => (
    
         
-        <div key={post.id}
+        <div key={document.id}
           className=" overflow-hidden mx-auto mt-2 mb-4 flex flex-col justify-center items-center "
         >
          
         {(session?.user as{role:string} |undefined)?.role==="ADMIN"?
 
 
-<Link href = {`/textDash/${post.id}`}>
+<Link href = {`/checkout/${document.id}`}>
 
           <div className="relative h-42 w-80 ">          
 
 
-          <Image src =  {post.url}
+          <Image src =  {document.fileUrl}
 
               
               alt= "blog-pic" 
@@ -121,7 +121,7 @@ if (!posts.length)
             </div>      
 
             <p className="text-black text-center font-bold text-xl mx-12 text-bold mt-4 mb-2 ">
-              {post.title}
+              {document.name}
             </p>                  
             
             
@@ -141,11 +141,11 @@ if (!posts.length)
           <div className="relative h-42 w-80 ">            
 
           
-          <Link href =  {`/checkout/${post.id}`}>  
+          <Link href =  {`/checkout/${document.id}`}>  
 
 
 
-          <Image src =  {post.url}
+          <Image src =  {document.fileUrl}
 
               
               alt= "blog-pic" 
@@ -163,7 +163,7 @@ if (!posts.length)
             </div> 
 
             <p className="text-black text-center font-bold text-xl mx-12 text-bold mt-4 mb-2 ">
-              {post.title}
+              {document.name}
             </p>         
 
 
@@ -176,7 +176,7 @@ if (!posts.length)
 
           {session?.user?
           
-          <Link href= {`/checkout/${post.id}`}>
+          <Link href= {`/checkout/${document.id}`}>
 
           
           
@@ -184,7 +184,7 @@ if (!posts.length)
           <Button variant = "default" className = "bg-green-500 w-[300px] text-white " >
 
 
-          <span className = "text-white">{formatCurrency(post.price)}</span>
+          <span className = "text-white">{formatCurrency(document.price)}</span>
 
 
           </Button>

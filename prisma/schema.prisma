@@ -4,9 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  
 }
 
 datasource db {
@@ -154,12 +154,12 @@ model Link {
 }
 
 model Order {
-  id          Int         @id
+  id          Int         @id @default(autoincrement())
   status      OrderStatus @default(PENDING)
-  totalAmount Float
   userEmail   String // Tracks who bought the item
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime ?   @default(now())
+  updatedAt   DateTime  ?  @updatedAt
+  totalAmount  Float    @default(0.0)
 
   // Relations
   postId                Int?
@@ -170,6 +170,7 @@ model Order {
   userId                String?
   stripePaymentIntentId String
   amountInCents         Int
+  stripeSessionId       String?    @unique
 }
 
 enum OrderStatus {
@@ -179,36 +180,39 @@ enum OrderStatus {
 }
 
 model Document {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
   fileUrl   String
   imageUrl  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   orders    Order[]
   userId    String
   // A premium document can be purchased in multiple orders
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId    Int?      @unique // One-to-One: A draft can be linked to a single published post
-  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    Int?       @unique // One-to-One: A draft can be linked to a single published post
+  post      Post?      @relation(fields: [postId], references: [id], onDelete: SetNull)
   price     Int
   mediaType MediaType
+  purchases Purchase[]
 }
 
 model Purchase {
-  id              Int      @id
-  amount          Float    @default(0.0) // Store prices as floats (e.g., 9.99)
-  currency        String   @default("USD")
-  status          String   @default("PENDING") // e.g., PENDING, COMPLETED, FAILED
-  paymentIntentId String?  @unique // For mapping to Stripe/PayPal transactions
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             Int      @id
+  amount         Float    @default(0.0) // Store prices as floats (e.g., 9.99)
+  currency       String   @default("USD")
+  status         String   @default("PENDING") // e.g., PENDING, COMPLETED, FAILED
+  stripeIntentId String?  @unique // For mapping to Stripe/PayPal transactions
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   // Relations
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  postId Int
-  post   Post   @relation(fields: [postId], references: [id])
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  postId     Int
+  post       Post      @relation(fields: [postId], references: [id])
+  document   Document? @relation(fields: [documentId], references: [id])
+  documentId String?
 
   @@index([userId, postId]) // Optimize dashboard lookups
 }

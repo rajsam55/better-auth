@@ -4,12 +4,21 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client"; // Your Better Auth client instance
 
-export default function ForgotPassword() {
+
+interface  Props{
+
+    userEmail : string,
+    resetUrl : string,
+    name : string
+}
+
+export default function ForgotPassword({userEmail, name, resetUrl: Props}) {
     const [email, setEmail] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await authClient.requestPasswordReset({
+            name,
             email,
             redirectTo: "/reset-password",
         });

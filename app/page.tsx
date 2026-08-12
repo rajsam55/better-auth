@@ -10,6 +10,7 @@ import { TextFeed } from "@/components/web/TextCard";
 import UpperHeader from "@/components/web/UpperHeaderSection";
 import { VideoFeed } from "@/components/web/videoCard";
 import { getHomePosts } from "@/lib/posts";
+import { getHomeDocuments } from "@/lib/docs";
 
 
 
@@ -35,6 +36,8 @@ export default async function Home() {
 
 
   const { imagePosts, videoPosts, textPosts } = await getHomePosts();
+
+  const { textDocuments } = await getHomeDocuments();
 
 
 
@@ -88,7 +91,7 @@ export default async function Home() {
 
         <div className="w-full max-w-9xl">
 
-      <TextFeed posts = {textPosts} />
+      <TextFeed documents = {textDocuments} />
 
 
         </div>

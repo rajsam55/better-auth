@@ -2,13 +2,13 @@
 
 import prisma from "@/lib/prisma"
 import Image from "next/image"
-import PostEditor  from "@/components/web/PostEditor"
+
 
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link  from "next/link"
-import { Post} from "@/src/generated/prisma/client"
+import { Document} from "@/src/generated/prisma/client"
 
 
 
@@ -24,38 +24,27 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
   const Id = parseInt(id)
 
+
+
   
 
    
 
-  const post  = await prisma.post.findUnique({
+  const document  = await prisma.document.findUnique({
 
 
     where : {
-      id : Id,
-      mediaType : MediaType
-      
-                  
-      
-    },
-
-    select: {
-      id: true,
-      title: true,
-      content : true,
-      userId: true,
-      mediaType: true,
-      imageUrl: true,
-      price : true,
-      url : true,
-      createdAt : true,
-      updatedAt : true
+      id :   Id,
+      mediaType : MediaType                 
       
     },
 
     
+    
   })
-  if(!post){
+
+
+  if(!document){
 
     notFound()
   }
@@ -75,7 +64,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
         <ArrowLeft size =  "16" className = "mt-2"/>
 
       <Link href = "/">
-      <h2 className="mt-2 font-bold text-[12px] text-indigo-500">BACK TO LESSONS</h2>
+      <h2 className="mt-2 font-bold text-[12px] text-indigo-500">BACK TO FILES</h2>
       </Link>
 
       
@@ -87,7 +76,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
     <div className=" rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 h-120">
 
 
-    <embed src = {post.url}
+    <embed src = {document.fileUrl}
     
     className="rounded-lg overflow-hidden object-cover w-full max-w-[700px] h-180 mb-10" >
       
@@ -98,7 +87,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
     </div>
 
-    <a href= {post.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
+    <a href= {document.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
     
     >
 
@@ -117,7 +106,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
       <div className="">    
 
 
-      <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/>
+      {/* <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/> */}
 
 
     </div>

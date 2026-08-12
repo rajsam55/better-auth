@@ -192,7 +192,7 @@ export type ActionState = {
 //   return { success: true, message: "Documents updated successfully." };
 // }
 
-// // ─── Delete Post ──────────────────────────────────────────────────────────────
+// // ─── Delete Doc ──────────────────────────────────────────────────────────────
 
 // export async function deleteDoc(
 

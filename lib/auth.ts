@@ -23,33 +23,32 @@ export const  auth = betterAuth({
   database: prismaAdapter(prisma, {
 
     provider: "postgresql",
-  }), 
-
-  
-
- 
- 
+  }),  
   
   
   emailAndPassword : {
     enabled: true,
+  },
 
+  
+
+  
+
+  
 
 
   // typed as any to accept whatever payload the library provides (avoid mismatch with SendResetEmailProps)
 
-  sendResetPassword: async ({ user, url, token }, request) => {
+  sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
         from: "better-english <onboarding@resend.dev>", // Replace with your verified domain
         to: user.email,
         subject: "Reset your password",
-        html: `<p>Click the link below to reset your password:</p>
-               <a href="${url}">Reset Password</a>`,
+
+        react : forgotEmailPassword({name : user.name, resetUrl : url, userEmail : user.email}) 
       });
 
     },
-
-  },
   
             
           

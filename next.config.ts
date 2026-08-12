@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
 
+    serverExternalPackages: ['@prisma/client', 'prisma'],    
+
   },
   
 
@@ -25,7 +27,7 @@ const nextConfig: NextConfig = {
 
   
 
-  serverExternalPackages: ['@prisma/client'],    
+  
   
   images: {
     remotePatterns: [
