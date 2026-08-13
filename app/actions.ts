@@ -123,7 +123,9 @@ export async function actionForm (formData: FormData){
       await prisma.post.create({
 
       data: {
+        
         id : Math.floor(Math.random() * 1000000),
+        
         title: title as string || "",
         content: content as string || "",
         url: urlString || imageUrlString,

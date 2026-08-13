@@ -1,4 +1,22 @@
 // app/api/checkout/route.ts
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  // Your checkout session creation logic here
+  return NextResponse.json({ success: true });
+}
+
+
+
+
+
+
+
+
+
+
+
+// app/api/checkout/route.ts
 // app/api/checkout/route.ts
 // import { NextResponse } from "next/server";
 // import { PrismaClient } from "@prisma/client";
@@ -61,58 +79,57 @@
 
 
 
-import { NextResponse } from "next/server";
-import {PrismaClient}  from "@/src/generated/prisma/client";
-import Stripe from "stripe";
-import { PrismaPg } from '@prisma/adapter-pg'
+// import { NextResponse } from "next/server";
+// import {PrismaClient}  from "@/src/generated/prisma/client";
+// import Stripe from "stripe";
+// import { PrismaPg } from '@prisma/adapter-pg'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-11-20" as any, // Use latest API version
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+//   apiVersion: "2025-11-20" as any, // Use latest API version
+// });
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
-const prisma = new PrismaClient({adapter});
+// const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+// const prisma = new PrismaClient({adapter});
 
-export async function POST(req: Request) {
-  try {
-    const { documentId, userId } = await req.json();
+// export async function POST(req: Request) {
+//   try {
+//     const { documentId, userId } = await req.json();
 
-    // 1. Fetch document from DB
-    const document = await prisma.document.findUnique({
-      where: { id: documentId },
-    });
+//     // 1. Fetch document from DB
+//     const document = await prisma.document.findUnique({
+//       where: { id: documentId },
+//     });
 
-    if (!document) {
-      return NextResponse.json({ error: "Document not found" }, { status: 404 });
-    }
+//     if (!document) {
+//       return NextResponse.json({ error: "Document not found" }, { status: 404 });
+//     }
 
-    // 2. Create Stripe PaymentIntent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: document.price,
-      currency: "usd",
-      metadata: { documentId, userId },
-      automatic_payment_methods: {
-    enabled: true,
-    },
-    });
+//     // 2. Create Stripe PaymentIntent
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: document.price,
+//       currency: "usd",
+//       metadata: { documentId, userId },
+//       automatic_payment_methods: {
+//     enabled: true,
+//     },
+//     });
 
-    // 3. Track pending purchase in Prisma
-    await prisma.purchase.create({
-      data: {
-        userId,
-        documentId,
-        stripeIntentId: paymentIntent.id,
-        status: "PENDING",
-      },
-    });
+//     // 3. Track pending purchase in Prisma
+//     await prisma.purchase.create({
+//       data: {
+//         id : Math.floor(Math.random() * 1000000),
+//         amount: document.price,
+//         status: "PENDING",
+//       },
+//     });
 
-    // 4. Return clientSecret to the frontend
-    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
-  }
-}
+//     // 4. Return clientSecret to the frontend
+//     return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     console.error(error);
+//     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+//   }
+// }
 
 
 

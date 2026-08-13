@@ -1,12 +1,16 @@
 // app/api/webhooks/stripe/route.ts
+
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/src/generated/prisma/client";
 import Stripe from "stripe";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-01-27.accredited" as any,
+  apiVersion: "2025-01-27.acasia" as any,
 });
-const prisma = new PrismaClient();
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+const prisma = new PrismaClient({adapter});
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
@@ -25,32 +29,38 @@ export async function POST(req: Request) {
   // Handle the specific payment intent success event
   if (event.type === "payment_intent.succeeded") {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
-    
-    // Update order status in database
-    const updatedOrder = await prisma.order.update({
-      where: { stripePaymentId: paymentIntent.id },
-      data: { status: "SUCCEEDED" },
-      include: { product: true },
+
+    const order = await prisma.order.findFirst({
+      where: { stripePaymentIntentId: paymentIntent.id },
     });
 
+    if (order) {
+      await prisma.order.update({
+        where: { id: order.id },
+        data: { 
+          status: "SUCCESS" // Update to your paid status field value
+        },
+      });
+    }
     // TODO: Send PDF via Email or trigger a secure download link generation
-    console.log(`Fulfill Order: Sending PDF ${updatedOrder.product.pdfUrl} to ${updatedOrder.userEmail}`);
-  }
-
+  } 
+  
+  // Handle failure event separately at the top level scope
   if (event.type === "payment_intent.payment_failed") {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
     
-    await prisma.order.update({
+    const failedOrder = await prisma.order.findFirst({
       where: { stripePaymentIntentId: paymentIntent.id },
-      data: { status: "FAILED" },
     });
+
+    if (failedOrder) {
+      await prisma.order.update({
+        where: { id: failedOrder.id },
+        data: { status: "FAILED" },
+      });
+    }
   }
 
   return NextResponse.json({ received: true }, { status: 200 });
 }
-
-
-
-
-
 

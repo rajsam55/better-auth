@@ -20,6 +20,7 @@ export const docSelect = {
   fileUrl : true,  
   createdAt: true,
   updatedAt : true,  
+  postId : true,
   price : true,
   
   

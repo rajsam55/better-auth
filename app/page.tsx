@@ -91,7 +91,7 @@ export default async function Home() {
 
         <div className="w-full max-w-9xl">
 
-      <TextFeed documents = {textDocuments} />
+      <TextFeed  documents = {textDocuments}/>
 
 
         </div>

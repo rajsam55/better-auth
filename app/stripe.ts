@@ -4,6 +4,7 @@
 import {PrismaClient}  from "@/src/generated/prisma/client";
 import Stripe from "stripe";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { randomUUID } from "crypto"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-02-25.clover" as any, // Use latest stable API version
@@ -36,13 +37,14 @@ export async function createPaymentIntent(documentId: string, userEmail: string)
     // 3. Create a pending order in Prisma
     await prisma.order.create({
       data: {
-        id : Math.floor(Math.random() * 1000000),               
+
+        id : Math.floor(Math.random() * 1000000),             
         stripePaymentIntentId: paymentIntent.id,
         status: "PENDING",
         userEmail: userEmail,
         documentId : document.id,
         totalAmount: document.price,
-        amountInCents : document.price*100
+        amountInCents : document.price,
         
         
       },

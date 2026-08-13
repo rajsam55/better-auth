@@ -12,7 +12,7 @@ import { Document} from "@/src/generated/prisma/client"
 
 
 
-const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType: "TEXT"}> }) => {
+const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType: "TEXT"}> }) => {
 
   
 
@@ -20,9 +20,7 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
  
 
 
-  const {id, MediaType} =  await params
-
-  const Id = parseInt(id)
+  const {id, MediaType} =  await params;
 
 
 
@@ -34,8 +32,8 @@ const TextDash = async ({ params }: { params:Promise< { id: "Number", MediaType:
 
 
     where : {
-      id :   Id,
-      mediaType : MediaType                 
+      id : id,
+      mediaType : MediaType,                 
       
     },
 

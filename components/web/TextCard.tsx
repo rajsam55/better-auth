@@ -18,11 +18,8 @@ import {useFormStatus}  from "react-dom"
 
 
 interface Props {
-
   
-  documents : DocItem[]
-  
-  
+  documents : DocItem[];
 
 }
 

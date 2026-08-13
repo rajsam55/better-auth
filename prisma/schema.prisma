@@ -3,10 +3,11 @@
 
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
+
+
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../src/generated/prisma"
-  
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -157,9 +158,9 @@ model Order {
   id          Int         @id @default(autoincrement())
   status      OrderStatus @default(PENDING)
   userEmail   String // Tracks who bought the item
-  createdAt   DateTime ?   @default(now())
-  updatedAt   DateTime  ?  @updatedAt
-  totalAmount  Float    @default(0.0)
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  totalAmount Float       @default(0.0)
 
   // Relations
   postId                Int?
@@ -168,9 +169,9 @@ model Order {
   document              Document? @relation(fields: [documentId], references: [id])
   user                  User?     @relation(fields: [userId], references: [id])
   userId                String?
-  stripePaymentIntentId String
+  stripePaymentIntentId String?  @unique
   amountInCents         Int
-  stripeSessionId       String?    @unique
+  stripeSessionId       String?   @unique
 }
 
 enum OrderStatus {
@@ -198,19 +199,19 @@ model Document {
 }
 
 model Purchase {
-  id             Int      @id
-  amount         Float    @default(0.0) // Store prices as floats (e.g., 9.99)
-  currency       String   @default("USD")
-  status         String   @default("PENDING") // e.g., PENDING, COMPLETED, FAILED
-  stripeIntentId String?  @unique // For mapping to Stripe/PayPal transactions
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id             Int       @id
+  amount         Float     @default(0.0) // Store prices as floats (e.g., 9.99)
+  currency       String?   @default("USD")
+  status         String    @default("PENDING") // e.g., PENDING, COMPLETED, FAILED
+  stripeIntentId String?   @unique // For mapping to Stripe/PayPal transactions
+  createdAt      DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
 
   // Relations
-  userId     String
-  user       User      @relation(fields: [userId], references: [id])
-  postId     Int
-  post       Post      @relation(fields: [postId], references: [id])
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id])
+  postId     Int?
+  post       Post?     @relation(fields: [postId], references: [id])
   document   Document? @relation(fields: [documentId], references: [id])
   documentId String?
 
