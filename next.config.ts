@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = {  
 
-  
-  experimental: {
+  experimental : {
 
     typedRoutes : true,
 
@@ -13,9 +12,7 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
 
-        
-
-  },
+  },  
   
 
   turbopack : {
