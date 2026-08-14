@@ -1,5 +1,6 @@
 
-import  {MediaType} from "@prisma/client";
+import  {MediaType} from "@/src/generated/prisma/enums";
+
 
 
 import prisma from "@/lib/prisma";
