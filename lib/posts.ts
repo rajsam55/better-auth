@@ -1,5 +1,4 @@
 
-import  {MediaType} from "@/src/generated/prisma/browser";
 
 
 
