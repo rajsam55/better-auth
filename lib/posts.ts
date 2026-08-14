@@ -1,5 +1,5 @@
 
-
+import {MediaType}  from "@/src/generated/prisma-client/browser"
 
 
 import prisma from "@/lib/prisma";
