@@ -41,7 +41,7 @@ export async function getHomeDocuments() {
   
 
   prisma.document.findMany({
-      where: ({ mediaType: MediaType.TEXT } as any),
+      where: ({ mediaType: MediaType.TEXT }),
       
       select: docSelect,
     }),

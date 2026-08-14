@@ -50,7 +50,7 @@ export async function getHomePosts() {
   
 
   prisma.post.findMany({
-      where: ({ mediaType: MediaType.TEXT } as any),
+      where: ({ mediaType: MediaType.TEXT }),
       
       select: postSelect,
     }),
