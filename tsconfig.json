@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    
     "target": "ES2017",
     "lib": [
       "dom",
@@ -23,6 +24,7 @@
         "name": "next"
       }
     ],
+    
     "paths": {
       "@/*": [
         "./*"
@@ -40,4 +42,5 @@
   "exclude": [
     "node_modules"
   ]
+  
 }

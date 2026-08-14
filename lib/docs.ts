@@ -1,6 +1,10 @@
 
 
-import { MediaType } from "@/src/generated/prisma/browser";
+
+
+import { MediaType } from "@/src/generated/prisma";
+
+
 
 import prisma from "@/lib/prisma";
 
