@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link  from "next/link"
 import { Document} from "@/src/generated/prisma/client"
+import PaymentStatusContent from "./PaymentStatusContent";
+
 
 
 
@@ -102,6 +104,8 @@ const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType:
       
 
       <div className="">    
+
+      <PaymentStatusContent documentId={id} />
 
 
       {/* <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/> */}

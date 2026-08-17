@@ -4,12 +4,14 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {redirect}  from  "next/navigation"
 import { createPaymentIntent } from "@/app/stripe";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 interface CheckoutProps {
   documentId: string;
+  
   userEmail: string;
 }
 
@@ -49,7 +51,9 @@ function Form() {
       elements,
       confirmParams: {
         // Redirect here for synchronous fallback confirmation
-        return_url: `${window.location.origin}/checkout/success`,
+
+      const return_url = `${window.location.origin}/textDash/${document.id}`;
+        
       },
     });
 
