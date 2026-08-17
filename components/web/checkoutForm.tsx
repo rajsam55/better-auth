@@ -40,33 +40,36 @@ function Form() {
   const [message, setMessage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!stripe || !elements) return;
+  if (!stripe || !elements) return;
 
-    setIsProcessing(true);
+  setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Redirect here for synchronous fallback confirmation
+  const { error } = await stripe.confirmPayment({
+    elements,
+    confirmParams: {
+      // Redirect here for synchronous fallback confirmation
+      return_url: `${window.location.origin}/textDash/${document.id}`,
+    },
+  });
 
-      const return_url = `${window.location.origin}/textDash/${document.id}`;
-        
-      },
-    });
-
+  if (error) {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message ?? "An unexpected error occurred.");
     } else {
       setMessage("An unexpected error occurred.");
     }
+  }
 
-    setIsProcessing(false);
-  };
 
-  return (
+  setIsProcessing(false)
+}
+
+
+  return  (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
       <PaymentElement />
       <button
@@ -78,7 +81,9 @@ function Form() {
       {message && <div className="text-red-500 mt-2">{message}</div>}
     </form>
   );
+  
 }
+
 
 
 // // components/CheckoutForm.tsx
@@ -130,6 +135,7 @@ function Form() {
 //     </form>
 //   );
 // }
+//}
 
 
 
@@ -231,4 +237,3 @@ function Form() {
 
     
 //   )
-// }
