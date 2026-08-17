@@ -52,7 +52,7 @@ function Form() {
     elements,
     confirmParams: {
       // Redirect here for synchronous fallback confirmation
-      return_url: `${window.location.origin}/textDash/${document.id}`,
+      return_url: `${window.location.origin}/checkout/success`,
     },
   });
 
