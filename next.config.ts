@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
     },
 
   },  
+
+  outputFileTracingIncludes: {
+      '/api/**/*': ['./node_modules/.prisma/client/**/*'],
+    },
   
 
   turbopack : {
