@@ -11,6 +11,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  
+  
 }
 
 // This is your Prisma schema file,
