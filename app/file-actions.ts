@@ -1,4 +1,5 @@
 "use server"
+
 import prisma from "@/lib/prisma"
 import { string, uuid } from "better-auth"
 import { randomUUID } from "crypto"
@@ -8,6 +9,8 @@ import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { v2 as cloudinary } from "cloudinary";
 import { id } from "zod/v4/locales"
+
+
 
 
 
@@ -142,84 +145,91 @@ export type ActionState = {
   errors?: Record<string, string[]>;
 };
 
-// // ─── Update Doc ──────────────────────────────────────────────────────────────
+// ─── Update Doc ──────────────────────────────────────────────────────────────
 
-// export async function updateDoc(
-//   id : string,
-//   prevState: ActionState,
-//   formData: FormData
-// ): Promise<ActionState> {
-//   const name = formData.get("name")?.toString().trim();
+export async function updateDocument(
+  id : string,
+  prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const name = formData.get("name")?.toString().trim();
   
-//   const imageUrl = formData.get("imageUrl") === "true";
+  const imageUrl = formData.get("imageUrl") === "true";
 
-//   // Validation
-//   const errors: Record<string, string[]> = {};
+  // Validation
+  const errors: Record<string, string[]> = {};
 
-//   if (!name || name.length < 3) {
-//     errors.name = ["Name must be at least 3 characters."];
-//   }
-//   if (name && name.length > 255) {
-//     errors.name = [...(errors.name ?? []), " Name must be under 255 characters."];
-//   }
+  if (!name || name.length < 3) {
+    errors.name = ["Name must be at least 3 characters."];
+  }
+  if (name && name.length > 255) {
+    errors.name = [...(errors.name ?? []), " Name must be under 255 characters."];
+  }
   
 
-//   if (Object.keys(errors).length > 0) {
-//     return { success: false, message: "Validation failed.", errors };
-//   }
+  if (Object.keys(errors).length > 0) {
+    return { success: false, message: "Validation failed.", errors };
+  }
 
-//   try {
-//     await prisma.doc.update({
-//       where: { id: Number(id)},
-//       data: {
-//         name: name!,
+  try {
+    await prisma.document.update({
+      where: { id: String(id)},
+      data: {
+        name: name!,
         
         
-//         updatedAt: new Date(),
-//       },
-//     });
-//   } catch (error) {
-//     console.error("[updateDoc]", error);
-//     return {
-//       success: false,
-//       message: "Failed to update Document. It may no longer exist.",
-//     };
-//   }
+        updatedAt: new Date(),
+      },
+    });
+  } catch (error) {
+    console.error("[updateDocument]", error);
+    return {
+      success: false,
+      message: "Failed to update Document. It may no longer exist.",
+    };
+  }
 
-//   revalidatePath("/docs");
-//   revalidatePath(`/docs/${id}`);
+  revalidatePath("/docs");
+  revalidatePath(`/docs/${id}`);
 
-//   return { success: true, message: "Documents updated successfully." };
-// }
+  return { success: true, message: "Documents updated successfully." };
+}
 
-// // ─── Delete Doc ──────────────────────────────────────────────────────────────
+// ─── Delete Doc ──────────────────────────────────────────────────────────────
 
-// export async function deleteDoc(
+export async function deleteDocument(
 
-//   id : string,
-//   prevState: ActionState,
-//   formData: FormData
-// ): Promise<ActionState> {
+  id : string,
+  prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
   
-//   if (!id) {
-//     return { success: false, message: "Document id is required." };
-//   }
+  if (!id) {
+    return { success: false, message: "Document id is required." };
+  }
 
-//   try {
-//     await prisma.doc.delete({
-//       where: { id: Number(id) },
-//     });
-//   } catch (error) {
-//     console.error("[deleteDoc]", error);
-//     return {
-//       success: false,
-//       message: "Failed to delete document. It may no longer exist.",
-//     };
-//   }
+  try {
+     await prisma.document.delete({
+      where : { id: String(id) },
+    });
 
-//   revalidatePath("/docs");
-//   redirect("/");
+    
+ 
+  } catch (error) {
+    console.error("[deleteDocument]", error);
+    return {
+      success: false,
+      message: "Failed to delete document. It may no longer exist.",
+    };
+  }
+
+  revalidatePath("/docs");
+  redirect("/");
+
   
-// }
+}
+
+
+
 
 

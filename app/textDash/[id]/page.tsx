@@ -2,14 +2,13 @@
 
 import prisma from "@/lib/prisma"
 import Image from "next/image"
-
-
+import DocEditor  from "@/components/web/DocEditor"
 import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link  from "next/link"
-import { Document} from "@/src/generated/prisma/client"
 import PaymentStatusContent from "./PaymentStatusContent";
+
 
 
 
@@ -38,8 +37,19 @@ const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType:
       mediaType : MediaType,                 
       
     },
-
+    select : {
+       
+      id: true,
+      name: true,
+      userId: true,
+      mediaType: true,
+      imageUrl: true,
+      price : true,
+      fileUrl : true,
+      createdAt: true,
+      updatedAt: true,
     
+    },   
     
   })
 
@@ -87,6 +97,8 @@ const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType:
 
     </div>
 
+    <p>{document.name}</p>
+
     <a href= {document.imageUrl} className="" target = "_blank" rel = "noopener noreferrer" download ="report.pdf"
     
     >
@@ -108,10 +120,17 @@ const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType:
       <PaymentStatusContent documentId={id} />
 
 
-      {/* <PostEditor post={post as unknown as Post & {id: string}} key={post.id}/> */}
-
+      
 
     </div>
+
+    if (!document || !('id' in document)) return null;
+
+    <DocEditor document={document as unknown as Document & {id: string, name : string, published : true}} key={document.id} />
+
+
+
+
 
 
       

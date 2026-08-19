@@ -29,12 +29,17 @@ export default function CheckoutWrapper({ documentId, userEmail }: CheckoutProps
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <Form />
+      <Form documentId = {documentId}/>
     </Elements>
   );
 }
 
-function Form() {
+interface FormProps {
+  documentId: string;
+
+}
+
+function Form({documentId}: FormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | null>(null);
@@ -52,7 +57,7 @@ function Form() {
     elements,
     confirmParams: {
       // Redirect here for synchronous fallback confirmation
-      return_url: `${window.location.origin}/checkout/success`,
+      return_url: `${window.location.origin}/textDash/${documentId}`,
     },
   });
 
