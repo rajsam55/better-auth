@@ -307,7 +307,12 @@ export async function deletePost(
     };
   }
 
+<<<<<<< HEAD
   revalidatePath("/posts");
   revalidatePath("/", "layout");
+=======
+  
+  revalidatePath("/posts", "layout")
+>>>>>>> 88e8374bdd4053f12b1e218a3af09c38b431f7f1
   redirect("/");
 }
