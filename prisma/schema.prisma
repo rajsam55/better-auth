@@ -11,8 +11,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  
-  
 }
 
 // This is your Prisma schema file,
@@ -165,14 +163,14 @@ model Order {
 
   // Relations
   postId                Int?
-  post                  Post?     @relation(fields: [postId], references: [id])
+  post                  Post?    @relation(fields: [postId], references: [id])
   documentId            String
-  document              Document? @relation(fields: [documentId], references: [id])
-  user                  User?     @relation(fields: [userId], references: [id])
+  document              Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user                  User?    @relation(fields: [userId], references: [id])
   userId                String?
-  stripePaymentIntentId String?   @unique
+  stripePaymentIntentId String?  @unique
   amountInCents         Int
-  stripeSessionId       String?   @unique
+  stripeSessionId       String?  @unique
 }
 
 enum OrderStatus {

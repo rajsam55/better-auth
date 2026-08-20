@@ -233,32 +233,80 @@ export async function updatePost(
 
 // ─── Delete Post ──────────────────────────────────────────────────────────────
 
-export async function deletePost(
+// import { v2 as cloudinary } from "cloudinary";
 
-  id : string,
+// Configure Cloudinary (Ensure these environment variables are set in production)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+/**
+ * Helper to extract Cloudinary Public ID from a full secure URL.
+ * Example: https://cloudinary.com -> sample
+ */
+function getPublicIdFromUrl(url: string): string | null {
+  try {
+    const parts = url.split("/");
+    const uploadIndex = parts.indexOf("upload");
+    if (uploadIndex === -1) return null;
+
+    // Grab everything after '/upload/vXXXXXX/' or '/upload/'
+    const remainingParts = parts.slice(uploadIndex + 1);
+    if (remainingParts[0].startsWith("v") && !isNaN(Number(remainingParts[0].substring(1)))) {
+      remainingParts.shift(); // Remove the version string if present
+    }
+
+    const publicIdWithExtension = remainingParts.join("/");
+    return publicIdWithExtension.substring(0, publicIdWithExtension.lastIndexOf("."));
+  } catch (error) {
+    console.error("Failed to parse Cloudinary URL:", error);
+    return null;
+  }
+}
+
+export async function deletePost(
+  id: string,
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
-  
   if (!id) {
     return { success: false, message: "Post id is required." };
   }
 
   try {
+    // 1. Fetch the post first to retrieve the stored image URL
+    const post = await prisma.post.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!post) {
+      return { success: false, message: "Post not found." };
+    }
+
+    // 2. If an image exists, extract its public ID and delete it from Cloudinary
+    if (post.imageUrl) {
+      const publicId = getPublicIdFromUrl(post.imageUrl);
+      
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId);
+      }
+    }
+
+    // 3. Delete the post from your database
     await prisma.post.delete({
       where: { id: Number(id) },
     });
+
   } catch (error) {
     console.error("[deletePost]", error);
     return {
       success: false,
-      message: "Failed to delete post. It may no longer exist.",
+      message: "Failed to delete post or its assets.",
     };
   }
 
   revalidatePath("/posts");
   redirect("/");
-  
 }
-
-

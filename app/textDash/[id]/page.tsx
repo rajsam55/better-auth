@@ -117,16 +117,29 @@ const TextDash = async ({ params }: { params:Promise< { id: "String", MediaType:
 
       <div className="">    
 
-      <PaymentStatusContent documentId={id} />
+
+
 
 
       
 
     </div>
 
-    if (!document || !('id' in document)) return null;
+    <div>
+
+    
+      
 
     <DocEditor document={document as unknown as Document & {id: string, name : string, published : true}} key={document.id} />
+
+
+
+
+
+
+    </div>
+
+      
 
 
 
