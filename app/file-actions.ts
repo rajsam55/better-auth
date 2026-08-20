@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma"
 import { string, uuid } from "better-auth"
 import { randomUUID } from "crypto"
-import { revalidatePath, revalidateTag } from "next/cache"
+import { revalidatePath} from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
@@ -261,59 +261,6 @@ function getPublicIdFromUrl(url: string): string | null {
     return null;
   }
 }
-export async function deleteDocument(
-  id: string,
-  prevState: ActionState,
-  formData: FormData
-): Promise<ActionState> {
-  if (!id) {
-    return { success: false, message: "Doc id is required." };
-  }
-
-  let documentRecord;
-
-  // Diagnostic 1: Fetching Database Record
-  try {
-    documentRecord = await prisma.document.findUnique({
-      where: { id: id },
-    });
-    if (!documentRecord) {
-      return { success: false, message: `Prisma error: Document with ID ${id} does not exist.` };
-    }
-  } catch (dbError: any) {
-    return { success: false, message: `Database Fetch Failed: ${dbError.message}` };
-  }
-
-  // Diagnostic 2: Cloudinary Asset Deletion
-  if (documentRecord.imageUrl) {
-    try {
-      const publicId = getPublicIdFromUrl(documentRecord.imageUrl);
-      if (!publicId) {
-        return { success: false, message: `URL Parse Failed. Could not get ID from: ${documentRecord.imageUrl}` };
-      }
-      
-      // We pass resource_type: "raw" in case it is a PDF or text document
-      const cloudResponse = await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
-      console.log("Cloudinary response:", cloudResponse);
-    } catch (cloudError: any) {
-      return { success: false, message: `Cloudinary Deletion Crashed: ${cloudError.message}` };
-    }
-  }
-
-  // Diagnostic 3: Database Deletion
-  try {
-    await prisma.document.delete({
-      where: { id: id },
-    });
-  } catch (deleteError: any) {
-    return { success: false, message: `Database Delete Command Failed: ${deleteError.message}` };
-  }
-
-  revalidatePath("/docs");
-  revalidatePath("/", "layout");
-  redirect("/");
-}
-
 // export async function deleteDocument(
 //   id: string,
 //   prevState: ActionState,
@@ -323,41 +270,93 @@ export async function deleteDocument(
 //     return { success: false, message: "Doc id is required." };
 //   }
 
+//   let documentRecord;
+
+//   // Diagnostic 1: Fetching Database Record
 //   try {
-//     // 1. Fetch the post first to retrieve the stored image URL
-//     const document = await prisma.document.findUnique({
-//       where: { id: id},
+//     documentRecord = await prisma.document.findUnique({
+//       where: { id: id },
 //     });
-
-//     if (!document) {
-//       return { success: false, message: "document not found." };
+//     if (!documentRecord) {
+//       return { success: false, message: `Prisma error: Document with ID ${id} does not exist.` };
 //     }
+//   } catch (dbError: any) {
+//     return { success: false, message: `Database Fetch Failed: ${dbError.message}` };
+//   }
 
-//     // 2. If an image exists, extract its public ID and delete it from Cloudinary
-//     if (document.imageUrl) {
-//       const publicId = getPublicIdFromUrl(document.imageUrl);
-      
-//       if (publicId) {
-//         await cloudinary.uploader.destroy(publicId, {resource_type: "raw"});
+//   // Diagnostic 2: Cloudinary Asset Deletion
+//   if (documentRecord.imageUrl) {
+//     try {
+//       const publicId = getPublicIdFromUrl(documentRecord.imageUrl);
+//       if (!publicId) {
+//         return { success: false, message: `URL Parse Failed. Could not get ID from: ${documentRecord.imageUrl}` };
 //       }
+      
+//       // We pass resource_type: "raw" in case it is a PDF or text document
+//       const cloudResponse = await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
+//       console.log("Cloudinary response:", cloudResponse);
+//     } catch (cloudError: any) {
+//       return { success: false, message: `Cloudinary Deletion Crashed: ${cloudError.message}` };
 //     }
+//   }
 
-//     // 3. Delete the post from your database
+//   // Diagnostic 3: Database Deletion
+//   try {
 //     await prisma.document.delete({
 //       where: { id: id },
 //     });
-
-//   } catch (error) {
-//     console.error("[deleteDocument]", error);
-//     return {
-//       success: false,
-//       message: "Failed to delete document or its assets.",
-//     };
+//   } catch (deleteError: any) {
+//     return { success: false, message: `Database Delete Command Failed: ${deleteError.message}` };
 //   }
 
-//   revalidatePath("/docs")
+//   revalidatePath("/docs");
 //   redirect("/");
 // }
+
+export async function deleteDocument(
+  id: string,
+  prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  if (!id) {
+    return { success: false, message: "Doc id is required." };
+  }
+
+  try {
+    // 1. Fetch the post first to retrieve the stored image URL
+    const document = await prisma.document.findUnique({
+      where: { id: id},
+    });
+
+    if (!document) {
+      return { success: false, message: "document not found." };
+    }
+
+    // 2. If an image exists, extract its public ID and delete it from Cloudinary
+    if (document.imageUrl) {
+      const publicId = getPublicIdFromUrl(document.imageUrl);
+      
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId, {resource_type: "raw"});
+      }
+    }
+
+    // 3. Delete the post from your database
+    await prisma.document.delete({
+      where: { id: id },
+    });
+
+  } catch (error) {
+    console.error("[deleteDocument]", error);
+    return {
+      success: false,
+      message: "Failed to delete document or its assets.",
+    };
+  }
+
+  revalidatePath("/docs")
+  redirect("/");
+}
 
 
 

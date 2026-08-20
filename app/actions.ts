@@ -309,6 +309,5 @@ export async function deletePost(
 
 
   revalidatePath("/posts");
-  revalidatePath("/", "layout");  
   redirect("/");
 }
