@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     },
 
   },  
+  serverActions: {
+      bodySizeLimit: '10mb', // Increases allowed image size
+    },
 
   outputFileTracingIncludes: {
       '/api/**/*': ['./node_modules/.prisma/client/**/*'],
