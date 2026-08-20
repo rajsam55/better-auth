@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth"
 import prisma from "@/lib/prisma"
 import { uuid } from "better-auth"
 import { randomUUID } from "crypto"
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag} from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import mailchimp from "@mailchimp/mailchimp_marketing"
@@ -308,5 +308,6 @@ export async function deletePost(
   }
 
   revalidatePath("/posts");
+  revalidatePath("/", "layout")
   redirect("/");
 }
