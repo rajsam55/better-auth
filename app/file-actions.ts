@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma"
 import { string, uuid } from "better-auth"
 import { randomUUID } from "crypto"
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
@@ -310,6 +310,7 @@ export async function deleteDocument(
   }
 
   revalidatePath("/docs");
+  revalidatePath("/", "layout");
   redirect("/");
 }
 

@@ -30,6 +30,8 @@ const CreatePost = () => {
 
   const [price, setPrice] = useState("")
 
+  const [loading , setLoading]  = useState(false)
+
   const handlePriceChange = (value: string) => {
     if (/^\d*\.?\d{0,2}$/.test(value)) {
       setPrice(value);
@@ -94,11 +96,24 @@ const CreatePost = () => {
           </FieldDescription>
         </Field>
 
-        
-        
+
         <Field>
-          <Button type="submit">Create Post</Button>
-        </Field>
+
+        
+        
+        
+        
+          <Button type ="submit">
+
+            Create Post          
+
+
+          </Button>
+
+          </Field>
+
+          
+      
         
         
       </FieldGroup>

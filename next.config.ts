@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
+    
 
   },  
 
