@@ -152,8 +152,9 @@ export async function actionForm (formData: FormData){
       
     });
 
-     redirect("/"),
+     
      revalidatePath("/")
+     redirect("/"),
 
      
   }
