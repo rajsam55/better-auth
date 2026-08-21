@@ -31,19 +31,10 @@ export async function actionForm (formData: FormData){
     const title = formData.get("title")
 
     const content =  formData.get("content")
-
-    
-
-
-
-
-
   
 
 
-    const priceInput = formData.get("price") as string
-
-    
+    const priceInput = formData.get("price") as string    
 
 
   // 2. Simple validation
@@ -137,26 +128,21 @@ export async function actionForm (formData: FormData){
         thumbnail: formData.get("thumbnail")?.toString() || "",
         price: priceInCents
         
-        
-        
-        
-        
-        
-         
-        
-
-
-
         },
-
       
     });
 
+<<<<<<< HEAD
    revalidatePath("/")
    redirect("/")
 
+=======
+>>>>>>> f1b01c89a6ca36f1b41a4c277ed3b47d22ba9b4d
      
-  }
+     revalidatePath("/")
+     redirect("/"),
+     
+  };
 
 
   
