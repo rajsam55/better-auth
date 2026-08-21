@@ -337,7 +337,7 @@ export async function deleteDocument(
       const publicId = getPublicIdFromUrl(document.imageUrl);
       
       if (publicId) {
-        await cloudinary.uploader.destroy(publicId, {resource_type: "raw"});
+        await cloudinary.uploader.destroy(publicId, {resource_type: "raw"/ "image" / "video"});
       }
     }
 

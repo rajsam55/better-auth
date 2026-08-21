@@ -7,12 +7,20 @@ generator client {
   provider            = "prisma-client-js"
   output              = "../src/generated/prisma"
   importFileExtension = ""
+<<<<<<< HEAD
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
+=======
+ binaryTargets = ["native", "rhel-openssl-3.0.x"]
+>>>>>>> 49e886de63b12e8021b7c527264737fef4233cd6
 }
 
 datasource db {
   provider = "postgresql"
+<<<<<<< HEAD
   
+=======
+ 
+>>>>>>> 49e886de63b12e8021b7c527264737fef4233cd6
 }
 
 // This is your Prisma schema file,
