@@ -11,6 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 // This is your Prisma schema file,
