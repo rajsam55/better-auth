@@ -128,12 +128,12 @@ export async function fileActionForm (formData : FormData){
         
         price: priceInCents,
 
-        }
+        },
 
-    })  
+    });
 
-     redirect("/"),
-     revalidatePath("/")
+     revalidatePath("/"),
+     redirect("/")
 
 }
 
