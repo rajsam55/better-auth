@@ -119,7 +119,7 @@ export function VideoFeed({ posts }: Props) {
           
 
 
-        <Image src= "/videoplayer.png" alt="player" width = {50} height ={50}
+        <Image src= "/videoplayer.png" alt="player" width = {350} height ={450}
 
         className = "object-cover mt-2 mb-4"
         

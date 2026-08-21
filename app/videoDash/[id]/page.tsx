@@ -65,13 +65,14 @@ const Dash = async({params}: {params  : Promise <{id : "Number", MediaType : "VI
     
     <h1 className="text-[36px] font-bold font-family:sans-serif tracking-tight tracking-wider mt-6 ">{post.title}</h1>
 
-     
+
+         
 
 
-      <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 "> 
+      <div className=" rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-100 "> 
 
 
-        <video controls src={post.url} className="w-[750px] h-[500px] rounded-lg"/>
+        <video controls src={post.imageUrl} className="w-[750px] h-[500px] rounded-lg"/>
 
          
          
