@@ -280,11 +280,10 @@ export async function deletePost(
       const publicId = getPublicIdFromUrl(post.imageUrl);
       
       if (publicId) {
-<<<<<<< HEAD
+
         await cloudinary.uploader.destroy(publicId, {resource_type : "raw"});
-=======
-        await cloudinary.uploader.destroy(publicId,{resource_type : "raw"});
->>>>>>> 49e886de63b12e8021b7c527264737fef4233cd6
+
+      
       }
     }
 
