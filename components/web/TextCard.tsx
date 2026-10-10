@@ -65,7 +65,7 @@ if (!documents.length)
 
     <div className="flex justify-between mx-12">
 
-    
+      
 
     <div className="flex flex-col"><h2 className="text-black font-bold  text-2xl">Premium Library Highlights</h2>
     
@@ -174,6 +174,9 @@ if (!documents.length)
           {session?.user?
           
           <Link href= {`/checkout/${document.id}`}>
+
+
+            
 
           
           

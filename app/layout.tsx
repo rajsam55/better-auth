@@ -7,6 +7,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils/utils";
 import Footer from "@/components/web/footer";
 import Navbar from "@/components/web/navbar";
+import Script from "next/script"
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -51,6 +52,8 @@ export default function RootLayout({
 
       
       <Navbar/>
+
+      
         
       {children}
 

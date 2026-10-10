@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@better-auth/stripe": "^1.6.23",
+    "@cloudinary/react": "^1.14.4",
+    "@cloudinary/url-gen": "^1.22.0",
     "@hookform/resolvers": "^5.4.0",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@mailchimp/mailchimp_transactional": "^1.4.1",
@@ -31,7 +33,7 @@
     "lucide-react": "^1.16.0",
     "motion": "^12.42.0",
     "next": "^16.2.12",
-    "next-cloudinary": "^6.17.5",
+    "next-cloudinary": "^6.18.8",
     "openai": "^6.48.0",
     "pg": "^8.23.0",
     "radix-ui": "^1.4.3",

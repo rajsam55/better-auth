@@ -14,6 +14,35 @@ interface Props {
 
 export function ImageFeed({ posts }: Props) {
 
+
+  function formatCurrency(
+  price : any,
+  currency: string = 'USD'
+): string {
+
+  const numericValue =  typeof price ==="string"? parseFloat(price)  : price
+
+
+  
+  
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+  }).format(numericValue/100);
+
+
+}  
+
+
+
+
+
+
+
+
+
+
+
   if (!posts.length)
     return <p className="text-muted-foreground">No photos yet.</p>;
   
@@ -75,6 +104,7 @@ export function ImageFeed({ posts }: Props) {
               {post.title}
             </p>
 
+            <span className = "text-white">{formatCurrency(post.price)}</span>
 
           <p className="text-black max-w-[300px] line-clamp-3 text-[15px] text-muted-foreground ">{post.content}</p>
 

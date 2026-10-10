@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     useTypeScriptCli: true,
     
     serverActions: {
-      bodySizeLimit: '10mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
+      bodySizeLimit: '200mb', // Acceptable formats: '500kb', '10mb', 2000 (bytes)
     },
     
 

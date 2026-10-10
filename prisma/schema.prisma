@@ -5,22 +5,13 @@
 
 generator client {
   provider            = "prisma-client-js"
-  output              = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+  output              = "../src/generated/prisma/client"
   importFileExtension = ""
-<<<<<<< HEAD
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
-=======
- binaryTargets = ["native", "rhel-openssl-3.0.x"]
->>>>>>> 49e886de63b12e8021b7c527264737fef4233cd6
 }
 
 datasource db {
   provider = "postgresql"
-<<<<<<< HEAD
-  
-=======
- 
->>>>>>> 49e886de63b12e8021b7c527264737fef4233cd6
 }
 
 // This is your Prisma schema file,
@@ -108,13 +99,27 @@ enum MediaType {
   TEXT
 }
 
+enum AccessType {
+  FREE
+  PAID
+}
+
+model Media {
+  id          String  @id @default(uuid())
+  title       String
+  accessType  String // "FREE" or "PAID"
+  mediaUrl    String? //   Made optional with '?' so free items don't crash if missing
+  documentUrl String? //   Made optional
+  price       Float   @default(0.0)
+}
+
 enum Role {
   USER
   ADMIN
 }
 
 model Post {
-  id        Int       @id
+  id        Int       @id @default(autoincrement())
   title     String
   content   String
   userId    String
@@ -131,6 +136,8 @@ model Post {
   document  Document? // Reverse of One-to-One relation with Document
   purchases Purchase[]
   user      User       @relation(fields: [userId], references: [id])
+
+  accessType String @default("FREE")
 
   @@index([userId])
   @@map("post")
