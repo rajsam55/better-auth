@@ -561,8 +561,12 @@ export async function deletePost(
 
         await cloudinary.uploader.destroy(publicId, {resource_type : "raw"});
 
+<<<<<<< HEAD
         await cloudinary.uploader.destroy(publicId);
 
+=======
+      
+>>>>>>> cfbbc6d3664ba0d41b085aea20450438e4e9bb0b
       }
     }
 
