@@ -53,7 +53,7 @@ export function ImageFeed({ posts }: Props) {
 
     <div className="flex justify-between mx-12">
 
-    <div className="flex flex-col"><h2 className="text-black font-bold  text-2xl">Featured Lessons</h2>
+    <div className="flex flex-col"><h2 className="text-black font-bold  text-2xl">Featured Lessons Here</h2>
     
     <p className="text-muted-foreground text-[12px]   ">Handpicked premium language insight from senior educators</p>
 
