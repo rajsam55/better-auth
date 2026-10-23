@@ -66,7 +66,7 @@ export async function actionForm(formData: FormData) {
 
  
 
-  const dynamicMediaType = mediaUrl.match(/\.(mp4|webm|mov)$/i) ? "VIDEO" : "IMAGE";
+  const dynamicMediaType = mediaUrl.match(/\.(mp4|webm|mov)$/i) ? "VIDEO" : "IMAGE": "TEXT";
 
   
   // Safely insert the dynamic accessType straight into the database table
